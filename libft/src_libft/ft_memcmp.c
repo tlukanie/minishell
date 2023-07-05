@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 10:11:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/05 11:40:37 by tlukanie         ###   ########.fr       */
+/*   Created: 2023/01/11 16:11:30 by okraus            #+#    #+#             */
+/*   Updated: 2023/03/14 15:13:20 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../header/libft.h"
 
-int	main(int argc, char *argv[], char *env[])
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	i;
+	unsigned char	*p;
+	unsigned char	*q;
+	size_t			i;
 
+	p = (unsigned char *) s1;
+	q = (unsigned char *) s2;
 	i = 0;
-	if (argc < 2)
+	while (i < n)
 	{
-		printf ("use at least one arg\n");
-		printf("BYE!!!!!!!!\n");
-	}
-	else
-	{
-		while (argv[i])
-		{
-			printf("%s\n", argv[i]);
-			i++;
-		}
-	}
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
+		if (p[i] != q[i])
+			return (p[i] - q[i]);
 		i++;
 	}
 	return (0);
