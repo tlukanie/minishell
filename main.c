@@ -6,7 +6,7 @@
 /*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:11:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/05 11:56:51 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:19:51 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc < 2)
 	{
 		printf ("use at least one arg\n");
-		printf("BYE!!!!!!!!\n");
+		printf("SUNNY!\n");
 	}
 	else
 	{
