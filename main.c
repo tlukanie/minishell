@@ -21,7 +21,7 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc < 2)
 	{
 		printf ("use at least one arg\n");
-		printf("BYE!!!!!!!!\n");
+		printf("BYE???\n");
 	}
 	else
 	{
