@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05-readdir,opendir,closedir.c                      :+:      :+:    :+:   */
+/*   01-readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:56:42 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/09 11:41:09 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/08 11:01:09 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <dirent.h>
-#include <errno.h>
-#include <sys/types.h>
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-int	main(void)
+int main(void)
 {
-	DIR				*dir;
-	struct dirent	*entry;
-	const char		*directory = ".";
+	char	prompt[] = "Mini$hell prompt>";
+	char	*s;
 
-	if ((dir = opendir(directory)) == NULL)
-		perror("opendir() error");
-	// maybe add function to store strings and sort them?
-	else
+	s = readline(prompt);
+	printf("string1 was: %s\n", s);
+	printf("end with string starting with '+'\n");
+	while (s[0] != '+')
 	{
-		printf("contents of current dir:\n");
-		while ((entry = readdir(dir)) != NULL)
-			printf("  %s\n", entry->d_name);
-		closedir(dir);
+		s = readline(prompt);
+		printf("string in loop was: %s\n", s);
 	}
 	return (0);
 }
