@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:43:03 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/09 12:30:43 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/11 15:35:57 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 
 int	main(void)
 {
-	
-
 	struct stat buffer;
 	int         status;
 	struct passwd  *pwd;
@@ -36,7 +34,6 @@ int	main(void)
 	char			*bp;
 
 	status = stat("softlink.c", &buffer);
-
 	/* Print out type, permissions, and number of links. */
 	// sperm function does not exist, strmode it is
 	bp = calloc(12, 1);
