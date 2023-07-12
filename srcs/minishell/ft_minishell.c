@@ -6,29 +6,46 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 15:02:00 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/12 17:01:56 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "../../includes/minishell.h"
 
-int main(void)
+// should call actual functions and give them arguments
+
+void	ft_analyse(t_ms *ms)
 {
-	char	prompt[] = "\001\033[35m\002Mini\001\033[0m\033[37m\002$\001\033[0m\033[31m\002hell\001\033[0m\002 prompt>";
-	//char	prompt[] = "Mini$hell prompt>";
-	char	*s;
-
-	s = readline(prompt);
-	add_history (s);
-	printf("string1 was: <<\"%s\">>\n", s);
-	printf("end with string starting with '+'\n");
-	while (s[0] != '+')
+	if (!ft_strncmp(ms->s, "pwd", 4))
 	{
-		s = readline(prompt);
-		add_history (s);
-		printf("string in loop was: <<\"%s\">>\n", s);
+		ft_pwd();
 	}
-	return (0);
+	if (!ft_strncmp(ms->s, "exit", 4))
+	{
+		ft_exit(ms);
+	}
+}
+
+int	minishell(t_ms *ms)
+{
+	while (ms->live)
+	{
+		ms->s = readline(ms->prompt);
+		add_history (ms->s);
+		ft_printf("string in loop was: <<\"%s\">>\n", ms->s);
+		ft_analyse(ms);
+		free(ms->s);
+	}
+	return (ms->exit);
+}
+
+int main(int argc, char *argv[], char *env[])
+{
+	t_ms	ms;
+
+	ms.ac = argc;
+	ms.av = argv;
+	ms.ev = env;
+	ft_init(&ms);
+	return (minishell(&ms));
 }

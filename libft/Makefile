@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/14 13:43:18 by okraus            #+#    #+#              #
-#    Updated: 2023/07/12 14:58:53 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/12 16:09:14 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME		=	libft.a
 INCS		=	libft.h
 LIBC		=	ar rcs
 CC 			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 OBJ_DIR		=	objects/
 SLEEP		=	#sleep 0.5
 

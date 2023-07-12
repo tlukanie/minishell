@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/07/12 15:06:34 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/12 16:09:07 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,21 +23,35 @@ NAME		=	minishell
 LIBFT_F		=	libft/
 LIBFT		=	libft.a
 CC 			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 OBJ_DIR		=	objects/
 SLEEP		=	#sleep 0.5
 
 # SOURCES
 
-SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_S)))
+SRC			=	$(addprefix $(SRC_MS_DIR), $(addsuffix .c, $(SRC_MS))) \
+				$(addprefix $(SRC_BI_DIR), $(addsuffix .c, $(SRC_BI))) \
+				$(addprefix $(SRC_UT_DIR), $(addsuffix .c, $(SRC_UT)))
 
 # Source directories
 
-SRC_DIR		=	srcs/
+SRC_BI_DIR		=	srcs/builtins/
+SRC_MS_DIR		=	srcs/minishell/
+SRC_UT_DIR		=	srcs/utils/
 
-# Minishell functions
+# Minishell builtin functions
 
-SRC_S	=		ft_minishell
+SRC_BI			=	ft_pwd \
+					ft_exit
+					
+# Minishell main functions
+
+SRC_MS			=	ft_minishell
+
+# Minishell utility functions
+
+SRC_UT			=	ft_free \
+					ft_init
 
 # Formating
 
@@ -63,7 +77,9 @@ PRINT2		=	for num in `seq 1 $(BAR_LENGTH)` ; do \
 
 # Objects
 
-OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_S)))
+OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_BI))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MS))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_UT)))
 
 # RULES
 
@@ -83,7 +99,25 @@ announce:
 
 # COMPILATION
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:	$(SRC_BI_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_MS_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_UT_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
 				@$(SLEEP)
 				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
