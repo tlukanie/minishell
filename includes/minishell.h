@@ -6,10 +6,9 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/12 16:57:57 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/12 18:26:27 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 
@@ -26,8 +25,8 @@
 
 // DEFINITIONS
 
-# define PROMPT1 "\001\033[35m\002Mini\001\033[0m\033[37m\002$"
-# define PROMPT2 "\001\033[0m\033[95m\002hell\001\033[0m\002:\001\033[34m\002"
+# define PROMPT1 "\001\033[95m\002Mini\001\033[0m\033[37m\002$"
+# define PROMPT2 "\001\033[0m\033[1;5;41m\002hell\001\033[0m\002:\001\033[94m\002"
 # define PROMPT3 "\001\033[0m\002$ "
 
 // STRUCTURES
@@ -92,6 +91,9 @@ void	ft_pwd(void);
 
 //		ft_free.c
 void	ft_free(t_ms *ms);
+
+//		ft_init.c
 void	ft_init(t_ms *ms);
+void	ft_init_prompt(t_ms *ms);
 
 #endif

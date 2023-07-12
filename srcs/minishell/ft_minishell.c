@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 17:01:56 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/12 17:25:33 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	minishell(t_ms *ms)
 	return (ms->exit);
 }
 
-int main(int argc, char *argv[], char *env[])
+int	main(int argc, char *argv[], char *env[])
 {
 	t_ms	ms;
 

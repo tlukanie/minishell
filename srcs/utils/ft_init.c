@@ -6,18 +6,44 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 16:55:54 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/12 17:43:36 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static char	*ft_getenvval(t_ms *ms, char *val)
+{
+	int	i;
+	int	l;
+
+	i = 0;
+	l = ft_strlen(val);
+	while (ms->ev[i])
+	{
+		if (!ft_strncmp(ms->ev[i], val, l)
+			&& ms->ev[i][l] == '=' && ms->ev[i][l + 1])
+		{
+			return (&ms->ev[i][l + 1]);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 void	ft_init_prompt(t_ms *ms)
 {
 	char	cwd[4096];
-	char 	*s;
+	char	*s;
+	char	*h;
 
+	h = ft_getenvval(ms, "HOME");
 	s = getcwd(cwd, 4096);
+	if (h && !ft_strncmp(s, h, ft_strlen(h)))
+	{
+		s = s + (ft_strlen(h) - 1);
+		s[0] = '~';
+	}
 	ms->prompt = ft_strjoin(PROMPT1, PROMPT2);
 	ms->prompt = ft_strjoin_freeleft(ms->prompt, s);
 	ms->prompt = ft_strjoin_freeleft(ms->prompt, PROMPT3);

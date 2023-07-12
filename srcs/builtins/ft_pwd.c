@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 15:22:59 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/12 17:25:38 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_pwd(void)
 {
 	char	cwd[4096];
-	char 	*s;
+	char	*s;
 
 	s = getcwd(cwd, 4096);
 	ft_printf("%s\n", s);
