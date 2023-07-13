@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_copy_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 15:19:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/13 19:00:02 by okraus           ###   ########.fr       */
+/*   Created: 2023/03/14 15:57:11 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/13 18:49:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../header/libft.h"
 
-void	ft_free(t_ms *ms)
+char	**ft_copy_split(char **split)
 {
-	free(ms->prompt);
-	free(ms->ev);
-	write(1, "freeing simulation complete\n", 28);
+	int		i;
+	int		l;
+	char	**newsplit;
+
+	i = 0;
+	l = ft_splitlen(split) + 1;
+	if (l < 0)
+		return (NULL);
+	newsplit = malloc(sizeof(char *) * l);
+	while (split[i])
+	{
+		l = ft_strlen(split[i]) + 1;
+		newsplit[i] = ft_calloc(sizeof(char), l);
+		ft_strlcpy(newsplit[i], split[i], l);
+		i++;
+	}
+	newsplit[i] = NULL;
+	return (newsplit);
 }

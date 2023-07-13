@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/14 13:43:18 by okraus            #+#    #+#              #
-#    Updated: 2023/07/12 16:09:14 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/13 18:56:34 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ SRC_LIB		=	ft_atoi \
 
 SRC_EX		=	ft_abs \
 				ft_atoi_base \
+				ft_copy_split \
 				ft_dlstadd \
 				ft_dlstclear \
 				ft_dlstdelone \
@@ -106,7 +107,9 @@ SRC_EX		=	ft_abs \
 				ft_min \
 				ft_print_memory \
 				ft_print_memory_plus \
+				ft_put_split \
 				ft_put_strarray \
+				ft_splitlen \
 				ft_swap \
 				ft_uabsdif \
 				ft_umax \

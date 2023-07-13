@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_put_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 15:19:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/13 19:00:02 by okraus           ###   ########.fr       */
+/*   Created: 2023/05/08 17:11:53 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/13 19:05:18 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../header/libft.h"
 
-void	ft_free(t_ms *ms)
+void	ft_put_split(char **split)
 {
-	free(ms->prompt);
-	free(ms->ev);
-	write(1, "freeing simulation complete\n", 28);
+	int	i;
+	if (!split)
+		ft_printf_fd(2, "split is %s\n", split);
+	i = 0;
+	while (split[i])
+	{
+		ft_printf("%s\n", split[i]);
+		i++;
+	}
 }

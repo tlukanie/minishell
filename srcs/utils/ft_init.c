@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 17:43:36 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/13 18:46:39 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_init(t_ms *ms)
 	ms->s = NULL;
 	ms->paths = NULL;
 	ms->args = NULL;
+	ms->ev = ft_copy_split(ms->ev);
 }
 
 // typedef struct s_ms

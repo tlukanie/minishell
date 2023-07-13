@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 13:43:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/17 15:55:52 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/13 18:58:04 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,11 @@ unsigned int	ft_uabsdif(unsigned int a, unsigned int b);
 long long		ft_latoi(const char *nptr);
 char			*ft_litoa(long long n);
 
-// free split
+// split
+char			**ft_copy_split(char **split);
 void			ft_free_split(char **split);
+void			ft_put_split(char **split);
+int				ft_splitlen(char **split);
 
 // memory
 void			*ft_print_memory(void *addr, int fd, unsigned int size);

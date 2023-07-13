@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/12 18:26:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/13 18:50:03 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ void	ft_exit(t_ms *ms);
 
 //		ft_pwd.c
 void	ft_pwd(void);
+
+//		ft_env.c
+void	ft_env(t_ms *ms);
 
 //	utils prototypes
 

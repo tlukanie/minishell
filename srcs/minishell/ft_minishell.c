@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 17:25:33 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/13 18:45:42 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	ft_analyse(t_ms *ms)
 	if (!ft_strncmp(ms->s, "exit", 4))
 	{
 		ft_exit(ms);
+	}
+	if (!ft_strncmp(ms->s, "env", 3))
+	{
+		ft_env(ms);
 	}
 }
 
