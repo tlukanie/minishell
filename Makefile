@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/07/12 16:09:07 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/13 15:14:06 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ endif
 NAME		=	minishell
 LIBFT_F		=	libft/
 LIBFT		=	libft.a
+INCS		=	includes/minishell.h
 CC 			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -g
 OBJ_DIR		=	objects/
@@ -81,6 +82,12 @@ OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_BI))) \
 				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MS))) \
 				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_UT)))
 
+# Dependencies
+
+DEP			=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_BI))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MS))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_UT)))
+
 # RULES
 
 all:			announce $(LIBFT) $(NAME)
@@ -105,7 +112,7 @@ $(OBJ_DIR)%.o:	$(SRC_BI_DIR)%.c
 				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
 				@$(PRINT2)
 				@$(PRINT1)
-				@$(CC) $(CFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 				@$(ECHO)
 
 $(OBJ_DIR)%.o:	$(SRC_MS_DIR)%.c
@@ -114,7 +121,7 @@ $(OBJ_DIR)%.o:	$(SRC_MS_DIR)%.c
 				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
 				@$(PRINT2)
 				@$(PRINT1)
-				@$(CC) $(CFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 				@$(ECHO)
 
 $(OBJ_DIR)%.o:	$(SRC_UT_DIR)%.c
@@ -123,7 +130,7 @@ $(OBJ_DIR)%.o:	$(SRC_UT_DIR)%.c
 				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
 				@$(PRINT2)
 				@$(PRINT1)
-				@$(CC) $(CFLAGS) -c $< -o $@
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 				@$(ECHO)
 
 $(NAME): 		$(OBJ)
@@ -133,6 +140,10 @@ $(NAME): 		$(OBJ)
 				@$(PRINT1)
 				@$(ECHO)
 				@echo "$(RETURN)$(RETURN)$(GREEN)Minishell compiled!$(NRM_FORMAT)"
+
+# add dependencies for headers and stuff somehow
+
+-include $(DEP)
 
 $(LIBFT):
 				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling LIBFT: $< $(NRM_FORMAT)"
