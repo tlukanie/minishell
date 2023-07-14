@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/07/13 18:52:52 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/14 16:01:08 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC_UT_DIR		=	srcs/utils/
 
 # Minishell builtin functions
 
-SRC_BI			=	ft_env \
+SRC_BI			=	ft_cd \
+					ft_env \
 					ft_exit \
 					ft_pwd
 					
@@ -52,7 +53,8 @@ SRC_MS			=	ft_minishell
 
 # Minishell utility functions
 
-SRC_UT			=	ft_free \
+SRC_UT			=	ft_envvar \
+					ft_free \
 					ft_init
 
 # Formating

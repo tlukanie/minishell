@@ -6,30 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/13 18:46:39 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/14 17:31:06 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	*ft_getenvval(t_ms *ms, char *val)
-{
-	int	i;
-	int	l;
-
-	i = 0;
-	l = ft_strlen(val);
-	while (ms->ev[i])
-	{
-		if (!ft_strncmp(ms->ev[i], val, l)
-			&& ms->ev[i][l] == '=' && ms->ev[i][l + 1])
-		{
-			return (&ms->ev[i][l + 1]);
-		}
-		i++;
-	}
-	return (NULL);
-}
 
 void	ft_init_prompt(t_ms *ms)
 {
@@ -37,7 +18,7 @@ void	ft_init_prompt(t_ms *ms)
 	char	*s;
 	char	*h;
 
-	h = ft_getenvval(ms, "HOME");
+	h = ft_getenvvar(ms, "HOME");
 	s = getcwd(cwd, 4096);
 	if (h && !ft_strncmp(s, h, ft_strlen(h)))
 	{
@@ -52,6 +33,8 @@ void	ft_init_prompt(t_ms *ms)
 void	ft_init(t_ms *ms)
 {
 	ms->live = 1;
+	ms->err[0] = 0;
+	ms->err[1] = 0;
 	ms->exit = 0;
 	ms->pids = NULL;
 	ms->pipes = NULL;

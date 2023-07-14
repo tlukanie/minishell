@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/13 18:50:03 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/14 17:30:35 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/header/libft.h"
+# include <sys/wait.h>
+# include <errno.h>
+
+
 
 // DEFINITIONS
 
@@ -41,6 +45,7 @@ typedef struct s_ms
 	int		arg;
 	int		hd;
 	int		live;
+	int		err[2];
 	int		exit;
 	int		*pids;
 	int		**pipes;
@@ -61,6 +66,7 @@ typedef struct s_ms
 //	int		arg;		//number of arguments
 //	int		hd;			//1 if argv[1] == "here_doc"
 //	int		live;		//1 if minishell works, 0 after exit
+//	int		err[2];		//errno of builtins; [0] contains errno, [1] contains atatus if it should be deleted 
 //	int		exit;		// exit status of exit command	
 //	int		*pids;		//pids of child processes
 //	int		**pipes;	//pipe fds
@@ -81,19 +87,26 @@ int		minishell(t_ms *ms);
 
 //	builtins prototypes
 
-//		ft_exit.c
-void	ft_exit(t_ms *ms);
-
-//		ft_pwd.c
-void	ft_pwd(void);
+//		ft_cd.c
+void	ft_cd(t_ms *ms, char *argv[]);
 
 //		ft_env.c
-void	ft_env(t_ms *ms);
+void	ft_env(t_ms *ms, char *argv[]);
+
+//		ft_exit.c
+void	ft_exit(t_ms *ms, char *argv[]);
+
+//		ft_pwd.c
+void	ft_pwd(t_ms *ms, char *argv[]);
 
 //	utils prototypes
 
 //		ft_free.c
 void	ft_free(t_ms *ms);
+
+//		ft_envval.c
+void	ft_changeenvvar(t_ms *ms, char *var, char *val);
+char	*ft_getenvvar(t_ms *ms, char *val);
 
 //		ft_init.c
 void	ft_init(t_ms *ms);

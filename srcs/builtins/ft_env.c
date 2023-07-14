@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:44:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/13 19:05:47 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/14 15:21:03 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,29 @@
 
 // need check for too many arguments and to be passed as an argument
 
-void	ft_env(t_ms *ms)
+void	ft_env(t_ms *ms, char *argv[])
 {
-	ft_put_split(ms->ev);
+	// path in argv[1] exists
+	if (argv[1])
+	{
+		ft_free(ms);
+		ft_printf_fd(2, "env: '%s': Permission denied\n", argv[1]);
+		ft_free_split(argv);
+		exit (126);
+	}
+	// path in argv[1] does not exist
+	else if (argv[1])
+	{
+		ft_free(ms);
+		ft_printf_fd(2, "env: '%s': No such file or directory\n", argv[1]);
+		ft_free_split(argv);
+		exit (127);
+	}
+	else
+	{
+		ft_put_split(ms->ev);
+		ft_free(ms);
+		ft_free_split(argv);
+	}
+	exit (0);
 }

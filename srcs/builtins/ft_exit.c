@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:11:51 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/12 17:25:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/14 15:42:48 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 // need check for too many arguments and to be passed as an argument
 
-void	ft_exit(t_ms *ms)
+void	ft_exit(t_ms *ms, char *argv[])
 {
-	ft_free(ms);
-	if ((ms->s + 4))
-		ms->exit = ft_atoi((ms->s + 4)) % 256;
+	if (argv[1])
+		ms->exit = ft_atoi(argv[1]) % 256;
 	ms->live = 0;
+	ft_free_split(argv);
+	ft_free(ms);
 }
