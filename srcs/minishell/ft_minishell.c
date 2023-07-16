@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/14 17:30:53 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/16 10:32:31 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	ft_analyse(t_ms *ms)
 	int		pid;
 	char	**argv;
 
-	argv = ft_split(ms->s, ' '); //need better split from piscine
+	//need better split from piscine
+	//need to handle quotes as well. ""
+	//replace with lexer/parser maybe?
+	argv = ft_split(ms->s, ' ');
 	if (!argv[0])
 		return ;
 	if (!ft_strncmp(argv[0], "exit", 5))
@@ -39,6 +42,16 @@ void	ft_analyse(t_ms *ms)
 		ft_cd(ms, argv);
 		return ;
 	}
+	else if (!ft_strncmp(argv[0], "export", 7))
+	{
+		ft_export(ms, argv);
+		return ;
+	}
+	else if (!ft_strncmp(argv[0], "unset", 6))
+	{
+		ft_unset(ms, argv);
+		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 		exit(255); //should not happen but needs better handling
@@ -48,6 +61,8 @@ void	ft_analyse(t_ms *ms)
 			ft_pwd(ms, argv);
 		else if (!ft_strncmp(argv[0], "env", 4))
 			ft_env(ms, argv);
+		else if (!ft_strncmp(argv[0], "echo", 5))
+			ft_echo(ms, argv);
 		else //execve
 		{
 			ft_printf_fd(2, "command not found: %s\n", argv[0]);

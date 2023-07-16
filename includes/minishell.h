@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/14 17:30:35 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/16 12:29:59 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,23 @@ int		minishell(t_ms *ms);
 //		ft_cd.c
 void	ft_cd(t_ms *ms, char *argv[]);
 
+//		ft_echo.c
+void	ft_echo(t_ms *ms, char *argv[]);
+
 //		ft_env.c
 void	ft_env(t_ms *ms, char *argv[]);
 
 //		ft_exit.c
 void	ft_exit(t_ms *ms, char *argv[]);
 
+//		ft_export.c
+void	ft_export(t_ms *ms, char *argv[]);
+
 //		ft_pwd.c
 void	ft_pwd(t_ms *ms, char *argv[]);
+
+//		ft_unset.c
+void	ft_unset(t_ms *ms, char *argv[]);
 
 //	utils prototypes
 
@@ -106,7 +115,9 @@ void	ft_free(t_ms *ms);
 
 //		ft_envval.c
 void	ft_changeenvvar(t_ms *ms, char *var, char *val);
-char	*ft_getenvvar(t_ms *ms, char *val);
+int		ft_findenvvar(t_ms *ms, char *var);
+char	*ft_getenvval(t_ms *ms, char *val);
+char	*ft_getenvvar(char *s);
 
 //		ft_init.c
 void	ft_init(t_ms *ms);

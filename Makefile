@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/07/14 16:01:08 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/16 10:49:13 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,12 @@ SRC_UT_DIR		=	srcs/utils/
 # Minishell builtin functions
 
 SRC_BI			=	ft_cd \
+					ft_echo \
 					ft_env \
 					ft_exit \
-					ft_pwd
+					ft_export \
+					ft_pwd \
+					ft_unset
 					
 # Minishell main functions
 

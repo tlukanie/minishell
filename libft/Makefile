@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/14 13:43:18 by okraus            #+#    #+#              #
-#    Updated: 2023/07/13 18:56:34 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/16 12:13:46 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,6 +109,8 @@ SRC_EX		=	ft_abs \
 				ft_print_memory_plus \
 				ft_put_split \
 				ft_put_strarray \
+				ft_split_add \
+				ft_split_rm \
 				ft_splitlen \
 				ft_swap \
 				ft_uabsdif \

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/14 17:31:06 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/16 12:25:18 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_init_prompt(t_ms *ms)
 	char	*s;
 	char	*h;
 
-	h = ft_getenvvar(ms, "HOME");
+	h = ft_getenvval(ms, "HOME");
 	s = getcwd(cwd, 4096);
 	if (h && !ft_strncmp(s, h, ft_strlen(h)))
 	{
