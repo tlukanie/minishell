@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 13:14:59 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/16 16:03:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_unset(t_ms *ms, char *argv[])
 	i = 1;
 	while (argv[i] && !r)
 	{
-		if (strchr(argv[i], '='))
+		if (ft_strchr(argv[i], '='))
 		{
 			r = 127; //change to actual code of not provoding env var;
 		}

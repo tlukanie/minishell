@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 15:54:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 13:15:55 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/16 16:03:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ char	*ft_getenvvar(char *s)
 		var[i] = s[i];
 		i++;
 	}
-	return (NULL);
+	return (var);
 }
