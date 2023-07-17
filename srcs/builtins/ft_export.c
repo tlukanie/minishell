@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 16:02:55 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/17 14:55:37 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,6 @@ void	ft_export(t_ms *ms, char *argv[])
 	ms->err[0] = r;
 	ms->err[1] = 1;
 }
+// should export only the first argument
+// should check if the var is legal name
+// if the var exists, it overwrites the value

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 10:56:42 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/08 11:17:31 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/09 18:54:54 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main(void)
 {
 	char	prompt[] = "\001\033[35m\002Mini\001\033[0m\033[37m\002$\001\033[0m\033[31m\002hell\001\033[0m\002 prompt>";
 	//char	prompt[] = "Mini$hell prompt>";
+	//char	prompt[] = "\033[35mMini\033[0m\033[37m$\033[0m\033[31mhell\033[0m prompt>";
 	char	*s;
 
 	s = readline(prompt);
