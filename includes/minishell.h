@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/17 17:50:53 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/18 15:32:26 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,11 @@
 
 // INCLUDES
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include "../libft/header/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/header/libft.h"
 # include <sys/wait.h>
 # include <errno.h>
-
-
 
 // DEFINITIONS
 
@@ -54,6 +49,7 @@ typedef struct s_ms
 	char	*s;
 	char	**av;
 	char	**ev;
+	t_list	*el;
 	char	**paths;
 	char	***args;
 }	t_ms;
@@ -75,9 +71,26 @@ typedef struct s_ms
 //	char	*s;			//last string from user
 // 	char	**av;		//*argv[]
 // 	char	**ev;		//*envp[]
+//	t_list	*el;		// first item in environment list
 // 	char	**paths;	//array of paths from envp
 // 	char	***args;	//array of arrays of arguments
 // }	t_ms;
+
+typedef struct s_ev
+{
+	char	*s;
+	char	*var;
+	char	*val;
+	char	**vals;
+}	t_ev;
+
+// typedef struct s_ev
+// {
+// 	char	*s;		//	"V1=1:2:3"
+// 	char	*var;	//	"V1"
+// 	char	*val;	//	"1:2:3"
+// 	char	**vals;	//	"1", "2", "3", NULL
+// }	t_ev;
 
 //	PROTOTYPES
 
