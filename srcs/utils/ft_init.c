@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 16:11:54 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 18:34:00 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_init_prompt(t_ms *ms)
 	ms->prompt = ft_strjoin_freeleft(ms->prompt, PROMPT3);
 }
 
-static t_ev	*ft_evinit(char *str)
+t_ev	*ft_evinit(char *str)
 {
 	t_ev	*ev;
 	int		i;
@@ -90,7 +90,7 @@ static t_list	*ft_split2list(char **esplit)
 	return (lstart);
 }
 
-static void	ft_sortenv(t_list *el)
+void	ft_sortenv(t_list *el)
 {
 	int		sort;
 	t_list	*lst;

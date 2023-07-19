@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 18:18:16 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 18:33:20 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_envlist_rm(t_list *el, char *str)
 		ev = lst->content;
 		if (!ft_strncmp(ev->var, str, ft_strlen(str) + 1))
 		{
-			ft_printf("var=%s,str=%s,strlen=%i\n", ev->var, str, ft_strlen(str));
 			ft_lstrm(&el, lst);
 			return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/19 16:02:45 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 18:34:07 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,7 @@ char	*ft_getenvvar(char *s);
 //		ft_init.c
 void	ft_init(t_ms *ms);
 void	ft_init_prompt(t_ms *ms);
+t_ev	*ft_evinit(char *str);
+void	ft_sortenv(t_list *el);
 
 #endif
