@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 13:43:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 15:32:55 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 19:30:02 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ char			*ft_litoa(long long n);
 
 // split
 char			**ft_copy_split(char **split);
-void			ft_free_split(char **split);
+void			ft_free_split(char ***splitptr);
 void			ft_put_split(char **split);
 int				ft_split_add(char ***split, char *s, int n);
 int				ft_split_rm(char ***split, int n);

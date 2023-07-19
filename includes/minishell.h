@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/19 18:34:07 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 19:17:55 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	ft_pwd(t_ms *ms, char *argv[]);
 
 //		ft_unset.c
 void	ft_unset(t_ms *ms, char *argv[]);
+void	ft_free_ev(void *ptr);
 
 //	utils prototypes
 

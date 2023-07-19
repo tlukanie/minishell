@@ -6,16 +6,18 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:57:11 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/10 16:28:36 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 19:28:28 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libft.h"
 
-void	ft_free_split(char **split)
+void	ft_free_split(char ***splitptr)
 {
-	int	i;
-
+	int		i;
+	char	**split;
+	
+	split = *splitptr;
 	i = 0;
 	while (split[i])
 	{

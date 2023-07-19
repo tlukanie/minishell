@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 10:32:31 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 19:36:15 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_analyse(t_ms *ms)
 		else //execve
 		{
 			ft_printf_fd(2, "command not found: %s\n", argv[0]);
-			ft_free_split(argv);
+			ft_free_split(&argv);
 			ft_free(ms);
 			exit(127);
 		}

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 12:25:02 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 19:29:27 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_cd(t_ms *ms, char *argv[])
 		r = ft_cdold(ms);
 	else
 		r = ft_cdnew(ms, argv);
-	ft_free_split(argv);
+	ft_free_split(&argv);
 	ms->err[0] = r;
 	ms->err[1] = 1;
 }

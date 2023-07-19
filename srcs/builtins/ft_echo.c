@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 10:27:05 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 19:38:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	ft_echo(t_ms *ms, char *argv[])
 
 	e = ft_echo2(argv);
 	ft_free(ms);
-	ft_free_split(argv);
+	ft_free_split(&argv);
+	//usleep(50000);
 	if (e < 0)
 		e = 1;
 	else
