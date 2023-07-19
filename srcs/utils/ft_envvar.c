@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 15:54:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 16:04:30 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 17:53:07 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_putenv(t_list *el)
 	}
 }
 
+// rewrie to work with list
 void	ft_changeenvvar(t_ms *ms, char *var, char *val)
 {
 	int		i;
@@ -53,6 +54,8 @@ void	ft_changeenvvar(t_ms *ms, char *var, char *val)
 	//add variable if not found?
 }
 
+
+//rewrte to work with the list
 int	ft_findenvvar(t_ms *ms, char *var)
 {
 	int		i;
@@ -72,6 +75,7 @@ int	ft_findenvvar(t_ms *ms, char *var)
 	return (-1);
 }
 
+//rewrite to work with the list
 char	*ft_getenvval(t_ms *ms, char *var)
 {
 	int	i;
@@ -91,6 +95,7 @@ char	*ft_getenvval(t_ms *ms, char *var)
 	return (NULL);
 }
 
+// rewrite to work with the list
 char	*ft_getenvvar(char *s)
 {
 	int		i;

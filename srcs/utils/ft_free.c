@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:19:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 10:09:49 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 17:02:26 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,3 +18,7 @@ void	ft_free(t_ms *ms)
 	free(ms->ev);
 	//write(1, "freeing simulation complete\n", 28);
 }
+
+//free list
+
+//free ev structure

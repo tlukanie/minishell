@@ -6,11 +6,91 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 16:03:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 18:18:16 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// void	ft_unset(t_ms *ms, char *argv[])
+// {
+// 	int		r;
+// 	int		i;
+
+// 	r = 0;
+// 	i = 1;
+// 	while (argv[i] && !r)
+// 	{
+// 		if (ft_strchr(argv[i], '='))
+// 		{
+// 			r = 127; //change to actual code of not provoding env var;
+// 		}
+// 		else
+// 		{
+// 			r = ft_split_rm(&ms->ev, ft_findenvvar(ms, argv[i]));
+// 		}
+// 		i++;
+// 	}
+// 	ft_free_split(argv);
+// 	ms->err[0] = r;
+// 	ms->err[1] = 1;
+// }
+
+void	ft_free_ev(void *ptr)
+{
+	t_ev	*ev;
+
+	ev = ptr;
+	if (ev->s)
+		free(ev->s);
+	if (ev->var)
+		free(ev->var);
+	if(ev->vals)
+		ft_free_split(ev->vals);
+	free(ev);
+	ev = NULL;
+}
+
+void	ft_lstrm(t_list **el, t_list *lst)
+{
+	t_list	*l;
+
+	if (lst == *el)
+		*el = lst->next;
+	else
+	{
+		l = *el;
+		while (l)
+		{
+			if (l->next == lst)
+			{
+				l->next = lst->next;
+				ft_lstdelone(lst, ft_free_ev);
+			}
+			l = l->next;
+		}
+	}
+}
+
+int	ft_envlist_rm(t_list *el, char *str)
+{
+	t_list	*lst;
+	t_ev	*ev;
+
+	lst = el;
+	while (lst)
+	{
+		ev = lst->content;
+		if (!ft_strncmp(ev->var, str, ft_strlen(str) + 1))
+		{
+			ft_printf("var=%s,str=%s,strlen=%i\n", ev->var, str, ft_strlen(str));
+			ft_lstrm(&el, lst);
+			return (0);
+		}
+		lst = lst->next;
+	}
+	return (0);
+}
 
 void	ft_unset(t_ms *ms, char *argv[])
 {
@@ -19,15 +99,22 @@ void	ft_unset(t_ms *ms, char *argv[])
 
 	r = 0;
 	i = 1;
-	while (argv[i] && !r)
+	// not a bash error handling
+	if (!argv[1])
 	{
+		ft_printf_fd(2, "unset: not enought arguments\n");
+		r = 1;
+	}
+	while (argv[i])
+	{
+		// bash does not handle this
 		if (ft_strchr(argv[i], '='))
 		{
 			r = 127; //change to actual code of not provoding env var;
 		}
 		else
 		{
-			r = ft_split_rm(&ms->ev, ft_findenvvar(ms, argv[i]));
+			r = ft_envlist_rm(ms->el, argv[i]);
 		}
 		i++;
 	}
@@ -35,3 +122,5 @@ void	ft_unset(t_ms *ms, char *argv[])
 	ms->err[0] = r;
 	ms->err[1] = 1;
 }
+
+// remove list entry
