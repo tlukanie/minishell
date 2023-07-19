@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 13:43:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 12:13:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 15:32:55 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ void			ft_dlstmovein(t_dlist **dlst_dst, t_dlist *dlst_src);
 void			ft_dlstmoveout(t_dlist **dlst_src);
 void			ft_dlstmoveone(t_dlist **dlst_dst, t_dlist **dlst_src);
 t_dlist			*ft_dlstnew(void *content);
+
+// string stuff
+char			*ft_stringcopy(char const *str);
 
 // evil malloc & calloc
 void			*ft_evil_malloc(size_t size);

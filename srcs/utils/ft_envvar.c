@@ -6,11 +6,28 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 15:54:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 16:03:13 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:04:30 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_putenv(t_list *el)
+{
+	t_list	*lst;
+	t_ev	*ev;
+
+	lst = el;
+	while (lst)
+	{
+		if (lst->content)
+		{
+			ev = lst->content;
+			ft_printf("%s\n", ev->s);
+		}
+		lst = lst->next;
+	}
+}
 
 void	ft_changeenvvar(t_ms *ms, char *var, char *val)
 {

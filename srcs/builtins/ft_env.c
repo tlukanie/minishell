@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:44:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/14 15:21:03 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:03:08 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_env(t_ms *ms, char *argv[])
 	}
 	else
 	{
-		ft_put_split(ms->ev);
+		//ft_put_split(ms->ev);
+		ft_putenv(ms->el);
 		ft_free(ms);
 		ft_free_split(argv);
 	}

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/18 15:32:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:02:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	ft_unset(t_ms *ms, char *argv[]);
 void	ft_free(t_ms *ms);
 
 //		ft_envval.c
+void	ft_putenv(t_list *el);
 void	ft_changeenvvar(t_ms *ms, char *var, char *val);
 int		ft_findenvvar(t_ms *ms, char *var);
 char	*ft_getenvval(t_ms *ms, char *val);
