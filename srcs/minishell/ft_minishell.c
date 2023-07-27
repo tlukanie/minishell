@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/27 16:21:55 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/27 18:57:31 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,21 @@ int	minishell(t_ms *ms)
 	while (ms->live)
 	{
 		ms->s = readline(ms->prompt);
-		add_history (ms->s);
-		ft_analyse(ms);
-		ft_errorcheck(ms);
-		free(ms->s);
+		if(!ms->s)
+		{
+			ft_free(ms);
+
+			break ;
+		}
+		else
+		{
+			add_history (ms->s);
+			ft_analyse(ms);
+			ft_errorcheck(ms);
+			free(ms->s);
+		}
 	}
+	write(1, "exit\n", 5);
 	return (ms->exit);
 }
 
@@ -95,6 +105,8 @@ int	main(int argc, char *argv[], char *env[])
 	ms.ac = argc;
 	ms.av = argv;
 	ms.ev = env;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_newline);
 	ft_init(&ms);
 	return (minishell(&ms));
 }

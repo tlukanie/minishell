@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/27 15:31:13 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/27 18:58:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <signal.h>
 
 // DEFINITIONS
 
@@ -122,6 +123,11 @@ void	ft_pwd(t_ms *ms, char *argv[]);
 //		ft_unset.c
 void	ft_unset(t_ms *ms, char *argv[]);
 void	ft_free_ev(void *ptr);
+
+//	minishell prototypes
+
+//		ft_signal.c
+void	ft_newline(int signal);
 
 //	utils prototypes
 
