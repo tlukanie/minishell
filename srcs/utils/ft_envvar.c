@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 15:54:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/27 16:51:36 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/28 19:50:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	ft_changeenvval(t_ms *ms, char *var, char *val)
 		}
 		lst = lst->next;
 	}
-	//add variable if not found?
 }
 
 // change to list with unset
@@ -88,6 +87,8 @@ char	*ft_getenvval(t_ms *ms, char *var)
 	int		l;
 
 	l = ft_strlen(var);
+	if (!l)
+		return (NULL);
 	lst = ms->el;
 	while (lst)
 	{
@@ -99,6 +100,27 @@ char	*ft_getenvval(t_ms *ms, char *var)
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+char	**ft_list2split(t_list *lst)
+{
+	int		i;
+	char	**env;
+	t_ev	*ev;
+
+	i = ft_lstsize(lst);
+	env = malloc((sizeof(char *)) * (i + 1));
+	if (!env)
+		return (NULL);
+	i = 0;
+	while (lst)
+	{
+		ev = lst->content;
+		env[i] = ft_stringcopy(ev->s);
+		i++;
+		lst = lst->next;
+	}
+	return (env);
 }
 
 // rewrite to work with the list
