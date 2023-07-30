@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 19:29:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/30 18:44:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,38 @@ t_list	*ft_check_var(t_list *el, char *v)
 	return (NULL);
 }
 
+static int	ft_isvalidvar(char *s)
+{
+	int		i;
+
+	i = 0;
+	if (s[i] == '_' || ft_isalpha(s[i]))
+	{
+		i++;
+	}
+	else
+		return (0);
+	while (s[i] == '_' || ft_isalnum(s[i]))
+		i++;
+	if (s[i] == '=')
+		return (1);
+	return (0);
+}
+
 void	ft_export(t_ms *ms, char *argv[])
 {
 	int		r;
 	int		i;
+	int		j;
 	t_ev	*ev;
 	t_list	*lst;
 
 	r = 0;
 	i = 1;
-	while (argv[i] && !r)
+	j = 0;
+	while (argv[i])
 	{
-		if (ft_strchr(argv[i], '='))
+		if (ft_isvalidvar(argv[i]))
 		{
 			ev = ft_evinit(argv[i]);
 			lst = ft_check_var(ms->el, ev->var);
@@ -58,7 +78,10 @@ void	ft_export(t_ms *ms, char *argv[])
 			}
 		}
 		else
-			r = 127; //change to actual code of not provoding env var;
+		{
+			r = 1; //change to actual code of not provoding env var;
+			ft_printf_fd(2, "minishell: export: '%s': not a valid identifier\n", argv[i]);
+		}
 		i++;
 	}
 	ft_free_split(&argv);
