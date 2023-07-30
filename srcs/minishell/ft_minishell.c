@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 11:57:14 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/30 16:29:44 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ void	ft_errorcheck(t_ms *ms)
 		ms->err[0] = 0; //resets internal status to 0;
 }
 
+void	ft_printlex(t_list *lst)
+{
+	t_token	*token;
+
+	while (lst)
+	{
+		token = lst->content;
+		ft_printf("<%2i> <%s>\n", token->type, token->text);
+		lst = lst->next;
+	}
+}
+
 // should call actual functions and give them arguments
 void	ft_analyse(t_ms *ms)
 {
@@ -29,6 +41,7 @@ void	ft_analyse(t_ms *ms)
 	t_list	*lex;
 
 	ms->lex = ft_lexer(ms);
+	ft_printlex(ms->lex);
 	//need better split from piscine
 	//need to handle quotes as well. ""
 	//replace with lexer/parser maybe?
