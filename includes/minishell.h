@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/30 15:36:28 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/30 16:31:44 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef enum e_type
 	ERRFILE = 12,
 	ERRAPPEND = 13,
 	INOUTFILE = 14,
-	SPACE = 15
+	SPACETOKEN = 15
 }	t_type;
 
 //	PROTOTYPES

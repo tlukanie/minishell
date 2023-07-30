@@ -6,13 +6,13 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:16:56 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 16:25:40 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/30 17:08:15 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	*ft_isspace(char c)
+static int	ft_isspace(int c)
 {
 	if (c == ' ' || c == '\t' || c == '\r' || c == '\v'
 		|| c == '\f' || c == '\n')
@@ -20,13 +20,21 @@ static int	*ft_isspace(char c)
 	return (0);
 }
 
-static int	*ft_istoken(char c)
+static int	ft_istoken(int c)
 {
 	if (c == '<' || c == '>' || c == '|' || c == '&'
 		|| c == '(' || c == ')')
 		return (c);
 	return (0);
 }
+
+static int	ft_isquote(int c)
+{
+	if (c == '\'' || c == '\"')
+		return (c);
+	return (0);
+}
+
 
 static void ft_settoken(t_token *token, int type, char *s)
 {
@@ -40,13 +48,16 @@ void	ft_gettext(t_token *token, char **strptr)
 	int		i;
 
 	i = 0;
-	while (*strptr[i] && !ft_isspace(*strptr[i]) && !ft_istoken(*strptr[i]))
+	while ((*strptr)[i] && !ft_isspace((*strptr)[i])
+		&& !ft_istoken((*strptr)[i]) && !ft_isquote((*strptr)[i]))
+	{
 		i++;
+	}
 	str = ft_calloc(sizeof(char), i + 1);
-	ft_strlcpy(str, *strptr, i);
+	ft_strlcpy(str, *strptr, i + 1);
 	while(i)
 	{
-		*strptr++;
+		(*strptr)++;
 		i--;
 	}
 	ft_settoken(token, NOQUOTE, str);
@@ -58,18 +69,20 @@ void	ft_gettextquote(t_token *token, char **strptr, char quote)
 	int		i;
 
 	i = 0;
-	while (*strptr[i] && *strptr[i] != quote)
+	(*strptr)++;
+	while ((*strptr)[i] && (*strptr)[i] != quote)
 		i++;
 	str = ft_calloc(sizeof(char), i + 1);
-	ft_strlcpy(str, *strptr, i);
+	ft_strlcpy(str, *strptr, i + 1);
+	i++;
 	while(i)
 	{
-		*strptr++;
+		(*strptr)++;
 		i--;
 	}
-	if (quote = '\'')
+	if (quote == '\'')
 		ft_settoken(token, SINGLEQUOTE, str);
-	if (quote = '\"')
+	if (quote == '\"')
 		ft_settoken(token, DOUBLEQUOTE, str);
 }
 
@@ -77,9 +90,9 @@ void	ft_getspace(t_token *token, char **strptr)
 {
 	while (ft_isspace(**strptr))
 	{
-		*strptr++;
+		(*strptr)++;
 	}
-	ft_settoken(token, SPACE, NULL);
+	ft_settoken(token, SPACETOKEN, NULL);
 }
 
 static void	ft_gettoken5(t_token *token, char **strptr)
@@ -97,37 +110,39 @@ static void	ft_gettoken5(t_token *token, char **strptr)
 		ft_gettextquote(token, strptr, '\"'); // double quote
 	}
 	else
-		ft_gettext(token, strptr);	
+	{
+		ft_gettext(token, strptr);
+	}
 }
 
 static void	ft_gettoken4(t_token *token, char **strptr)
 {
-	if (**strptr == '|' && *strptr[1] != '|')
+	if (**strptr == '|' && (*strptr)[1] != '|')
 	{
 		ft_settoken(token, PIPE, NULL);
-		*strptr++;
+		(*strptr)++;
 	}
 	else if (**strptr == '(')
 	{
 		ft_settoken(token, OPENPAR, NULL);
-		*strptr++;
+		(*strptr)++;
 	}
 	else if (**strptr == ')')
 	{
 		ft_settoken(token, CLOSEPAR, NULL);
-		*strptr++;
+		(*strptr)++;
 	}
-	else if (**strptr == '&' && *strptr[1] == '&')
+	else if (**strptr == '&' && (*strptr)[1] == '&')
 	{
 		ft_settoken(token, AND, NULL);
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
 	}
-	else if (**strptr == '|' && *strptr[1] == '|')
+	else if (**strptr == '|' && (*strptr)[1] == '|')
 	{
 		ft_settoken(token, OR, NULL);
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
 	}
 	else
 		ft_gettoken5(token, strptr);	
@@ -135,24 +150,24 @@ static void	ft_gettoken4(t_token *token, char **strptr)
 
 static void	ft_gettoken3(t_token *token, char **strptr)
 {
-	if (**strptr == '2' && *strptr[1] == '>' && *strptr[2] != '>')
+	if (**strptr == '2' && (*strptr)[1] == '>' && (*strptr)[2] != '>')
 	{
 		ft_settoken(token, ERRFILE, NULL);
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
 	}
-	else if (**strptr == '2' && *strptr[1] == '>' && *strptr[2] == '>')
+	else if (**strptr == '2' && (*strptr)[1] == '>' && (*strptr)[2] == '>')
 	{
 		ft_settoken(token, ERRAPPEND, NULL);
-		*strptr++;
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
+		(*strptr)++;
 	}
-	else if (**strptr == '<'  && *strptr[1] == '>')
+	else if (**strptr == '<'  && (*strptr)[1] == '>')
 	{
 		ft_settoken(token, INOUTFILE, NULL);
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
 	}
 	else
 		ft_gettoken4(token, strptr);	
@@ -160,27 +175,27 @@ static void	ft_gettoken3(t_token *token, char **strptr)
 
 static void	ft_gettoken2(t_token *token, char **strptr)
 {
-	if (**strptr == '<' && *strptr[1] != '<' && *strptr[1] != '>')
+	if (**strptr == '<' && (*strptr)[1] != '<' && (*strptr)[1] != '>')
 	{
 		ft_settoken(token, INFILE, NULL);
-		*strptr++;
+		(*strptr)++;
 	}
-	else if (**strptr == '>' && *strptr[1] != '>')
+	else if (**strptr == '>' && (*strptr)[1] != '>')
 	{
 		ft_settoken(token, OUTFILE, NULL);
-		*strptr++;
+		(*strptr)++;
 	}
-	else if (**strptr == '<' && *strptr[1] == '<')
+	else if (**strptr == '<' && (*strptr)[1] == '<')
 	{
 		ft_settoken(token, HEREDOC, NULL);
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
 	}
-	else if (**strptr == '>'  && *strptr[1] == '>')
+	else if (**strptr == '>'  && (*strptr)[1] == '>')
 	{
 		ft_settoken(token, APPEND, NULL);
-		*strptr++;
-		*strptr++;
+		(*strptr)++;
+		(*strptr)++;
 	}
 	else
 		ft_gettoken3(token, strptr);	
@@ -192,16 +207,11 @@ t_token *ft_gettoken(char **strptr)
 
 	while (**strptr)
 	{
-		if (ft_isspace(**strptr))
-			*strptr++;
-		else
-		{
-			token = malloc(sizeof(t_token));
-			if (!token)
-				return (NULL);
-			ft_gettoken2(token, strptr);
-			return (token);
-		}
+		token = malloc(sizeof(t_token));
+		if (!token)
+			return (NULL);
+		ft_gettoken2(token, strptr);
+		return (token);
 	}
 	return (NULL);
 }

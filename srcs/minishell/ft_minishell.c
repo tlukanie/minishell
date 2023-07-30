@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 16:29:44 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/30 16:32:34 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_analyse(t_ms *ms)
 	int		pid;
 	char	**argv;
 	char	*str;
-	t_list	*lex;
 
 	ms->lex = ft_lexer(ms);
 	ft_printlex(ms->lex);
