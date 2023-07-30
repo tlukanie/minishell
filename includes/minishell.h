@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/28 19:25:48 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/30 15:36:28 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_ms
 	char	**av;
 	char	**ev;
 	t_list	*el;
+	t_list	*lex;
 	char	**paths;
 	char	***args;
 }	t_ms;
@@ -93,6 +94,32 @@ typedef struct s_ev
 // 	char	**vals;	//	"1", "2", "3", NULL
 // }	t_ev;
 
+typedef struct s_token
+{
+	int		type;
+	char	*text;
+}	t_token;
+
+typedef enum e_type
+{
+	NOQUOTE = 0,
+	SINGLEQUOTE = 1,
+	DOUBLEQUOTE = 2,
+	INFILE = 3,
+	OUTFILE = 4,
+	HEREDOC = 5,
+	APPEND = 6,
+	PIPE = 7,
+	AND = 8,
+	OR = 9,
+	OPENPAR = 10,
+	CLOSEPAR = 11,
+	ERRFILE = 12,
+	ERRAPPEND = 13,
+	INOUTFILE = 14,
+	SPACE = 15
+}	t_type;
+
 //	PROTOTYPES
 
 //	minishell prototypes
@@ -125,6 +152,12 @@ void	ft_unset(t_ms *ms, char *argv[]);
 void	ft_free_ev(void *ptr);
 
 //	minishell prototypes
+
+//		ft_expansion.c
+char	*ft_expand(t_ms *ms, char *s);
+
+//		ft_lexer.c
+t_list	*ft_lexer(t_ms *ms);
 
 //		ft_signal.c
 void	ft_newline(int signal);
