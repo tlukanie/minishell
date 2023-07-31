@@ -6,11 +6,13 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 19:29:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 19:35:17 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// pwd
 
 void	ft_pwd(t_ms *ms, char *argv[])
 {

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 16:32:34 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:51:50 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ void	ft_analyse(t_ms *ms)
 
 	ms->lex = ft_lexer(ms);
 	ft_printlex(ms->lex);
+	// expand $
+	if (ft_parser(ms))
+	{
+		ft_printf_fd(2, "Unexpected token or something bad\n");
+		//error message
+	}
+	ft_printlex(ms->lex);
+	//
+
 	//need better split from piscine
 	//need to handle quotes as well. ""
 	//replace with lexer/parser maybe?

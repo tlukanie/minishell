@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/07/30 11:40:09 by okraus           ###   ########.fr        #
+#    Updated: 2023/07/31 17:33:15 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,9 +52,10 @@ SRC_BI			=	ft_cd \
 					
 # Minishell main functions
 
-SRC_MS			=	ft_minishell \
-					ft_expansion \
+SRC_MS			=	ft_expansion \
 					ft_lexer \
+					ft_minishell \
+					ft_parser \
 					ft_signal
 
 # Minishell utility functions

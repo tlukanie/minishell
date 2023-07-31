@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/30 18:08:49 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:35:43 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,9 @@ char	*ft_expand(t_ms *ms, char *s);
 
 //		ft_lexer.c
 t_list	*ft_lexer(t_ms *ms);
+
+//		ft_parser.c
+int		ft_parser(t_ms *ms);
 
 //		ft_signal.c
 void	ft_newline(int signal);

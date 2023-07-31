@@ -6,13 +6,13 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:11:51 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 19:29:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 19:34:42 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// need check for too many arguments and to be passed as an argument
+// need check for too many arguments and to be passed as an argument yep
 
 void	ft_exit(t_ms *ms, char *argv[])
 {

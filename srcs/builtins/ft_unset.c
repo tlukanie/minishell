@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 19:30:37 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 19:35:25 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 // 	ft_free_split(&argv);
 // 	ms->err[0] = r;
 // 	ms->err[1] = 1;
-// }
+// } delete
 
 void	ft_free_ev(void *ptr)
 {

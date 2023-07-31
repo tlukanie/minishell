@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:17:01 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 18:24:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 19:25:37 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ static char	*ft_replacevar(t_ms *ms, char *s, int *i)
 	s = ft_strjoin_freeleft(s, strend);
 	if (val)
 		*i += ft_strlen(val) - 1;
+	free(var);
+	free(strend);
+	free(strstart);
 	return (s);
 }
 

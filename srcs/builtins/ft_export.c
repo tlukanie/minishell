@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 18:44:45 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 19:35:37 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,4 @@ void	ft_export(t_ms *ms, char *argv[])
 // should check if the var is legal name
 // if the var exists, it overwrites the value
 // generate ev structure and add it to the list pr replace existing one.
-// check for valid var name
+// check for valid var name!
