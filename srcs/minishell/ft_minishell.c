@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/31 17:51:50 by okraus           ###   ########.fr       */
+/*   Updated: 2023/07/31 19:48:29 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_analyse(t_ms *ms)
 		ft_printf_fd(2, "Unexpected token or something bad\n");
 		//error message
 	}
+	ft_printf("Tokens after expansion:\n");
 	ft_printlex(ms->lex);
 	//
 
