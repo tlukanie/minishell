@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/01 16:29:25 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/01 18:12:24 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,59 @@ int	ft_expand_strings(t_ms *ms)
 	return (0);
 }
 
+void	ft_deltoken(void *ptr)
+{
+	t_token	*token;
+
+	token = ptr;
+	if (token->text)
+		free(token->text);
+	token->text = NULL;
+	free(token);
+	token = NULL;	
+}
+
+int	ft_jointext(t_ms *ms)
+{
+	t_list	*lst;
+	t_list	*nlst;
+	t_token	*token;
+	t_token	*ntoken;
+	char	*str;
+
+	lst = ms->lex;
+	while (lst && lst->next)
+	{
+		token = lst->content;
+		ntoken = lst->next->content;
+		while ((token->type == 0 || token->type == 1 || token->type == 2)
+			&& (ntoken->type == 0 || ntoken->type == 1 || ntoken->type == 2))
+		{
+			ft_printf("s1=%s\ns2=%s\n", token->text, ntoken->text);
+			str = ft_stringcopy(token->text);
+			free(token->text);
+			token->text = ft_strjoin(str, ntoken->text);
+			free(str);
+			if (!token->text)
+				return (1);
+			nlst = lst->next;
+			lst->next = lst->next->next;
+			ft_lstdelone(nlst, ft_deltoken);
+			if (!lst->next)
+				break;
+			ntoken = lst->next->content;
+		}
+		lst = lst->next;
+	}
+	return (0);
+}
+
 int	ft_parser(t_ms *ms)
 {	
 	if (ft_expand_strings(ms))
 		return (1);
-	// join text tokens
+	if (ft_jointext(ms))
+		return (2);
 	// expand wildcards
 	// create a command structuree
 

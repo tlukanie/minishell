@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/31 19:48:29 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/01 16:54:23 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_ms	ms;
 
-	ms.ac = argc;
-	ms.av = argv;
+	(void)argc;
+	(void)argv;
 	ms.ev = env;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_newline);

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/07/31 17:35:43 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/01 17:35:48 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 
 typedef struct s_ms
 {
-	int		ac;
 	int		fdi;
 	int		fdo;
 	int		fde;
@@ -48,7 +47,6 @@ typedef struct s_ms
 	int		**pipes;
 	char	*prompt;
 	char	*s;
-	char	**av;
 	char	**ev;
 	t_list	*el;
 	t_list	*lex;
@@ -58,7 +56,6 @@ typedef struct s_ms
 
 // typedef struct s_ms
 // {
-// 	int		ac;			//argc
 // 	int		fdi;		//fd of input
 // 	int		fdo;		//fd of output
 // 	int		fde;		//fd of error
@@ -71,7 +68,6 @@ typedef struct s_ms
 //	int		**pipes;	//pipe fds
 //	char	*prompt;	//prompt
 //	char	*s;			//last string from user
-// 	char	**av;		//*argv[]
 // 	char	**ev;		//*envp[]
 //	t_list	*el;		// first item in environment list
 // 	char	**paths;	//array of paths from envp
@@ -119,6 +115,25 @@ typedef enum e_type
 	INOUTFILE = 14,
 	SPACETOKEN = 15
 }	t_type;
+
+//command table = ct
+typedef struct s_ct
+{
+	char	**argv;
+	int		fds[3][2];
+}	t_ct;
+
+// typedef struct s_ct
+// {
+// 	char	**argv;		// argv[0] = command, argv[i] = arguments
+// 	int		fds[3][2];	// 0 fd:	0 STDIN, 1 STDOUT, 2 STDERR, FD
+// }	t_ct;			// 1 mode:	0-normal, 1 TRUNC, 2 APPEND/HERE_DOC
+//	fds[0][0] = 0	//standard input on file descriptor 0
+//	fds[0][1] = 2	//mode 2 << here doc
+//	fds[1][0] = fd	//standard output on file descriptor of outfile
+//	fds[1][1] = 1	//mode TRUNC (overwrite)
+//	fds[2][0] = 2	//standard error on file descriptor 2
+//	fds[2][1] = 0	//mode standard
 
 //	PROTOTYPES
 
