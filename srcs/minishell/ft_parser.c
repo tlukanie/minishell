@@ -6,124 +6,115 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/01 18:12:24 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/02 19:26:36 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*ft_replacetilda(t_ms *ms, char *s, int *i)
+int	ft_fillcts(t_ms *ms)
 {
-	char	*strstart;
-	char	*strend;
-	char	*home;
-
-	home = ft_getenvval(ms, "HOME");
-	if (home)
-		strend = ft_stringcopy((&s[(*i) + 1]));
-	else
-		return (s);
-	s[*i] = 0;
-	strstart = ft_stringcopy((s));
-	s = ft_strjoin(strstart, home);
-	s = ft_strjoin_freeleft(s, strend);
-	free(strend);
-	free(strstart);
-	*i += ft_strlen(home) - 1;
-	return (s);
-}
-
-static char	*ft_expand_tilda(t_ms *ms, char *s)
-{
-	int		i;
-
-	i = 0;
-	while (s && s[i])
-	{
-		if (s[i] == '~')
-			s = ft_replacetilda(ms, s, &i);
-		i++;
-	}
-	return (s);
-}
-
-int	ft_expand_strings(t_ms *ms)
-{
-	t_list	*lst;
-	t_token	*token;
-	char	*str;
+	t_list			*lst;
+	t_token			*token;
+	unsigned int	i;
+	int				j;
+	int				r;
 
 	lst = ms->lex;
+	i = 0;
 	while (lst)
 	{
 		token = lst->content;
-		str = token->text;
-		if (token->type == 0 || token->type == 2)
+		if (token->type & ANDOR)
 		{
-			if (token->type == 0)
-			{
-				token->text = ft_expand_tilda(ms, str);
-				if (token->text != str && str)
-					free(str);
-				if (!token->text)
-					return (1);
-			}
-			str = token->text;
-			token->text = ft_expand(ms, str);
-			if (token->text != str && str)
-				free(str);
-			if (!token->text)
-				return (1);
+			j = 0;
+			i++;
 		}
+		else if (token->type & PIPE)		
+			j++;
+		else if (token->type & REDIRECTS)
+			r = 1;
+		// the next string after redirect affects fds
+		//otherwise add text to argv in cs[i].ct[j];
+		//function to fill stuff (maybe r could be static variable in it)
 		lst = lst->next;
 	}
 	return (0);
 }
 
-void	ft_deltoken(void *ptr)
+void ft_updatecsn(t_ms *ms)
 {
-	t_token	*token;
+	t_list			*lst;
+	t_token			*token;
+	unsigned int	i;
 
-	token = ptr;
-	if (token->text)
-		free(token->text);
-	token->text = NULL;
-	free(token);
-	token = NULL;	
-}
-
-int	ft_jointext(t_ms *ms)
-{
-	t_list	*lst;
-	t_list	*nlst;
-	t_token	*token;
-	t_token	*ntoken;
-	char	*str;
-
+	i = 0;
 	lst = ms->lex;
-	while (lst && lst->next)
+	while (lst)
 	{
 		token = lst->content;
-		ntoken = lst->next->content;
-		while ((token->type == 0 || token->type == 1 || token->type == 2)
-			&& (ntoken->type == 0 || ntoken->type == 1 || ntoken->type == 2))
-		{
-			ft_printf("s1=%s\ns2=%s\n", token->text, ntoken->text);
-			str = ft_stringcopy(token->text);
-			free(token->text);
-			token->text = ft_strjoin(str, ntoken->text);
-			free(str);
-			if (!token->text)
-				return (1);
-			nlst = lst->next;
-			lst->next = lst->next->next;
-			ft_lstdelone(nlst, ft_deltoken);
-			if (!lst->next)
-				break;
-			ntoken = lst->next->content;
-		}
+		if (token->type & ANDOR)
+			i++;
+		token->type |= 0x10000U * i;
 		lst = lst->next;
 	}
+	ms->csn = i + 1;
+}
+
+int	ft_createct(t_ms *ms)
+{
+	t_ct	*ct;
+	int		i;
+
+	i = 0;
+	while (i < ms->csn)
+	{
+		ct = malloc(sizeof(t_ct) * (ms->cs[i].ctn));
+		if (!ct)
+			return (1);
+		ms->cs[i].ct = ct;
+		i++;
+	}
+	return (0);
+}
+
+void ft_updatectn(t_ms *ms)
+{
+	t_list			*lst;
+	t_token			*token;
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	j = 0;
+	lst = ms->lex;
+	while (lst)
+	{
+		token = lst->content;
+		if (token->type & ANDOR)
+		{
+			ms->cs[i].ctn = j;
+			i++;
+			j = 0;
+		}
+		if (token->type & PIPE)
+			j++;
+		lst = lst->next;
+	}
+	ms->cs[i].ctn = j;
+}
+
+int	ft_createcs(t_ms *ms)
+{
+	t_cs	*cs;
+
+	cs = malloc(sizeof(t_cs) * (ms->csn));
+	if (!cs)
+		return (1);
+	ms->cs = cs;
+	ft_updatectn(ms);
+	if (ft_createct(ms))
+		return (1);
 	return (0);
 }
 
@@ -134,7 +125,15 @@ int	ft_parser(t_ms *ms)
 	if (ft_jointext(ms))
 		return (2);
 	// expand wildcards
-	// create a command structuree
+	// create binary tree
+	// count cs & update token type
+	ft_updatecsn(ms);
+	// create a command structure
+	if (ft_createcs(ms))
+		return (5);
+	if (ft_fillcts(ms))
+		return (6);
 
+	// update paths probably in other function
 	return (0);
 }
