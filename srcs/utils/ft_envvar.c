@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 15:54:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/28 19:50:49 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/05 19:47:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,28 @@ char	*ft_getenvval(t_ms *ms, char *var)
 		if (!ft_strncmp(ev->var, var, l))
 		{
 			return (ev->val);
+		}
+		lst = lst->next;
+	}
+	return (NULL);
+}
+
+char	**ft_getenvvals(t_ms *ms, char *var)
+{
+	t_list	*lst;
+	t_ev	*ev;
+	int		l;
+
+	l = ft_strlen(var);
+	if (!l)
+		return (NULL);
+	lst = ms->el;
+	while (lst)
+	{
+		ev = lst->content;
+		if (!ft_strncmp(ev->var, var, l))
+		{
+			return (ev->vals);
 		}
 		lst = lst->next;
 	}

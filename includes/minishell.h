@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/01 17:35:48 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/05 19:47:05 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <signal.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
 
 // DEFINITIONS
 
@@ -33,45 +36,39 @@
 // STRUCTURES
 // MINISHELL structure
 
+typedef struct s_cs
+	t_cs;
+
 typedef struct s_ms
 {
-	int		fdi;
-	int		fdo;
-	int		fde;
 	int		arg;
-	int		hd;
 	int		live;
 	int		err[2];
 	int		exit;
-	int		*pids;
-	int		**pipes;
+	int		csn;
+	t_cs	*cs;
 	char	*prompt;
 	char	*s;
 	char	**ev;
 	t_list	*el;
 	t_list	*lex;
 	char	**paths;
-	char	***args;
 }	t_ms;
 
 // typedef struct s_ms
 // {
-// 	int		fdi;		//fd of input
-// 	int		fdo;		//fd of output
-// 	int		fde;		//fd of error
 //	int		arg;		//number of arguments
 //	int		hd;			//1 if argv[1] == "here_doc"
 //	int		live;		//1 if minishell works, 0 after exit
 //	int		err[2];		//errno of builtins; [0] contains errno, [1] contains atatus if it should be deleted 
 //	int		exit;		// exit status of exit command	
-//	int		*pids;		//pids of child processes
-//	int		**pipes;	//pipe fds
+//	int		csn;		//number of command groups
+//	t_cs	*cs;		//command structure
 //	char	*prompt;	//prompt
 //	char	*s;			//last string from user
 // 	char	**ev;		//*envp[]
 //	t_list	*el;		// first item in environment list
 // 	char	**paths;	//array of paths from envp
-// 	char	***args;	//array of arrays of arguments
 // }	t_ms;
 
 typedef struct s_ev
@@ -92,28 +89,32 @@ typedef struct s_ev
 
 typedef struct s_token
 {
-	int		type;
-	char	*text;
+	unsigned int	type;
+	char			*text;
 }	t_token;
 
 typedef enum e_type
 {
-	NOQUOTE = 0,
-	SINGLEQUOTE = 1,
-	DOUBLEQUOTE = 2,
-	INFILE = 3,
-	OUTFILE = 4,
-	HEREDOC = 5,
-	APPEND = 6,
-	PIPE = 7,
-	AND = 8,
-	OR = 9,
-	OPENPAR = 10,
-	CLOSEPAR = 11,
-	ERRFILE = 12,
-	ERRAPPEND = 13,
-	INOUTFILE = 14,
-	SPACETOKEN = 15
+	SINGLEQUOTE = 0x1,	// ...0000 0001
+	DOUBLEQUOTE = 0x2,	// ...0000 0010
+	NOQUOTE = 0x4,		// ...0000 0100
+	PIPE = 0x8,
+	INFILE = 0x10,
+	HEREDOC = 0x20,
+	OUTFILE = 0x40,
+	APPEND = 0x80,
+	ERRFILE = 0x100,
+	ERRAPPEND = 0x200,
+	INOUTFILE = 0x400,
+	SPACETOKEN = 0x800,
+	AND = 0x1000,
+	OR = 0x2000,
+	OPENPAR = 0x4000,
+	CLOSEPAR = 0x8000,
+	TEXT = 0x7,			// ...0000 0111
+	ANDOR = 0x3000,		
+	REDIRECTS = 0x7F0,
+	BONUS = 0xFFFF0000 //mask to index of the command group
 }	t_type;
 
 //command table = ct
@@ -134,6 +135,15 @@ typedef struct s_ct
 //	fds[1][1] = 1	//mode TRUNC (overwrite)
 //	fds[2][0] = 2	//standard error on file descriptor 2
 //	fds[2][1] = 0	//mode standard
+
+//command structure = cs - needed for parsing pipes and redirections
+typedef struct s_cs
+{
+	int		ctn;			//number of command tables (pipe count + 1)
+	int		*pids;			//child processes for the execution of the commands
+	int		(*pipes)[2];	//fds of pipes
+	t_ct	*ct;			//command tables for the child process
+}	t_cs;
 
 //	PROTOTYPES
 
@@ -168,6 +178,9 @@ void	ft_free_ev(void *ptr);
 
 //	minishell prototypes
 
+//		ft_executor.c
+int		ft_executor(t_ms *ms);
+
 //		ft_expansion.c
 char	*ft_expand(t_ms *ms, char *s);
 
@@ -176,6 +189,10 @@ t_list	*ft_lexer(t_ms *ms);
 
 //		ft_parser.c
 int		ft_parser(t_ms *ms);
+
+//		ft_parsetext.c
+int		ft_jointext(t_ms *ms);
+int		ft_expand_strings(t_ms *ms);
 
 //		ft_signal.c
 void	ft_newline(int signal);
@@ -189,6 +206,7 @@ void	ft_free(t_ms *ms);
 void	ft_putenv(t_list *el);
 void	ft_changeenvval(t_ms *ms, char *var, char *val);
 char	*ft_getenvval(t_ms *ms, char *var);
+char	**ft_getenvvals(t_ms *ms, char *var);
 char	**ft_list2split(t_list *lst);
 
 //		ft_init.c

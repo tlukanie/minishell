@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:57:11 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/16 12:56:39 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/05 14:12:58 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,22 @@ int	ft_split_add(char ***split, char *s, int n)
 	char	**newsplit;
 
 	if (!split || !*split || !s)
+	{
+		ft_printf_fd(2, "ft_split_add: Invalid input\n");
 		return (-1);
+	}
 	oldsplit = *split;
 	l = ft_splitlen(oldsplit) + 1;
 	newsplit = malloc(sizeof(char *) * l + 1);
 	if (!newsplit || l <= n)
+	{
+		ft_printf_fd(2, "ft_split_add: Malloc fail or incorrect size\n");
 		return (-1);
+	}
 	ft_split_add2(oldsplit, newsplit, l, n);
 	newsplit[n] = ft_split_add3(s);
 	*split = newsplit;
 	free(oldsplit);
+	ft_printf_fd(1, "ft_split_add: ok\n");
 	return (0);
 }
