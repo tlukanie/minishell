@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/05 19:47:05 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/06 11:05:05 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,17 @@ typedef struct s_cs
 
 typedef struct s_ms
 {
-	int		arg;
 	int		live;
 	int		err[2];
 	int		exit;
 	int		csn;
-	t_cs	*cs;
 	char	*prompt;
+	char	*pwd;		//need to initialize
 	char	*s;
 	char	**ev;
+	t_cs	*cs;
 	t_list	*el;
 	t_list	*lex;
-	char	**paths;
 }	t_ms;
 
 // typedef struct s_ms
@@ -121,6 +120,7 @@ typedef enum e_type
 typedef struct s_ct
 {
 	char	**argv;
+	char	*hd;
 	int		fds[3][2];
 }	t_ct;
 
