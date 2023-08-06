@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/05 19:49:24 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/06 17:31:29 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,172 @@ static int	ft_exec(t_ms *ms, char **cmd)
 	return (fail);
 }
 
+static int	ft_newin(t_ms *ms, int i, int j)
+{
+	if (ms->cs[i].ct[j].fds[0][1] == 2)
+		return (ms->cs[i].ct[j].hdpipe[0]);
+	if (j)
+	{
+		if (ms->cs[i].ct[j].fds[0][1] == 1)
+			return (ms->cs[i].ct[j].fds[0][0]);
+		else
+			return (ms->cs[i].pipes[j - 1][0]);
+	}
+	if (ms->cs[i].ct[j].fds[0][1] == 1)
+		return (ms->cs[i].ct[j].fds[0][0]);
+	return (0);
+}
+
+static int	ft_newout(t_ms *ms, int i, int j)
+{
+	if (j < ms->cs[i].ctn - 1)
+	{
+		if (ms->cs[i].ct[j].fds[1][1])
+			return (ms->cs[i].ct[j].fds[1][0]);
+		else
+			return (ms->cs[i].pipes[j][1]);
+	}
+	if (ms->cs[i].ct[j].fds[1][1])
+			return (ms->cs[i].ct[j].fds[1][0]);
+	return (1);
+}
+
+static int	ft_newerr(t_ms *ms, int i, int j)
+{
+	if (ms->cs[i].ct[j].fds[2][1])
+			return (ms->cs[i].ct[j].fds[2][0]);
+	return (2);
+}
+
+static int ft_dup(t_ms *ms, int i, int j)
+{
+	int newin;
+	int newout;
+	int newerr;
+
+	newin = ft_newin(ms, i, j);
+	newout = ft_newout(ms, i, j);
+	newerr = ft_newerr(ms, i, j);
+	printf("Duplicating newin %i, newout %i, newerr %i\n", newin, newout, newerr);
+	if (newin > 2)
+	{
+		printf("Duplicating input %s\n", ms->cs[i].ct[j].argv[0]);
+		if (dup2(newin, STDIN_FILENO) < 0)
+		{
+			ft_printf_fd(2, "Error duplicating input\n");
+			return (1);
+		}
+	}
+	if (newout > 2)
+	{
+		printf("Duplicating output %s\n", ms->cs[i].ct[j].argv[0]);
+		if (dup2(newout, STDOUT_FILENO) < 0)
+		{
+			ft_printf_fd(2, "Error duplicating output\n");
+			return (2);
+		}
+	}
+	if (newerr > 2)
+	{
+		printf("Duplicating error %s\n", ms->cs[i].ct[j].argv[0]);
+		if (dup2(newerr, STDERR_FILENO) < 0)
+		{
+			ft_printf_fd(2, "Error duplicating error output\n");
+			return (3);
+		}
+	}
+	return (0);
+}
+static void	ft_closepipes(t_ms *ms, int i)
+{
+	int k;
+
+	k = 0;
+	if (ms->cs[i].ctn > 1)
+	{
+		while (k < ms->cs[i].ctn - 1)
+		{
+			close(ms->cs[i].pipes[k][0]);
+			close(ms->cs[i].pipes[k][1]);
+			k++;
+		}
+	}
+	k = 0;
+	while (k < ms->cs[i].ctn)
+	{
+		if (ms->cs[i].ct[k].hd)
+		{
+			if (ms->cs[i].ct[k].hdpipe[0] > 2)
+				close(ms->cs[i].ct[k].hdpipe[0]);
+			if (ms->cs[i].ct[k].hdpipe[1] > 2)
+				close(ms->cs[i].ct[k].hdpipe[1]);
+		}
+		k++;
+	}
+}
+
+static void	ft_closefds(t_ms *ms, int i)
+{
+	int k;
+
+	k = 0;
+	while (k < ms->cs[i].ctn)
+	{
+		if (ms->cs[i].ct[k].fds[0][0] > 2)
+			if (close (ms->cs[i].ct[k].fds[0][0]))
+				printf("Error closing input %i\n", ms->cs[i].ct[k].fds[0][0]);
+		if (ms->cs[i].ct[k].fds[1][0] > 2)
+			if (close (ms->cs[i].ct[k].fds[1][0]))
+				printf("Error closing output %i\n", ms->cs[i].ct[k].fds[1][0]);
+		if (ms->cs[i].ct[k].fds[2][0] > 2)
+			if (close (ms->cs[i].ct[k].fds[2][0]))
+				printf("Error closing err %i\n", ms->cs[i].ct[k].fds[2][0]);
+		k++;
+	}
+}
+
+static void	ft_heredoc(t_ms *ms, int i, int j)
+{
+	char	*line;
+	int		pid;
+
+	line = NULL;
+	if (ms->cs[i].ct[j].hd)
+	{
+		if (pipe(ms->cs[i].ct[j].hdpipe) == -1)
+		{
+			ft_printf_fd(2, "Error with creating pipe\n");
+			exit(1);
+		}
+		pid = fork();
+		if (pid == -1)
+			exit(1); //better exit
+		if (pid == 0)
+		{
+			while (1)
+			{
+				write (1, "> ", 2);
+				line = get_next_line(0);
+				if (line == NULL)
+				{
+					//free!
+					exit(1);
+				}
+				if (ft_strncmp(line, ms->cs[i].ct[j].hd,
+					ft_strlen(ms->cs[i].ct[j].hd)) == 0)
+					break ;
+				write(ms->cs[i].ct[j].hdpipe[1], line, ft_strlen(line));
+				free(line);
+			}
+			free(line);
+			ft_closefds(ms, i);
+			ft_closepipes(ms, i);
+			exit(1); //free before exit
+		}
+		waitpid(pid, NULL, 0);
+	}
+}
+
 static int ft_execct(t_ms *ms, int i, int j)
 {
 	char	**argv;
@@ -94,10 +260,19 @@ static int ft_execct(t_ms *ms, int i, int j)
 		return (0);
 	}
 	ms->cs[i].pids[j] = fork();
-	if (ms->cs[i].pids[j]  < 0)
+	if (ms->cs[i].pids[j] < 0)
 		exit(255); //should not happen but needs better handling
 	if (ms->cs[i].pids[j] == 0)
 	{
+		printf("Heredocking %s\n", argv[0]);
+		ft_heredoc(ms, i, j);
+		printf("Duping %s\n", argv[0]);
+		if (ft_dup(ms, i, j))
+			return (3);
+		//printf("Closing %s\n", argv[0]);
+		ft_closepipes(ms, i);
+		ft_closefds(ms, i);
+		//printf("Executing %s\n", argv[0]);
 		if (!ft_strncmp(argv[0], "pwd", 4))
 			ft_pwd(ms, argv);
 		else if (!ft_strncmp(argv[0], "env", 4))
@@ -115,6 +290,27 @@ static int ft_execct(t_ms *ms, int i, int j)
 	return (0);
 }
 
+static int ft_open_pipes(t_ms *ms, int i)
+{
+	int	j;
+
+	j = 0;
+	ms->cs[i].pipes = ft_calloc(sizeof(int[2]), ms->cs[i].ctn - 1);
+		if (!ms->cs[i].pipes)
+			return (1);
+	while (j < ms->cs[i].ctn - 1)
+	{
+		if (pipe(ms->cs[i].pipes[j]) == -1)
+		{
+			ft_printf_fd(2, "Error with creating pipe\n");
+			return (1);
+		}
+		j++;
+	}
+	ft_printf ("%i pipes opened\n", j);
+	return (0);
+}
+
 static int ft_execcs(t_ms *ms, int i)
 {
 	int	j;
@@ -125,29 +321,42 @@ static int ft_execcs(t_ms *ms, int i)
 	ms->cs[i].pids = NULL;
 	if (ms->cs[i].ctn > 1)
 	{
-		ms->cs[i].pipes = ft_calloc(sizeof(int[2]), ms->cs[i].ctn - 1);
-		if (!ms->cs[i].pipes)
+		if (ft_open_pipes(ms, i))
 			return (1);
 	}
+	ft_printf("Opened pipes.\n");
 	if (ms->cs[i].ctn)
 	{
 		ms->cs[i].pids = ft_calloc(sizeof(int), ms->cs[i].ctn);
 		if (!ms->cs[i].pids)
 			return (1);
 	}
+	ft_printf("Created pids.\n");
 	while (j < ms->cs[i].ctn)
 	{
 		if (ft_execct(ms, i, j))
 			return (1);
 		j++;
 	}
+	ft_printf("Executed command tables.\n");
+	printf("Closing parent\n");
+	ft_closepipes(ms, i);
+	printf("Closed parent\n");
 	w = 0;
 	while (w < ms->cs[i].ctn)
 	{
 		if (ms->cs[i].pids[w])
+		{
+			printf("Waiting for pid %i.\n", ms->cs[i].pids[w]);
 			waitpid(ms->cs[i].pids[w] , NULL, 0);
+			printf("Waited for pid %i.\n", ms->cs[i].pids[w]);
+		}
 		w++;
 	}
+	free(ms->cs[i].pids);
+	ms->cs[i].pids = NULL;
+	ft_closefds(ms, i);
+	printf("Waited for all waitpids.\n");
 	return (0);
 }
 
@@ -161,6 +370,7 @@ int	ft_executor(t_ms *ms)
 		if (ft_execcs(ms, i))
 			return (1);
 		i++;
+		ft_printf("%i. command structure executed successfully\n", i);
 	}
 	return (0);
 }

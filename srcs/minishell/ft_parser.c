@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/06 10:53:10 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/06 16:47:23 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_fillctfd(t_ct *ct, char *file, int *r)
 			perror(file);
 			return (1);
 		}
+		if (ct->hd)
+			ct->hd = NULL;
 	}
 	else if (*r & HEREDOC)
 	{
@@ -210,6 +212,8 @@ int	ft_createct(t_ms *ms)
 			ct[j].fds[2][0] = 2;
 			ct[j].fds[2][1] = 0;
 			ct[j].hd = NULL;
+			ct[j].hdpipe[0] = 0;
+			ct[j].hdpipe[1] = 0;
 			ct[j].argv = NULL;
 			j++;	
 		}

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/02 17:42:51 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/06 11:50:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	ft_init(t_ms *ms)
 	ms->s = NULL;
 	ms->csn = 1;
 	ms->cs = NULL;
-	ms->paths = NULL;
 	ms->lex = NULL;
 	ms->ev = ft_copy_split(ms->ev);
 	ms->el = ft_split2list(ms->ev);

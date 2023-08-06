@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/06 11:05:05 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/06 15:21:27 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ typedef enum e_type
 typedef struct s_ct
 {
 	char	**argv;
-	char	*hd;
+	char	*hd;			//here doc
+	int		hdpipe[2];		//pipe for heredoc
 	int		fds[3][2];
 }	t_ct;
 
@@ -130,7 +131,7 @@ typedef struct s_ct
 // 	int		fds[3][2];	// 0 fd:	0 STDIN, 1 STDOUT, 2 STDERR, FD
 // }	t_ct;			// 1 mode:	0-normal, 1 TRUNC, 2 APPEND/HERE_DOC
 //	fds[0][0] = 0	//standard input on file descriptor 0
-//	fds[0][1] = 2	//mode 2 << here doc
+//	fds[0][1] = 2	//mode 2 << here doc (if here doc, the first one will count how many here docs are there)
 //	fds[1][0] = fd	//standard output on file descriptor of outfile
 //	fds[1][1] = 1	//mode TRUNC (overwrite)
 //	fds[2][0] = 2	//standard error on file descriptor 2

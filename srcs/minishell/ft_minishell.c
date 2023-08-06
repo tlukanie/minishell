@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/06 10:50:41 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/06 14:25:08 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_printct(t_ms *ms)
 			ft_printf("argv:\n");
 			if (ms->cs[i].ct[j].argv)
 				ft_put_split(ms->cs[i].ct[j].argv);
-			ft_printf("here_doc LIMITER = %s\n", ms->cs[i].ct[j].hd);
 			ft_printf("fd[0][0] = %i, fd[0][1] = %i\n", ms->cs[i].ct[j].fds[0][0], ms->cs[i].ct[j].fds[0][1]);
 			ft_printf("fd[1][0] = %i, fd[1][1] = %i\n", ms->cs[i].ct[j].fds[1][0], ms->cs[i].ct[j].fds[1][1]);
 			ft_printf("fd[2][0] = %i, fd[2][1] = %i\n\n", ms->cs[i].ct[j].fds[2][0], ms->cs[i].ct[j].fds[2][1]);
@@ -83,6 +82,7 @@ void	ft_analyse(t_ms *ms)
 	{
 		ft_printf_fd(2, "Executor error\n");
 	}
+	ft_printf("checkpoint D\n");
 }
 
 int	minishell(t_ms *ms)
@@ -93,7 +93,7 @@ int	minishell(t_ms *ms)
 		if(!ms->s)
 		{
 			ft_free(ms);
-
+			ft_printf("checkpoint EXIT\n");
 			break ;
 		}
 		else
