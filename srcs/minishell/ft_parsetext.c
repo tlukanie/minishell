@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:23:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/02 17:23:53 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:38:19 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	ft_expand_strings(t_ms *ms)
 	{
 		token = lst->content;
 		str = token->text;
-		if (token->type == 0 || token->type == 2)
+		if (token->type == NOQUOTE || token->type == DOUBLEQUOTE)
 		{
-			if (token->type == 0)
+			if (token->type == NOQUOTE)
 			{
 				token->text = ft_expand_tilda(ms, str);
 				if (token->text != str && str)

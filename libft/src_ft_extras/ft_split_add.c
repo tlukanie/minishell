@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:57:11 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/05 14:12:58 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:29:21 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ int	ft_split_add(char ***split, char *s, int n)
 	newsplit[n] = ft_split_add3(s);
 	*split = newsplit;
 	free(oldsplit);
-	ft_printf_fd(1, "ft_split_add: ok\n");
 	return (0);
 }

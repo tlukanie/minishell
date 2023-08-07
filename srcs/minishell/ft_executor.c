@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/06 17:31:29 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:27:31 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ static int ft_dup(t_ms *ms, int i, int j)
 	newin = ft_newin(ms, i, j);
 	newout = ft_newout(ms, i, j);
 	newerr = ft_newerr(ms, i, j);
-	printf("Duplicating newin %i, newout %i, newerr %i\n", newin, newout, newerr);
+	//printf("Duplicating newin %i, newout %i, newerr %i\n", newin, newout, newerr);
 	if (newin > 2)
 	{
-		printf("Duplicating input %s\n", ms->cs[i].ct[j].argv[0]);
+		//printf("Duplicating input %s\n", ms->cs[i].ct[j].argv[0]);
 		if (dup2(newin, STDIN_FILENO) < 0)
 		{
 			ft_printf_fd(2, "Error duplicating input\n");
@@ -124,7 +124,7 @@ static int ft_dup(t_ms *ms, int i, int j)
 	}
 	if (newout > 2)
 	{
-		printf("Duplicating output %s\n", ms->cs[i].ct[j].argv[0]);
+		//printf("Duplicating output %s\n", ms->cs[i].ct[j].argv[0]);
 		if (dup2(newout, STDOUT_FILENO) < 0)
 		{
 			ft_printf_fd(2, "Error duplicating output\n");
@@ -133,7 +133,7 @@ static int ft_dup(t_ms *ms, int i, int j)
 	}
 	if (newerr > 2)
 	{
-		printf("Duplicating error %s\n", ms->cs[i].ct[j].argv[0]);
+		//printf("Duplicating error %s\n", ms->cs[i].ct[j].argv[0]);
 		if (dup2(newerr, STDERR_FILENO) < 0)
 		{
 			ft_printf_fd(2, "Error duplicating error output\n");
@@ -264,9 +264,9 @@ static int ft_execct(t_ms *ms, int i, int j)
 		exit(255); //should not happen but needs better handling
 	if (ms->cs[i].pids[j] == 0)
 	{
-		printf("Heredocking %s\n", argv[0]);
+		//printf("Heredocking %s\n", argv[0]);
 		ft_heredoc(ms, i, j);
-		printf("Duping %s\n", argv[0]);
+		//printf("Duping %s\n", argv[0]);
 		if (ft_dup(ms, i, j))
 			return (3);
 		//printf("Closing %s\n", argv[0]);
@@ -307,7 +307,7 @@ static int ft_open_pipes(t_ms *ms, int i)
 		}
 		j++;
 	}
-	ft_printf ("%i pipes opened\n", j);
+	//ft_printf ("%i pipes opened\n", j);
 	return (0);
 }
 
@@ -324,39 +324,39 @@ static int ft_execcs(t_ms *ms, int i)
 		if (ft_open_pipes(ms, i))
 			return (1);
 	}
-	ft_printf("Opened pipes.\n");
+	//ft_printf("Opened pipes.\n");
 	if (ms->cs[i].ctn)
 	{
 		ms->cs[i].pids = ft_calloc(sizeof(int), ms->cs[i].ctn);
 		if (!ms->cs[i].pids)
 			return (1);
 	}
-	ft_printf("Created pids.\n");
+	//ft_printf("Created pids.\n");
 	while (j < ms->cs[i].ctn)
 	{
 		if (ft_execct(ms, i, j))
 			return (1);
 		j++;
 	}
-	ft_printf("Executed command tables.\n");
-	printf("Closing parent\n");
+	//ft_printf("Executed command tables.\n");
+	//printf("Closing parent\n");
 	ft_closepipes(ms, i);
-	printf("Closed parent\n");
+	//printf("Closed parent\n");
 	w = 0;
 	while (w < ms->cs[i].ctn)
 	{
 		if (ms->cs[i].pids[w])
 		{
-			printf("Waiting for pid %i.\n", ms->cs[i].pids[w]);
+			//printf("Waiting for pid %i.\n", ms->cs[i].pids[w]);
 			waitpid(ms->cs[i].pids[w] , NULL, 0);
-			printf("Waited for pid %i.\n", ms->cs[i].pids[w]);
+			//printf("Waited for pid %i.\n", ms->cs[i].pids[w]);
 		}
 		w++;
 	}
 	free(ms->cs[i].pids);
 	ms->cs[i].pids = NULL;
 	ft_closefds(ms, i);
-	printf("Waited for all waitpids.\n");
+	//printf("Waited for all waitpids.\n");
 	return (0);
 }
 
@@ -370,7 +370,7 @@ int	ft_executor(t_ms *ms)
 		if (ft_execcs(ms, i))
 			return (1);
 		i++;
-		ft_printf("%i. command structure executed successfully\n", i);
+		//ft_printf("%i. command structure executed successfully\n", i);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/06 14:25:08 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:24:22 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ void	ft_printlex(t_list *lst)
 void	ft_analyse(t_ms *ms)
 {
 	ms->lex = ft_lexer(ms);
-	ft_printlex(ms->lex);
+	//ft_printlex(ms->lex);
 	// expand $
-	ft_printf("checkpoint A\n");
+	//ft_printf("checkpoint A\n");
 	if (ft_parser(ms))
 	{
 		ft_printf_fd(2, "Unexpected token or something bad\n");
 		//error message
 	}
-	ft_printf("Tokens after expansion:\n");
-	ft_printf("checkpoint B\n");
-	ft_printlex(ms->lex);
-	ft_printct(ms);
-	ft_printf("checkpoint C\n");
+	//ft_printf("Tokens after expansion:\n");
+	//ft_printf("checkpoint B\n");
+	//ft_printlex(ms->lex);
+	//ft_printct(ms);
+	//ft_printf("checkpoint C\n");
 	//
 
 	//need better split from piscine
@@ -82,7 +82,7 @@ void	ft_analyse(t_ms *ms)
 	{
 		ft_printf_fd(2, "Executor error\n");
 	}
-	ft_printf("checkpoint D\n");
+	//ft_printf("checkpoint D\n");
 }
 
 int	minishell(t_ms *ms)
@@ -93,7 +93,7 @@ int	minishell(t_ms *ms)
 		if(!ms->s)
 		{
 			ft_free(ms);
-			ft_printf("checkpoint EXIT\n");
+			//ft_printf("checkpoint EXIT\n");
 			break ;
 		}
 		else
