@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:05:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/08 19:04:05 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/08 19:40:35 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ typedef struct s_checker
 	int		text;
 	int		stuff; //no space and no text;
 	int		parentheses;
-	int		space;
 	int		status;
 }	t_check;
 
@@ -90,6 +89,34 @@ void	ft_check_stuff(t_check *check)
 	}
 }
 
+void	ft_extra_check_test(t_check *check)
+{
+	if (check->text <= check->stuff)
+		check->status = 5;
+	check->text = 0;
+	check->stuff = 0;
+}
+
+void	ft_extra_check(t_list *lst, t_check *check)
+{
+	check->text = 0;
+	check->stuff = 0;
+	while (lst && !check->status)
+	{
+		check->token = lst->content;
+		if (check->token->type & PIPE || check->token->type & ANDOR)
+			ft_extra_check_test(check);
+		if (check->token->type & REDIRECTS)
+			check->stuff++;
+		if (check->token->type & TEXT)
+			check->text++;
+		lst = lst->next;
+		//ft_printf("token %x, stuff %i text %i, status%i\n",
+		//	check->token->type, check->stuff, check->text, check->status);
+	}
+	ft_extra_check_test(check);
+}
+
 int	ft_tokenchecker(t_ms *ms)
 {
 	t_list	*lst;
@@ -117,9 +144,12 @@ int	ft_tokenchecker(t_ms *ms)
 		return(1);
 	
 	if (check->parentheses)
-	{
+	{	if (check->status)
 		check->status = 3;
 	}
+	lst = ms->lex;
+	if (!check->status)
+		ft_extra_check(lst, check);
 	if (check->status)
 	{
 		ms->error = 2;
