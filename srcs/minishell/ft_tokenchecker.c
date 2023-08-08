@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:05:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/08 18:25:00 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/08 19:04:05 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,20 @@ void	ft_check_stuff(t_check *check)
 	int	stuff;
 
 	stuff = 0x37FF & ~TEXT; //no text and no space
-	if (check->token->type & stuff)
+	//ft_printf("token %x, stuff %i\n", check->token->type, check->stuff);
+	if (check->token->type & stuff && check->stuff == 1)
+	{
+		check->text = 0;
+		check->stuff = 1;
+		check->status = 4;
+		//ft_printf("test1\n");
+	}
+	else if (check->token->type & stuff)
 	{
 		check->text = 0;
 		check->stuff = 1;
 		check->status = 1;
+		//ft_printf("test2\n");
 	}
 }
 
@@ -106,8 +115,15 @@ int	ft_tokenchecker(t_ms *ms)
 	//ft_printf("status is %i\n", check->status);
 	if (!check->stuff)
 		return(1);
-	ms->error = 2;
+	
+	if (check->parentheses)
+	{
+		check->status = 3;
+	}
 	if (check->status)
+	{
+		ms->error = 2;
 		ft_printf_fd(2, "minishell: syntax error, unexpected token\n");
+	}
 	return (check->status);
 }
