@@ -6,20 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:05:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/08 19:40:35 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/08 19:45:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-typedef struct s_checker
-{
-	t_token	*token;
-	int		text;
-	int		stuff; //no space and no text;
-	int		parentheses;
-	int		status;
-}	t_check;
 
 void	ft_check_text(t_check *check)
 {

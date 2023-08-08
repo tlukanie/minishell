@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/08 17:42:32 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/08 19:46:23 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 //# define PROMPT1 "\001\033[1;38:5:51m\002Mini\001\033[0m\033[37m\002\001\033[5m🐧 🪟 🇺🇦🍏🍎\033[0m\002"
 # define PROMPT1 "\001\033[1;38:5:51m\002Mini\001\033[0m\033[37m\002\001\033[5m🐧\033[0m\002"
-# define PROMPT2 "\001\033[0m\033[1;38:5:226m\002hell\001\033[0m\002:\001\033[1;38:5:46m\002"
+# define PROMPT2 "\001\033[0m\033[1;38:5:226m\002shell\001\033[0m\002:\001\033[1;38:5:46m\002"
 # define PROMPT3 "\001\033[0m\002$ \a\a"
 
 // STRUCTURES
@@ -116,6 +116,15 @@ typedef enum e_type
 	REDIRECTS = 0x7F0,
 	BONUS = 0xFFFF0000 //mask to index of the command group
 }	t_type;
+
+typedef struct s_checker
+{
+	t_token	*token;
+	int		text;
+	int		stuff; //no space and no text;
+	int		parentheses;
+	int		status;
+}	t_check;
 
 //command table = ct
 typedef struct s_ct
