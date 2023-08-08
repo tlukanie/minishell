@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/06 15:21:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/08 17:42:32 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_ms
 {
 	int		live;
 	int		err[2];
+	int		error;
 	int		exit;
 	int		csn;
 	char	*prompt;
@@ -197,6 +198,9 @@ int		ft_expand_strings(t_ms *ms);
 
 //		ft_signal.c
 void	ft_newline(int signal);
+
+//		ft_tokenchecker.c
+int		ft_tokenchecker(t_ms *ms);
 
 //	utils prototypes
 

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/07 17:24:22 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/08 18:25:11 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void	ft_analyse(t_ms *ms)
 	//ft_printlex(ms->lex);
 	// expand $
 	//ft_printf("checkpoint A\n");
+	if (ft_tokenchecker(ms))
+	{
+		//ft_printf("Token checker returned %i\n", ft_tokenchecker(ms));
+		return ;
+	}
 	if (ft_parser(ms))
 	{
 		ft_printf_fd(2, "Unexpected token or something bad\n");
