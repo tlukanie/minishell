@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 18:51:22 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 19:47:13 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/09 20:24:55 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_list	*ft_get_dir(int mode)
 	{
 		if (lstat(dp->d_name, &statbuf) == -1)
 			continue;
-		s = dp->d_name;
+		s = ft_stringcopy(dp->d_name);
 		ft_update_lst(&lst, s, mode);
 	}
 	closedir(dir);
@@ -70,8 +70,8 @@ static void	ft_delstring(void *ptr)
 	char	*s;
 
 	s = ptr;
-	//if (s)
-	//	free(s);
+	if (s)
+		free(s);
 	s = NULL;	
 }
 
@@ -99,8 +99,8 @@ static int	ft_wild_fits(char *w, char *s)
 		}
 		ft_printf("AW:s[i] = <%s> i = %i\n", &s[i], i);
 		ft_printf("AW:w[j] = <%s> j = %i\n", &w[j], j);
-		if (s[i] == 127) //not cool
-			s[i] = 0;
+		//if (s[i] == 127) //not cool; probably because not copying dp->d_name
+		//	s[i] = 0;
 		if (s[i] != '*' && s[i])
 		{
 			ft_printf("s[i] = %i\n", s[i]);
@@ -166,9 +166,6 @@ static void	ft_replace_wild(t_list *lst, t_token *token, char *s)
 	ft_compare(s, &dir);
 	ft_printf("\nnew\n");
 	ft_print_dir(dir);
-	//create list of stuff in current folder (if s[0] = '.' with hidden files)
-	//exclude . and ..
-	//compare string with list, delete from the list what does not fit
 	//if nothing left nothing changed
 	//if something left replace current token with space and insert new list of tokens
 	//(SPACE NOQUOTE SPACE ... SPACE NOQUOTE SPACE)
