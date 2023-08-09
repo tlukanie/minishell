@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/09 15:13:10 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/09 18:50:43 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
 
 
 // DEFINITIONS
@@ -210,6 +213,9 @@ void	ft_newline(int signal);
 
 //		ft_tokenchecker.c
 int		ft_tokenchecker(t_ms *ms);
+
+//		ft_wildcard.c
+void	ft_expand_wild(t_ms *ms, t_list *lst);
 
 //	utils prototypes
 

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 15:15:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/09 17:24:11 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ static int ft_execct(t_ms *ms, int i, int j)
 		return (0);
 	}
 	ms->cs[i].pids[j] = fork();
+	//printf("i = %i, j = %i, status = %i, pid = %i\n", i, j, ms->error, ms->cs[i].pids[j]);
 	if (ms->cs[i].pids[j] < 0)
 		exit(255); //should not happen but needs better handling
 	if (ms->cs[i].pids[j] == 0)
@@ -349,6 +350,7 @@ static int ft_execcs(t_ms *ms, int i)
 		{
 			//printf("Waiting for pid %i.\n", ms->cs[i].pids[w]);
 			ft_wait(ms, ms->cs[i].pids[w], 0);
+			//printf("status is %i\n", ms->error);
 			//printf("Waited for pid %i.\n", ms->cs[i].pids[w]);
 		}
 		w++;
