@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/08/08 18:09:55 by okraus           ###   ########.fr        #
+#    Updated: 2023/08/09 15:13:23 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ SRC_MS			=	ft_executor \
 
 SRC_UT			=	ft_envvar \
 					ft_free \
-					ft_init
+					ft_init \
+					ft_wait
 
 # Formating
 

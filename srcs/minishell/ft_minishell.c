@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/08 18:52:55 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/09 15:34:56 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	minishell(t_ms *ms)
 {
 	while (ms->live)
 	{
+		//ft_printf("status: %i\n", ms->error);
 		ms->s = readline(ms->prompt);
 		if(!ms->s)
 		{

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/08 19:46:23 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/09 15:13:10 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	ft_echo(t_ms *ms, char *argv[]);
 void	ft_env(t_ms *ms, char *argv[]);
 
 //		ft_exit.c
-void	ft_exit(t_ms *ms, char *argv[]);
+void	ft_exit_builtin(t_ms *ms, char *argv[]);
 
 //		ft_export.c
 void	ft_export(t_ms *ms, char *argv[]);
@@ -215,6 +215,7 @@ int		ft_tokenchecker(t_ms *ms);
 
 //		ft_free.c
 void	ft_free(t_ms *ms);
+void	ft_exit(t_ms *ms, int err);
 
 //		ft_envval.c
 void	ft_putenv(t_list *el);
@@ -228,5 +229,8 @@ void	ft_init(t_ms *ms);
 void	ft_init_prompt(t_ms *ms);
 t_ev	*ft_evinit(char *str);
 void	ft_sortenv(t_list *el);
+
+//		ft_wait.c
+void	ft_wait(t_ms *ms, int pid, int options);
 
 #endif

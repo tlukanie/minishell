@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/07 17:27:31 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/09 15:15:26 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ static void	ft_heredoc(t_ms *ms, int i, int j)
 			ft_closepipes(ms, i);
 			exit(1); //free before exit
 		}
-		waitpid(pid, NULL, 0);
+		ft_wait(ms, pid, 0);
 	}
 }
 
@@ -241,7 +241,7 @@ static int ft_execct(t_ms *ms, int i, int j)
 		return (0);
 	if (!ft_strncmp(argv[0], "exit", 5))
 	{
-		ft_exit(ms, argv);
+		ft_exit_builtin(ms, argv);
 		return (0);
 	}
 	else if (!ft_strncmp(argv[0], "cd", 3))
@@ -348,7 +348,7 @@ static int ft_execcs(t_ms *ms, int i)
 		if (ms->cs[i].pids[w])
 		{
 			//printf("Waiting for pid %i.\n", ms->cs[i].pids[w]);
-			waitpid(ms->cs[i].pids[w] , NULL, 0);
+			ft_wait(ms, ms->cs[i].pids[w], 0);
 			//printf("Waited for pid %i.\n", ms->cs[i].pids[w]);
 		}
 		w++;
