@@ -6,11 +6,13 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 15:34:56 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/10 20:48:15 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	g_signal;
 
 void	ft_errorcheck(t_ms *ms)
 {
@@ -60,7 +62,7 @@ void	ft_printlex(t_list *lst)
 void	ft_analyse(t_ms *ms)
 {
 	ms->lex = ft_lexer(ms);
-	//ft_printlex(ms->lex);
+
 	// expand $
 	//ft_printf("checkpoint A\n");
 	if (ft_tokenchecker(ms))
@@ -68,6 +70,8 @@ void	ft_analyse(t_ms *ms)
 		//ft_printf("Token checker returned %i\n", ft_tokenchecker(ms));
 		return ;
 	}
+	ft_printf("new lex 4b \n");
+	ft_printlex(ms->lex);
 	if (ft_parser(ms))
 	{
 		ft_printf_fd(2, "Unexpected token or something bad\n");
@@ -75,7 +79,7 @@ void	ft_analyse(t_ms *ms)
 	}
 	//ft_printf("Tokens after expansion:\n");
 	//ft_printf("checkpoint B\n");
-	//ft_printlex(ms->lex);
+	ft_printlex(ms->lex);
 	//ft_printct(ms);
 	//ft_printf("checkpoint C\n");
 	//
@@ -120,6 +124,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argc;
 	(void)argv;
+	g_signal = 0;
 	ms.ev = env;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_newline);

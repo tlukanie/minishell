@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 15:13:56 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/10 19:28:32 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,9 @@ void	ft_sortenv(t_list *el)
 void	ft_init(t_ms *ms)
 {
 	ms->live = 1;
+	ms->parent = 1;
+	ms->child = 0;
+	ms->signal = 0;
 	ms->err[0] = 0;
 	ms->err[1] = 0;
 	ms->exit = 0;

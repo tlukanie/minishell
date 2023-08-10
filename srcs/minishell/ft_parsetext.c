@@ -6,11 +6,14 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:23:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 18:51:09 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/10 21:02:04 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+//to be deleted
+void	ft_printlex(t_list *lst);
 
 static char	*ft_replacetilda(t_ms *ms, char *s, int *i)
 {
@@ -54,6 +57,8 @@ int	ft_expand_strings(t_ms *ms)
 	char	*str;
 
 	lst = ms->lex;
+	ft_printf("new lex AAAA \n");
+	ft_printlex(ms->lex);
 	while (lst)
 	{
 		token = lst->content;
@@ -63,7 +68,6 @@ int	ft_expand_strings(t_ms *ms)
 			if (token->type == NOQUOTE)
 			{
 				token->text = ft_expand_tilda(ms, str);
-				ft_expand_wild(ms, lst);
 				if (token->text != str && str)
 					free(str);
 				if (!token->text)
@@ -76,8 +80,12 @@ int	ft_expand_strings(t_ms *ms)
 			if (!token->text)
 				return (1);
 		}
+		if (token->type == NOQUOTE)
+			ft_expand_wild(ms, lst);
 		lst = lst->next;
 	}
+	ft_printf("new lex BBBB \n");
+	ft_printlex(ms->lex);
 	return (0);
 }
 

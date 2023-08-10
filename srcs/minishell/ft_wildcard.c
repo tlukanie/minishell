@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 18:51:22 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 20:24:55 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/10 21:15:52 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	ft_wild_fits(char *w, char *s)
 		stop = i;
 		ft_printf("BW:s[i] = <%s> i = %i\n", &s[i], i);
 		ft_printf("BW:w[j] = <%s> j = %i\n", &w[j], j);	
-		while(w[j] == s[i])
+		while(w[j] && w[j] == s[i])
 		{
 			i++;
 			j++;
@@ -112,7 +112,7 @@ static int	ft_wild_fits(char *w, char *s)
 		i++;
 	ft_printf("s[i] = <%s> i = %i\n", &s[i], i);
 	ft_printf("w[j] = <%s> j = %i\n", &w[j], j);
-	if (!s[i])
+	if (!s[i] && !w[j]) //works better sometimes without w
 		return (1);
 	return (0);
 }
@@ -151,10 +151,58 @@ static void	ft_compare(char *s, t_list **dir)
 	}
 }
 
-static void	ft_replace_wild(t_list *lst, t_token *token, char *s)
+static void	ft_printlex(t_list *lst)
 {
-	(void)lst;
-	(void)token;
+	t_token	*token;
+
+	while (lst)
+	{
+		token = lst->content;
+		ft_printf("<%8x> <%s>\n", token->type, token->text);
+		lst = lst->next;
+	}
+}
+
+static void	ft_replace_token(t_ms *ms, t_list *lst, t_token *token, t_list *dir)
+{
+	t_list *next;
+	t_list *new;
+
+	next = lst->next;
+	lst->next = NULL;
+	free(token->text);
+	token->text = NULL;
+	token->type = SPACETOKEN;
+	while (dir)
+	{
+		token = malloc(sizeof(t_token));
+		if (!token)
+			ft_exit(ms, 1);
+		token->type = NOQUOTE;
+		token->text = ft_stringcopy((char *)dir->content);
+		new = ft_lstnew(token);
+		if (!new)
+			ft_exit(ms, 1);
+		ft_lstadd_back(&lst, new);
+		token = malloc(sizeof(t_token));
+		if (!token)
+			ft_exit(ms, 1);
+		token->type = SPACETOKEN;
+		token->text = NULL;
+		new = ft_lstnew(token);
+		if (!new)
+			ft_exit(ms, 1);
+		ft_lstadd_back(&lst, new);
+		dir = dir->next;
+	}
+	ft_printlex(lst);
+	ft_printf("new lex\n");
+	ft_printlex(ms->lex);
+	ft_lstadd_back(&lst, next);
+}
+
+static void	ft_replace_wild(t_ms *ms, t_list *lst, t_token *token, char *s)
+{
 	t_list	*dir;
 
 	if (s && s[0] != '.')
@@ -166,6 +214,12 @@ static void	ft_replace_wild(t_list *lst, t_token *token, char *s)
 	ft_compare(s, &dir);
 	ft_printf("\nnew\n");
 	ft_print_dir(dir);
+	if (dir)
+		ft_replace_token(ms, lst, token, dir);
+	else
+		ft_printf("\ndir does not exist\n");
+	ft_printf("new lex 2 \n");
+	ft_printlex(ms->lex);
 	//if nothing left nothing changed
 	//if something left replace current token with space and insert new list of tokens
 	//(SPACE NOQUOTE SPACE ... SPACE NOQUOTE SPACE)
@@ -189,8 +243,10 @@ void	ft_expand_wild(t_ms *ms, t_list *lst)
 		while (s && s[i])
 		{
 			if (s[i] == '*')
-				ft_replace_wild(lst, token, s);
+				ft_replace_wild(ms, lst, token, s);
 			i++;
 		}
 	}
+	ft_printf("new lex 3 \n");
+	ft_printlex(ms->lex);
 }

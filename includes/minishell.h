@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/09 18:50:43 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/10 20:50:23 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <dirent.h>
 
 
 // DEFINITIONS
@@ -39,13 +39,18 @@
 // STRUCTURES
 // MINISHELL structure
 
+extern int g_signal;
+
 typedef struct s_cs
 	t_cs;
 
 typedef struct s_ms
 {
 	int		live;
-	int		err[2];
+	int		signal;
+	int		parent;
+	int		child;
+	int		err[2];		//remove this array
 	int		error;
 	int		exit;
 	int		csn;
