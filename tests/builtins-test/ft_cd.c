@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 15:23:40 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/28 19:52:21 by okraus           ###   ########.fr       */
+/*   Created: 2023/07/11 18:22:53 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/11 18:25:42 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/libft.h"
+#include <unistd.h>
+#include <stdlib.h>
+//replace string with libft
+#include <string.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void ft_pwd(void)
 {
-	size_t	i;
-	size_t	j;
-	char	*s3;
+	char	cwd[4096];
+	char 	*s;
 
-	j = ft_strlen(s1);
-	i = ft_strlen(s2);
-	s3 = (char *)malloc((i + j + 1) * sizeof(char));
-	if (s3 == NULL)
-		return (NULL);
-	i = 0;
-	while (s1 && s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (s2 && s2[i])
-	{
-		s3[i + j] = s2[i];
-		i++;
-	}
-	s3[i + j] = 0;
-	return (s3);
+	s = getcwd(cwd, 4096);
+	write(1, s, strlen(s));
+	write(1, "\n", 1);
+}
+
+int ft_cd(const char *s)
+{
+	return(chdir(s));
+}
+
+int	main(int argc, char *argv[])
+{
+	if (argc != 2)
+		return (1);
+	ft_pwd();
+	ft_cd(argv[1]);
+	ft_pwd();
+	return (0);
 }

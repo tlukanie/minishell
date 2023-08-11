@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 15:23:40 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/28 19:52:21 by okraus           ###   ########.fr       */
+/*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/31 19:35:17 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+// pwd
+
+void	ft_pwd(t_ms *ms, char *argv[])
 {
-	size_t	i;
-	size_t	j;
-	char	*s3;
+	char	cwd[4096];
+	char	*s;
 
-	j = ft_strlen(s1);
-	i = ft_strlen(s2);
-	s3 = (char *)malloc((i + j + 1) * sizeof(char));
-	if (s3 == NULL)
-		return (NULL);
-	i = 0;
-	while (s1 && s1[i])
+	if (argv[1])
 	{
-		s3[i] = s1[i];
-		i++;
+		ft_free(ms);
+		ft_printf_fd(2, "pwd: too many arguments\n");
+		ft_free_split(&argv);
+		exit(1);
 	}
-	i = 0;
-	while (s2 && s2[i])
-	{
-		s3[i + j] = s2[i];
-		i++;
-	}
-	s3[i + j] = 0;
-	return (s3);
+	s = getcwd(cwd, 4096);
+	ft_printf("%s\n", s);
+	ft_free(ms);
+	ft_free_split(&argv);
+	exit(0);
 }

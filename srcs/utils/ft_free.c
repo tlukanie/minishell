@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 15:23:40 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/28 19:52:21 by okraus           ###   ########.fr       */
+/*   Created: 2023/07/12 15:19:08 by okraus            #+#    #+#             */
+/*   Updated: 2023/08/09 15:03:31 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_free(t_ms *ms)
 {
-	size_t	i;
-	size_t	j;
-	char	*s3;
+	free(ms->prompt);
+	ft_free_split(&ms->ev);
+	ft_lstclear(&ms->el, ft_free_ev);
+	//write(1, "freeing simulation complete\n", 28);
+}
 
-	j = ft_strlen(s1);
-	i = ft_strlen(s2);
-	s3 = (char *)malloc((i + j + 1) * sizeof(char));
-	if (s3 == NULL)
-		return (NULL);
-	i = 0;
-	while (s1 && s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (s2 && s2[i])
-	{
-		s3[i + j] = s2[i];
-		i++;
-	}
-	s3[i + j] = 0;
-	return (s3);
+//free list
+
+//free ev structure
+
+void	ft_exit(t_ms *ms, int err)
+{
+	ft_free(ms);
+	ms->error = err;
+	exit(err);
 }

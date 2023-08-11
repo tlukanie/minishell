@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 15:23:40 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/28 19:52:21 by okraus           ###   ########.fr       */
+/*   Created: 2023/07/12 15:11:51 by okraus            #+#    #+#             */
+/*   Updated: 2023/08/09 14:59:25 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+// need check for too many arguments and to be passed as an argument yep
+
+void	ft_exit_builtin(t_ms *ms, char *argv[])
 {
-	size_t	i;
-	size_t	j;
-	char	*s3;
-
-	j = ft_strlen(s1);
-	i = ft_strlen(s2);
-	s3 = (char *)malloc((i + j + 1) * sizeof(char));
-	if (s3 == NULL)
-		return (NULL);
-	i = 0;
-	while (s1 && s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (s2 && s2[i])
-	{
-		s3[i + j] = s2[i];
-		i++;
-	}
-	s3[i + j] = 0;
-	return (s3);
+	if (argv[1])
+		ms->exit = ft_atoi(argv[1]) % 256;
+	ms->live = 0;
+	ft_free_split(&argv);
+	ft_free(ms);
 }

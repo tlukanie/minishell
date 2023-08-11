@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   02-readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 15:23:40 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/28 19:52:21 by okraus           ###   ########.fr       */
+/*   Created: 2023/07/08 10:56:42 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/08 11:09:41 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/libft.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int main(void)
 {
-	size_t	i;
-	size_t	j;
-	char	*s3;
+	char	prompt[] = "\033[35mMini\033[0m\033[37m$\033[0m\033[31mhell\033[0m prompt>";
 
-	j = ft_strlen(s1);
-	i = ft_strlen(s2);
-	s3 = (char *)malloc((i + j + 1) * sizeof(char));
-	if (s3 == NULL)
-		return (NULL);
-	i = 0;
-	while (s1 && s1[i])
+	char	*s;
+
+	s = readline(prompt);
+	printf("string1 was: <<\"%s\">>\n", s);
+	printf("end with string starting with '+'\n");
+	while (s[0] != '+')
 	{
-		s3[i] = s1[i];
-		i++;
+		s = readline(prompt);
+		printf("string in loop was: <<\"%s\">>\n", s);
 	}
-	i = 0;
-	while (s2 && s2[i])
-	{
-		s3[i + j] = s2[i];
-		i++;
-	}
-	s3[i + j] = 0;
-	return (s3);
+	return (0);
 }
