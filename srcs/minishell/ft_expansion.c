@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:17:01 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 20:53:46 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 10:05:58 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ char	*ft_expand(t_ms *ms, char *s)
 	int		i;
 
 	i = 0;
-	ft_printf("new lex AA \n");
-	ft_printlex(ms->lex);
 	while (s && s[i])
 	{
 		if (s[i] == '$')
@@ -119,7 +117,5 @@ char	*ft_expand(t_ms *ms, char *s)
 		}
 		i++;
 	}
-	ft_printf("new lex BB \n");
-	ft_printlex(ms->lex);
 	return (s);
 }

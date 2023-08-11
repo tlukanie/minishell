@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/31 19:35:37 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 09:21:25 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void	ft_export(t_ms *ms, char *argv[])
 {
 	int		r;
 	int		i;
-	int		j;
 	t_ev	*ev;
 	t_list	*lst;
 
 	r = 0;
 	i = 1;
-	j = 0;
 	while (argv[i])
 	{
 		if (ft_isvalidvar(argv[i]))

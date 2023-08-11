@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/10 20:50:23 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 10:50:50 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,9 @@ int		ft_expand_strings(t_ms *ms);
 
 //		ft_signal.c
 void	ft_newline(int signal);
+void	ft_newnewline(int signal);
+void	ft_global_sig(int signal);
+void	ft_exit_sig(int signal);
 
 //		ft_tokenchecker.c
 int		ft_tokenchecker(t_ms *ms);

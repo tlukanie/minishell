@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 19:48:35 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 10:48:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static int	ft_exec(t_ms *ms, char **cmd)
 	env = ft_list2split(ms->el);
 	if (access(cmd[0], X_OK) == 0)
 		execve(cmd[0], cmd, env);
+	//ft_printf("%s, %i\n", cmd[0], access(cmd[0], X_OK));
+	//ft_put_split(cmd);
+	//ft_printf("%s, %i\n", strerror(errno), errno);
 	paths = ft_getenvvals(ms, "PATH");
 	if (!paths)
 		return (fail);
@@ -266,6 +269,7 @@ static int ft_execct(t_ms *ms, int i, int j)
 		exit(255); //should not happen but needs better handling
 	if (ms->cs[i].pids[j] == 0)
 	{
+		signal(SIGINT, ft_exit_sig);
 		ms->child = 1;
 		//printf("Heredocking %s\n", argv[0]);
 		ft_heredoc(ms, i, j);
@@ -284,12 +288,16 @@ static int ft_execct(t_ms *ms, int i, int j)
 			ft_echo(ms, argv);
 		else //execve
 		{
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGINT, SIG_DFL);
 			ft_exec(ms, ms->cs[i].ct[j].argv);
 			ft_printf_fd(2, "command not found: %s\n", argv[0]);
 			ft_free(ms);
 			exit(127);
 		}
 	}
+	else
+		signal(SIGINT, ft_global_sig);
 	return (0);
 }
 

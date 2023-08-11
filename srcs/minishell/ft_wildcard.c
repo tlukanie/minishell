@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 18:51:22 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 21:15:52 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 11:04:42 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ static t_list	*ft_get_dir(int mode)
 	return (lst);
 }
 
-static void	ft_print_dir(t_list *lst)
-{
-	char	*s;
+// static void	ft_print_dir(t_list *lst)
+// {
+// 	char	*s;
 
-	while (lst)
-	{
-		s = lst->content;
-		ft_printf("dir: <%s>\n", s);
-		lst = lst->next;
-	}
-}
+// 	while (lst)
+// 	{
+// 		s = lst->content;
+// 		ft_printf("dir: <%s>\n", s);
+// 		lst = lst->next;
+// 	}
+// }
 
 static void	ft_delstring(void *ptr)
 {
@@ -83,36 +83,46 @@ static int	ft_wild_fits(char *w, char *s)
 
 	i = 0;
 	j = 0;
-	ft_printf("s = <%s>\n", s);
-	ft_printf("w = <%s>\n", w);
+	//ft_printf("s = <%s>\n", s);
+	//ft_printf("w = <%s>\n", w);
+	if (s && w)
+	{
+		while(s[i] != '*')
+		{
+			if (s[i] != w[j])
+				return (0);
+			i++;
+			j++;
+		}
+	}
 	while (s && w && s[i] && w[j])
 	{
 		while(s[i] == '*')
 			i++;
 		stop = i;
-		ft_printf("BW:s[i] = <%s> i = %i\n", &s[i], i);
-		ft_printf("BW:w[j] = <%s> j = %i\n", &w[j], j);	
+		//ft_printf("BW:s[i] = <%s> i = %i\n", &s[i], i);
+		//ft_printf("BW:w[j] = <%s> j = %i\n", &w[j], j);	
 		while(w[j] && w[j] == s[i])
 		{
 			i++;
 			j++;
 		}
-		ft_printf("AW:s[i] = <%s> i = %i\n", &s[i], i);
-		ft_printf("AW:w[j] = <%s> j = %i\n", &w[j], j);
+		//ft_printf("AW:s[i] = <%s> i = %i\n", &s[i], i);
+		//ft_printf("AW:w[j] = <%s> j = %i\n", &w[j], j);
 		//if (s[i] == 127) //not cool; probably because not copying dp->d_name
 		//	s[i] = 0;
-		if (s[i] != '*' && s[i])
+		if ((s[i] != '*' && s[i]) || (w[j] && s[i] != '*'))
 		{
-			ft_printf("s[i] = %i\n", s[i]);
+			//ft_printf("s[i] = %i\n", s[i]);
 			i = stop;
 			j++;
 		}
 	}
 	while(s[i] == '*')
 		i++;
-	ft_printf("s[i] = <%s> i = %i\n", &s[i], i);
-	ft_printf("w[j] = <%s> j = %i\n", &w[j], j);
-	if (!s[i] && !w[j]) //works better sometimes without w
+	//ft_printf("s[i] = <%s> i = %i\n", &s[i], i);
+	//ft_printf("w[j] = <%s> j = %i\n", &w[j], j);
+	if ((!s[i] && s[i - 1] !='*' && !w[j]) || (!s[i] && s[i - 1] == '*')) //works better sometimes without w
 		return (1);
 	return (0);
 }
@@ -151,17 +161,17 @@ static void	ft_compare(char *s, t_list **dir)
 	}
 }
 
-static void	ft_printlex(t_list *lst)
-{
-	t_token	*token;
+// static void	ft_printlex(t_list *lst)
+// {
+// 	t_token	*token;
 
-	while (lst)
-	{
-		token = lst->content;
-		ft_printf("<%8x> <%s>\n", token->type, token->text);
-		lst = lst->next;
-	}
-}
+// 	while (lst)
+// 	{
+// 		token = lst->content;
+// 		ft_printf("<%8x> <%s>\n", token->type, token->text);
+// 		lst = lst->next;
+// 	}
+// }
 
 static void	ft_replace_token(t_ms *ms, t_list *lst, t_token *token, t_list *dir)
 {
@@ -195,9 +205,9 @@ static void	ft_replace_token(t_ms *ms, t_list *lst, t_token *token, t_list *dir)
 		ft_lstadd_back(&lst, new);
 		dir = dir->next;
 	}
-	ft_printlex(lst);
-	ft_printf("new lex\n");
-	ft_printlex(ms->lex);
+	//ft_printlex(lst);
+	//ft_printf("new lex\n");
+	//ft_printlex(ms->lex);
 	ft_lstadd_back(&lst, next);
 }
 
@@ -210,21 +220,22 @@ static void	ft_replace_wild(t_ms *ms, t_list *lst, t_token *token, char *s)
 	else
 		dir = ft_get_dir(1);
 
-	ft_print_dir(dir);
+	//ft_print_dir(dir);
 	ft_compare(s, &dir);
-	ft_printf("\nnew\n");
-	ft_print_dir(dir);
+	//ft_printf("\nnew\n");
+	//ft_print_dir(dir);
 	if (dir)
 		ft_replace_token(ms, lst, token, dir);
 	else
 		ft_printf("\ndir does not exist\n");
-	ft_printf("new lex 2 \n");
-	ft_printlex(ms->lex);
+	//ft_printf("new lex 2 \n");
+	//ft_printlex(ms->lex);
 	//if nothing left nothing changed
 	//if something left replace current token with space and insert new list of tokens
 	//(SPACE NOQUOTE SPACE ... SPACE NOQUOTE SPACE)
 	//insert list function
 	//delete dir;
+	ft_lstclear(&dir, ft_delstring);
 	
 }
 
@@ -247,6 +258,6 @@ void	ft_expand_wild(t_ms *ms, t_list *lst)
 			i++;
 		}
 	}
-	ft_printf("new lex 3 \n");
-	ft_printlex(ms->lex);
+	//ft_printf("new lex 3 \n");
+	//ft_printlex(ms->lex);
 }

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 20:52:54 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 10:02:33 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,16 +275,16 @@ int	ft_parser(t_ms *ms)
 	//ft_printf("0\n");
 	if (!ms->lex)
 		return (0);
-	ft_printf("new lex 0 \n");
-	ft_printlex(ms->lex);
+	//ft_printf("new lex 0 \n");
+	//ft_printlex(ms->lex);
 	if (ft_expand_strings(ms))
 		return (1);
-	ft_printf("new lex a \n");
-	ft_printlex(ms->lex);
+	//ft_printf("new lex a \n");
+	//ft_printlex(ms->lex);
 	if (ft_jointext(ms))
 		return (2);
-	ft_printf("new lex b \n");
-	ft_printlex(ms->lex);
+	//ft_printf("new lex b \n");
+	//ft_printlex(ms->lex);
 	// expand wildcards
 	// create binary tree
 	// count cs & update token type
@@ -297,8 +297,8 @@ int	ft_parser(t_ms *ms)
 	{
 		return (6);
 	}
-	ft_printf("new lex e \n");
-	ft_printlex(ms->lex);
+	//ft_printf("new lex e \n");
+	//ft_printlex(ms->lex);
 	//ft_printf("6\n");
 	// update paths probably in other function
 	return (0);

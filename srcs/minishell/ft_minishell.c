@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 20:48:15 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 10:27:18 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_analyse(t_ms *ms)
 		//ft_printf("Token checker returned %i\n", ft_tokenchecker(ms));
 		return ;
 	}
-	ft_printf("new lex 4b \n");
-	ft_printlex(ms->lex);
+	// ft_printf("new lex 4b \n");
+	// ft_printlex(ms->lex);
 	if (ft_parser(ms))
 	{
 		ft_printf_fd(2, "Unexpected token or something bad\n");
@@ -79,7 +79,7 @@ void	ft_analyse(t_ms *ms)
 	}
 	//ft_printf("Tokens after expansion:\n");
 	//ft_printf("checkpoint B\n");
-	ft_printlex(ms->lex);
+	//ft_printlex(ms->lex);
 	//ft_printct(ms);
 	//ft_printf("checkpoint C\n");
 	//
@@ -99,6 +99,7 @@ int	minishell(t_ms *ms)
 	while (ms->live)
 	{
 		//ft_printf("status: %i\n", ms->error);
+		signal(SIGINT, ft_newline);
 		ms->s = readline(ms->prompt);
 		if(!ms->s)
 		{
