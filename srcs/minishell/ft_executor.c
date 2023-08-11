@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 12:54:49 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 18:32:19 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,9 @@ static void	ft_heredoc(t_ms *ms, int i, int j)
 				line = get_next_line(0);
 				if (line == NULL)
 				{
+					ft_printf_fd(2, "\nminishell: warning: here-document ");
+					ft_printf_fd(2, "delimited by end-of-file (wanted");
+					ft_printf_fd(2, "`%s')\n", ms->cs[i].ct[j].hd);
 					//free!
 					exit(1);
 				}
