@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 13:26:15 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 17:26:08 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_analyse(t_ms *ms)
 	{
 		ft_printf_fd(2, "Executor error\n");
 	}
-	ft_printlex(ms->exe);
+	//ft_printlex(ms->exe);
 	//ft_printf("checkpoint D\n");
 }
 
@@ -110,7 +110,8 @@ int	minishell(t_ms *ms)
 		}
 		else
 		{
-			add_history (ms->s);
+			if (ms->s[0])
+				add_history (ms->s);
 			ft_analyse(ms);
 			ft_errorcheck(ms);
 			free(ms->s);
