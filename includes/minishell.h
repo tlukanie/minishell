@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/11 10:50:50 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 13:21:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_ms
 	t_cs	*cs;
 	t_list	*el;
 	t_list	*lex;
+	t_list	*exe;
 }	t_ms;
 
 // typedef struct s_ms
@@ -98,6 +99,7 @@ typedef struct s_ev
 typedef struct s_token
 {
 	unsigned int	type;
+	int				csi; //command structure index;
 	char			*text;
 }	t_token;
 
@@ -122,6 +124,7 @@ typedef enum e_type
 	TEXT = 0x7,			// ...0000 0111
 	ANDOR = 0x3000,		
 	REDIRECTS = 0x7F0,
+	PAR = 0xC000,
 	BONUS = 0xFFFF0000 //mask to index of the command group
 }	t_type;
 
@@ -197,8 +200,12 @@ void	ft_free_ev(void *ptr);
 
 //	minishell prototypes
 
+//		ft_bonus_exe.c
+int		ft_bonus_executor(t_ms *ms);
+
 //		ft_executor.c
 int		ft_executor(t_ms *ms);
+int 	ft_execcs(t_ms *ms, int i);
 
 //		ft_expansion.c
 char	*ft_expand(t_ms *ms, char *s);

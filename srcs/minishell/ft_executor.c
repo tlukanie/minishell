@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 10:48:13 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:54:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,7 +322,7 @@ static int ft_open_pipes(t_ms *ms, int i)
 	return (0);
 }
 
-static int ft_execcs(t_ms *ms, int i)
+int ft_execcs(t_ms *ms, int i)
 {
 	int	j;
 	int	w;

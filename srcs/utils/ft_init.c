@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 19:28:32 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:52:03 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	ft_init(t_ms *ms)
 	ms->csn = 1;
 	ms->cs = NULL;
 	ms->lex = NULL;
+	ms->exe = NULL;
 	ms->ev = ft_copy_split(ms->ev);
 	ms->el = ft_split2list(ms->ev);
 	ft_init_prompt(ms);

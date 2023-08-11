@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 10:27:18 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 13:26:15 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_printlex(t_list *lst)
 	while (lst)
 	{
 		token = lst->content;
-		ft_printf("<%8x> <%s>\n", token->type, token->text);
+		ft_printf("<%8x> <%8i> <%s>\n", token->type, token->csi, token->text);
 		lst = lst->next;
 	}
 }
@@ -87,10 +87,11 @@ void	ft_analyse(t_ms *ms)
 	//need better split from piscine
 	//need to handle quotes as well. ""
 	//replace with lexer/parser maybe?
-	if (ft_executor(ms))
+	if (ft_bonus_executor(ms))
 	{
 		ft_printf_fd(2, "Executor error\n");
 	}
+	ft_printlex(ms->exe);
 	//ft_printf("checkpoint D\n");
 }
 
