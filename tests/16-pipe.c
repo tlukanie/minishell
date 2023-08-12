@@ -1,46 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   10-isatty.c                                        :+:      :+:    :+:   */
+/*   15-tgetent.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 11:54:14 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/07 19:19:51 by tlukanie         ###   ########.fr       */
+/*   Created: 2023/07/11 16:42:51 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/11 16:58:37 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// compile with -lncurses
+
 #include <stdio.h>
 #include <unistd.h>
+#include <curses.h>
+#include <term.h>
+#include <stdlib.h>
 
 int	main(void)
 {
-	int fd;
+	int			piper[2];
+	int			i;
 
-	fd = 0;
-
-	while (fd < 33)
-	{
-		printf("| fd = %2i, isatty = %i |", fd, isatty(fd));
-		fd++;
-		if (!(fd % 3))
-			printf("\n");
-		printf ("use at least one arg\n");
-		printf("SUNNY!\n");
-	}
-	else
-	{
-		while (argv[i])
-		{
-			printf("%s\n", argv[i]);
-			i++;
-		}
-	}
 	i = 0;
-	while (env[i])
+	while (i < 2048)
 	{
-		printf("%s\n", env[i]);
+		if (pipe(piper) < 0)
+			break;
+		printf("piper[0] = %i, piper[1] = %i\n", piper[0], piper[1]);
+		if (i > 10 && i % 2)
+		{
+			close(i / 2);
+			printf("closeing fd = %i\n", i / 2);
+			close(i / 2 + 1);
+			printf("closeing fd = %i\n", i / 2 + 1);
+			close(i / 2 + 2);
+			printf("closeing fd = %i\n", i / 2 + 2);
+		}
 		i++;
 	}
-	printf("\n");
+	printf("i = %i\n", i);
 	return (0);
 }

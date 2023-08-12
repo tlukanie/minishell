@@ -1,46 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   10-isatty.c                                        :+:      :+:    :+:   */
+/*   01-readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 11:54:14 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/07 19:19:51 by tlukanie         ###   ########.fr       */
+/*   Created: 2023/07/08 10:56:42 by okraus            #+#    #+#             */
+/*   Updated: 2023/07/08 11:01:09 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
 
-int	main(void)
+int main(void)
 {
-	int fd;
-
-	fd = 0;
-
-	while (fd < 33)
-	{
-		printf("| fd = %2i, isatty = %i |", fd, isatty(fd));
-		fd++;
-		if (!(fd % 3))
-			printf("\n");
-		printf ("use at least one arg\n");
-		printf("SUNNY!\n");
-	}
-	else
-	{
-		while (argv[i])
-		{
-			printf("%s\n", argv[i]);
-			i++;
-		}
-	}
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	printf("\n");
+	int		(*pipes)[2];
+	
+	pipes = malloc(sizeof(int[2]) * 10);
+	pipes[10][1] = 7;
+	printf("%i", pipes[10][1]);
 	return (0);
 }

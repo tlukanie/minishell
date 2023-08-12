@@ -1,46 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   10-isatty.c                                        :+:      :+:    :+:   */
+/*   09_lstat_b-dir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:54:14 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/07 19:19:51 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:37:00 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+//#include <time.h>
+//#include <locale.h>
+//#include <langinfo.h>
 #include <stdio.h>
-#include <unistd.h>
+//#include <stdint.h>
+
 
 int	main(void)
 {
-	int fd;
+	struct dirent	*dp;
+	struct stat     statbuf;
+	DIR				*dir;
 
-	fd = 0;
-
-	while (fd < 33)
+	dir = opendir(".");
+	if (dir == NULL)
 	{
-		printf("| fd = %2i, isatty = %i |", fd, isatty(fd));
-		fd++;
-		if (!(fd % 3))
-			printf("\n");
-		printf ("use at least one arg\n");
-		printf("SUNNY!\n");
+		perror("opendir() error");
+		return 1;
 	}
-	else
+	while ((dp = readdir(dir)) != NULL)
 	{
-		while (argv[i])
-		{
-			printf("%s\n", argv[i]);
-			i++;
-		}
+		/* Get entry's information. */
+		if (lstat(dp->d_name, &statbuf) == -1)
+			continue;
+		printf("%s\n", dp->d_name);
 	}
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-	printf("\n");
+	closedir(dir);
 	return (0);
 }
