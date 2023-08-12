@@ -12,6 +12,23 @@
 
 #include "../../includes/minishell.h"
 
+static void	ft_put_export_env(t_list *el)
+{
+	t_list	*lst;
+	t_ev	*ev;
+
+	lst = el;
+	while (lst)
+	{
+		if (lst->content)
+		{
+			ev = lst->content;
+			ft_printf("declare -x %s\n", ev->s);
+		}
+		lst = lst->next;
+	}
+}
+
 t_list	*ft_check_var(t_list *el, char *v)
 {
 	t_list	*lst;
@@ -55,6 +72,10 @@ void	ft_export(t_ms *ms, char *argv[])
 
 	r = 0;
 	i = 1;
+	if (!argv[1])
+	{
+		ft_put_export_env(ms->el);
+	}
 	while (argv[i])
 	{
 		if (ft_isvalidvar(argv[i]))
