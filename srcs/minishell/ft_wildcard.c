@@ -228,8 +228,8 @@ static void	ft_replace_wild(t_ms *ms, t_list *lst, t_token *token, char *s)
 	//ft_print_dir(dir);
 	if (dir)
 		ft_replace_token(ms, lst, token, dir);
-	else
-		ft_printf("\ndir does not exist\n");
+	//else
+	//	ft_printf("\ndir does not exist\n");
 	//ft_printf("new lex 2 \n");
 	//ft_printlex(ms->lex);
 	//if nothing left nothing changed
