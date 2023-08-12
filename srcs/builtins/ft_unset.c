@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/31 19:35:25 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/10 19:08:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,18 @@ void	ft_free_ev(void *ptr)
 	ev = NULL;
 }
 
-void	ft_lstrm(t_list **el, t_list *lst)
+void	ft_lstrm(t_ms *ms, t_list *lst)
 {
 	t_list	*l;
 
-	if (lst == *el)
-		*el = lst->next;
+	if (lst == ms->el)
+	{
+		ms->el = ms->el->next;
+		ft_lstdelone(lst, ft_free_ev);
+	}
 	else
 	{
-		l = *el;
+		l = ms->el;
 		while (l)
 		{
 			if (l->next == lst)
@@ -72,7 +75,7 @@ void	ft_lstrm(t_list **el, t_list *lst)
 	}
 }
 
-int	ft_envlist_rm(t_list *el, char *str)
+int	ft_envlist_rm(t_ms *ms, t_list *el, char *str)
 {
 	t_list	*lst;
 	t_ev	*ev;
@@ -83,7 +86,7 @@ int	ft_envlist_rm(t_list *el, char *str)
 		ev = lst->content;
 		if (!ft_strncmp(ev->var, str, ft_strlen(str) + 1))
 		{
-			ft_lstrm(&el, lst);
+			ft_lstrm(ms, lst);
 			return (0);
 		}
 		lst = lst->next;
@@ -106,20 +109,11 @@ void	ft_unset(t_ms *ms, char *argv[])
 	}
 	while (argv[i])
 	{
-		// bash does not handle this
-		if (ft_strchr(argv[i], '='))
-		{
-			r = 127; //change to actual code of not provoding env var;
-		}
-		else
-		{
-			r = ft_envlist_rm(ms->el, argv[i]);
-		}
+		r = ft_envlist_rm(ms, ms->el, argv[i]);
 		i++;
 	}
 	ft_free_split(&argv);
-	ms->err[0] = r;
-	ms->err[1] = 1;
+	ms->error = r;
 }
 
 // remove list entry

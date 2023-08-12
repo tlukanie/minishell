@@ -1,24 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_wait.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 15:11:51 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/09 14:59:25 by okraus           ###   ########.fr       */
+/*   Created: 2023/08/09 15:08:16 by okraus            #+#    #+#             */
+/*   Updated: 2023/08/11 18:58:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// need check for too many arguments and to be passed as an argument yep
-
-void	ft_exit_builtin(t_ms *ms, char *argv[])
+void	ft_wait(t_ms *ms, int pid, int options)
 {
-	if (argv[1])
-		ms->exit = ft_atoi(argv[1]) % 256;
-	ms->live = 0;
-	ft_free_split(&argv);
-	ft_free(ms);
+	int		err;
+
+	waitpid(pid, &err, options);
+	ms->parent--;
+	if (WIFEXITED(err))
+	{
+		ms->error = WEXITSTATUS(err);
+	}
+	else if (WIFSIGNALED(err))
+	{
+		if (WTERMSIG(err) == g_signal)
+		{
+			write(1, "\n", 1);
+			g_signal = 0;
+		}
+		else if (WTERMSIG(err) == SIGQUIT)
+			write(1, "\n", 1);
+	}
+	else
+	{
+		ms->error = 0;
+	}
+	if (g_signal)
+	{
+		//ft_newline(g_signal);
+		g_signal = 0;
+	}
 }

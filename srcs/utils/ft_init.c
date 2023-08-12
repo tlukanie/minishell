@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/30 11:52:06 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:52:03 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,18 @@ void	ft_sortenv(t_list *el)
 void	ft_init(t_ms *ms)
 {
 	ms->live = 1;
+	ms->parent = 1;
+	ms->child = 0;
+	ms->signal = 0;
 	ms->err[0] = 0;
 	ms->err[1] = 0;
 	ms->exit = 0;
-	ms->pids = NULL;
-	ms->pipes = NULL;
+	ms->error = 0;
 	ms->s = NULL;
-	ms->paths = NULL;
-	ms->args = NULL;
+	ms->csn = 1;
+	ms->cs = NULL;
 	ms->lex = NULL;
+	ms->exe = NULL;
 	ms->ev = ft_copy_split(ms->ev);
 	ms->el = ft_split2list(ms->ev);
 	ft_init_prompt(ms);
@@ -138,17 +141,10 @@ void	ft_init(t_ms *ms)
 
 // typedef struct s_ms
 // {
-// 	int		ac;			//argc
-// 	int		fdi;		//fd of input
-// 	int		fdo;		//fd of output
-// 	int		fde;		//fd of error
 //	int		arg;		//number of arguments
-//	int		hd;			//1 if argv[1] == "here_doc"
 //	int		live		//1 if minishell works, 0 after exit
-//	int		*pids;		//pids of child processes
-//	int		**pipes;	//pipe fds
+//	cs command structure
 //	char	*prompt;	//prompt
-// 	char	**av;		//*argv[]
 // 	char	**ev;		//*envp[]
 // 	char	**paths;	//array of paths from envp
 // 	char	***args;	//array of arrays of arguments
