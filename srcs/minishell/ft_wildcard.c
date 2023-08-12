@@ -16,8 +16,8 @@ static void	ft_update_lst(t_list **lst, char *s, int hidden)
 {
 	t_list	*leaf;
 
-	if (!s || (!ft_strncmp(s, ".", 2) || !ft_strncmp(s, "..", 3)))
-		return ;
+	//if (!s || (!ft_strncmp(s, ".", 2) || !ft_strncmp(s, "..", 3)))
+	//	return ;
 	if (s[0] == '.' && !hidden)
 		return ;
 	leaf = ft_lstnew(s);
@@ -79,7 +79,8 @@ static int	ft_wild_fits(char *w, char *s)
 {
 	int	i;
 	int j;
-	int stop;
+	int stopi;
+	int stopj;
 
 	i = 0;
 	j = 0;
@@ -99,7 +100,8 @@ static int	ft_wild_fits(char *w, char *s)
 	{
 		while(s[i] == '*')
 			i++;
-		stop = i;
+		stopi = i;
+		stopj = j;
 		//ft_printf("BW:s[i] = <%s> i = %i\n", &s[i], i);
 		//ft_printf("BW:w[j] = <%s> j = %i\n", &w[j], j);	
 		while(w[j] && w[j] == s[i])
@@ -114,8 +116,8 @@ static int	ft_wild_fits(char *w, char *s)
 		if ((s[i] != '*' && s[i]) || (w[j] && s[i] != '*'))
 		{
 			//ft_printf("s[i] = %i\n", s[i]);
-			i = stop;
-			j++;
+			i = stopi;
+			j = stopj + 1;
 		}
 	}
 	while(s[i] == '*')
