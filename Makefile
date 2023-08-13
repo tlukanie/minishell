@@ -67,6 +67,7 @@ SRC_MS			=	ft_bonus_exe \
 
 SRC_UT			=	ft_envvar \
 					ft_free \
+					ft_free2 \
 					ft_init \
 					ft_wait
 

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 15:54:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 09:57:07 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 20:31:18 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,6 @@ void	ft_changeenvval(t_ms *ms, char *var, char *val)
 		lst = lst->next;
 	}
 }
-
-// change to list with unset
-// int	ft_findenvvar(t_ms *ms, char *var)
-// {
-// 	//	t_list	*lst;
-// 	//	t_ev	*ev;
-// 	int l;
-// 	int	i;
-
-// 	l = ft_strlen(var);
-// 	i = 0;
-// 	while (ms->ev[i])
-// 	{
-// 		if (!ft_strncmp(ms->ev[i], var, l)
-// 			&& ms->ev[i][l] == '=' && ms->ev[i][l + 1])
-// 		{
-// 			return (i);
-// 		}
-// 		i++;
-// 	}
-// 	return (-1);
-// }
 
 char	*ft_getenvval(t_ms *ms, char *var)
 {
@@ -145,29 +123,3 @@ char	**ft_list2split(t_list *lst)
 	env[i] = NULL;
 	return (env);
 }
-
-// rewrite to work with the list
-// not used anymore
-// char	*ft_getenvvar(char *s)
-// {
-// 	int		i;
-// 	int		l;
-// 	char	*var;
-
-// 	i = 0;
-// 	if (!s)
-// 		return (NULL);
-// 	while (s[i] && s[i] != '=')
-// 		i++;
-// 	l = i;
-// 	i = 0;
-// 	var = ft_calloc(sizeof(char), l + 1);
-// 	if (!var)
-// 		return (NULL);
-// 	while (s[i] && s[i] != '=')
-// 	{
-// 		var[i] = s[i];
-// 		i++;
-// 	}
-// 	return (var);
-// }

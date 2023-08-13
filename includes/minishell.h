@@ -239,6 +239,7 @@ void	ft_free_token(void *ptr);
 void	ft_mini_free(t_ms *ms);
 void	ft_free(t_ms *ms);
 void	ft_exit(t_ms *ms, int err);
+void	ft_free_cs(t_ms *ms);
 
 //		ft_envval.c
 void	ft_putenv(t_list *el);

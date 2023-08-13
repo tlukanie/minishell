@@ -139,14 +139,3 @@ void	ft_init(t_ms *ms)
 	ft_init_prompt(ms);
 	ft_sortenv(ms->el);
 }
-
-// typedef struct s_ms
-// {
-//	int		arg;		//number of arguments
-//	int		live		//1 if minishell works, 0 after exit
-//	cs command structure
-//	char	*prompt;	//prompt
-// 	char	**ev;		//*envp[]
-// 	char	**paths;	//array of paths from envp
-// 	char	***args;	//array of arrays of arguments
-// }	t_ms;
