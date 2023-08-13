@@ -6,17 +6,15 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:11:51 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 16:34:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 20:09:43 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// need check for too many arguments and to be passed as an argument yep
-
 static int	ft_check_error_isbignumber(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_strlen(s) > 11)
@@ -52,7 +50,7 @@ static int	ft_check_error_isnumber(char *s)
 	return (0);
 }
 
-static int ft_check_exit_arg(char *str)
+static int	ft_check_exit_arg(char *str)
 {
 	if (!str)
 		return (0);
@@ -87,7 +85,4 @@ void	ft_exit_builtin(t_ms *ms, char *argv[])
 			ft_printf_fd(2, "minishell: exit: numeric argument required\n");
 		}
 	}
-	//ft_free_split(&argv);
-	//ft_free(ms);
-	//ft_printf("abc\n");
 }

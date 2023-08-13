@@ -6,13 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:44:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 17:04:23 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 19:56:17 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// need check for too many arguments and to be passed as an argument
 
 void	ft_env(t_ms *ms, char *argv[])
 {
