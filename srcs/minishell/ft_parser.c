@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 10:02:33 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 12:32:19 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ int	ft_fillctfd(t_ct *ct, char *file, int *r)
 {
 	if (*r & INFILE)
 	{
-		if (!access(file, F_OK & R_OK))
+		if (!access(file, F_OK | R_OK))
 		{
 			//ft_printf("file %s is accessible\n", file);
 			if (ct->fds[0][0] > 2)
 				close(ct->fds[0][0]);
 			ct->fds[0][0] = open(file, O_RDONLY);
-			//ft_printf("access is %i \n", access(file, F_OK & R_OK));
-			//ft_printf("fd is %i \n", ct->fds[0][0]);
 			ct->fds[0][1] = 1;
 		}
 		else
 		{
 			ct->fds[0][0] = -1;
+			ct->fds[0][1] = -1;
 			//ft_printf("file not accessible\n");
-			perror(file);
-			return (1);
+			ft_printf_fd(2, "minishell: %s: %s\n", file, strerror(errno));
+			*r = 0;
+			return (0);
 		}
 		if (ct->hd)
 			ct->hd = NULL;
@@ -48,31 +48,83 @@ int	ft_fillctfd(t_ct *ct, char *file, int *r)
 	}
 	else if (*r & OUTFILE)
 	{
-		if (ct->fds[1][0] > 2)
+		if (!access(file, F_OK | W_OK))
+		{
+			if (ct->fds[1][0] > 2)
+				close(ct->fds[1][0]);
+			if (ct->fds[1][0] > 2)
 			close(ct->fds[1][0]);
-		ct->fds[1][0] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		ct->fds[1][1] = 1;
+			ct->fds[1][0] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			ct->fds[1][1] = 1;
+		}
+		else
+		{
+			ct->fds[1][0] = -1;
+			ct->fds[1][1] = -1;
+			ft_printf_fd(2, "minishell: %s: %s\n", file, strerror(errno));
+			*r = 0;
+			return (0);
+		}		
 	}
 	else if (*r & APPEND)
 	{
-		if (ct->fds[1][0] > 2)
+		if (!access(file, F_OK | W_OK))
+		{
+			if (ct->fds[1][0] > 2)
+				close(ct->fds[1][0]);
+			if (ct->fds[1][0] > 2)
 			close(ct->fds[1][0]);
-		ct->fds[1][0] = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		ct->fds[1][1] = 2;
+			ct->fds[1][0] = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			ct->fds[1][1] = 1;
+		}
+		else
+		{
+			ct->fds[1][0] = -1;
+			ct->fds[1][1] = -1;
+			ft_printf_fd(2, "minishell: %s: %s\n", file, strerror(errno));
+			*r = 0;
+			return (0);
+		}		
 	}
 	else if (*r & ERRFILE)
 	{
-		if (ct->fds[2][0] > 2)
+		if (!access(file, F_OK | W_OK))
+		{
+			if (ct->fds[2][0] > 2)
+				close(ct->fds[2][0]);
+			if (ct->fds[2][0] > 2)
 			close(ct->fds[2][0]);
-		ct->fds[2][0] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		ct->fds[2][1] = 1;
+			ct->fds[2][0] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			ct->fds[2][1] = 1;
+		}
+		else
+		{
+			ct->fds[2][0] = -1;
+			ct->fds[2][1] = -1;
+			ft_printf_fd(2, "minishell: %s: %s\n", file, strerror(errno));
+			*r = 0;
+			return (0);
+		}		
 	}
 	else if (*r & ERRAPPEND)
 	{
-		if (ct->fds[2][0] > 2)
+		if (!access(file, F_OK | W_OK))
+		{
+			if (ct->fds[2][0] > 2)
+				close(ct->fds[2][0]);
+			if (ct->fds[2][0] > 2)
 			close(ct->fds[2][0]);
-		ct->fds[2][0] = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		ct->fds[2][1] = 2;
+			ct->fds[2][0] = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			ct->fds[2][1] = 1;
+		}
+		else
+		{
+			ct->fds[2][0] = -1;
+			ct->fds[2][1] = -1;
+			ft_printf_fd(2, "minishell: %s: %s\n", file, strerror(errno));
+			*r = 0;
+			return (0);
+		}		
 	}
 	else if (*r & INOUTFILE)
 	{

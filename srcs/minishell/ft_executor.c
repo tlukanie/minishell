@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 18:32:19 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 12:26:57 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,10 @@ static int ft_execct(t_ms *ms, int i, int j)
 	if (ms->cs[i].ct[j].fds[0][0] < 0
 		|| ms->cs[i].ct[j].fds[1][0] < 0
 		|| ms->cs[i].ct[j].fds[2][0] < 0)
-		ft_exit(NULL, 1);
+	{
+		ms->error = 1;
+		return (0);
+	}
 	if (!argv[0])
 		return (0);
 	if (!ft_strncmp(argv[0], "exit", 5))
