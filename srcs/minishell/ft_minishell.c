@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 17:26:08 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 15:46:53 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	ft_analyse(t_ms *ms)
 
 int	minishell(t_ms *ms)
 {
+	//write(1, "test\n", 5);
 	while (ms->live)
 	{
 		//ft_printf("status: %i\n", ms->error);
@@ -115,9 +116,11 @@ int	minishell(t_ms *ms)
 			ft_analyse(ms);
 			ft_errorcheck(ms);
 			free(ms->s);
+			ft_mini_free(ms);
 		}
 	}
 	write(1, "exit\n", 5);
+	ft_free(ms);
 	return (ms->exit);
 }
 
@@ -132,5 +135,6 @@ int	main(int argc, char *argv[], char *env[])
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_newline);
 	ft_init(&ms);
-	return (minishell(&ms));
+	minishell(&ms);
+	return (ms.exit);
 }

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/11 13:21:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 15:47:48 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,6 @@ void	ft_pwd(t_ms *ms, char *argv[]);
 
 //		ft_unset.c
 void	ft_unset(t_ms *ms, char *argv[]);
-void	ft_free_ev(void *ptr);
 
 //	minishell prototypes
 
@@ -235,6 +234,9 @@ void	ft_expand_wild(t_ms *ms, t_list *lst);
 //	utils prototypes
 
 //		ft_free.c
+void	ft_free_ev(void *ptr);
+void	ft_free_token(void *ptr);
+void	ft_mini_free(t_ms *ms);
 void	ft_free(t_ms *ms);
 void	ft_exit(t_ms *ms, int err);
 

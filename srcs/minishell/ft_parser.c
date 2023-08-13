@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 12:32:19 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 15:59:34 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,11 +166,11 @@ int	ft_fillct(t_ct *ct, char *text, int *r)
 				return (1);
 			}
 		}
-		if (ct->argv)
-		{
-			//ft_printf("%s\n", text);
-			//ft_put_split(ct->argv);
-		}
+		// if (ct->argv)
+		// {
+		// 	//ft_printf("%s\n", text);
+		// 	//ft_put_split(ct->argv);
+		// }
 	}
 	else
 	{
@@ -317,6 +317,7 @@ int	ft_createcs(t_ms *ms)
 		return (1);
 	cs->pids = NULL;
 	cs->pipes = NULL;
+	cs->ctn = 0;
 	ms->cs = cs;
 	ft_updatectn(ms);
 	if (ft_createct(ms))

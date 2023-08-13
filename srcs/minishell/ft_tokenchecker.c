@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:05:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/08 19:45:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 15:52:39 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int	ft_tokenchecker(t_ms *ms)
 	if (check->status)
 	{
 		ms->error = 2;
+		ms->csn = 0;
 		ft_printf_fd(2, "minishell: syntax error, unexpected token\n");
 	}
 	return (check->status);

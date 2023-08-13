@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 18:51:22 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 11:04:42 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 16:27:07 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ static void	ft_update_lst(t_list **lst, char *s, int hidden)
 	//if (!s || (!ft_strncmp(s, ".", 2) || !ft_strncmp(s, "..", 3)))
 	//	return ;
 	if (s[0] == '.' && !hidden)
+	{
+		//ft_printf("freeing string: <%s>\n", s);
+		free(s);
 		return ;
+	}
 	leaf = ft_lstnew(s);
 	if (!*lst)
 		*lst = leaf;
@@ -47,6 +51,7 @@ static t_list	*ft_get_dir(int mode)
 		if (lstat(dp->d_name, &statbuf) == -1)
 			continue;
 		s = ft_stringcopy(dp->d_name);
+		//ft_printf("allocing string: <%s>\n", s);
 		ft_update_lst(&lst, s, mode);
 	}
 	closedir(dir);
@@ -71,7 +76,10 @@ static void	ft_delstring(void *ptr)
 
 	s = ptr;
 	if (s)
+	{
+		//ft_printf("Freeing string: <%s>\n", s);
 		free(s);
+	}
 	s = NULL;	
 }
 
@@ -237,7 +245,9 @@ static void	ft_replace_wild(t_ms *ms, t_list *lst, t_token *token, char *s)
 	//(SPACE NOQUOTE SPACE ... SPACE NOQUOTE SPACE)
 	//insert list function
 	//delete dir;
+	//ft_printf("deleting dir\n");
 	ft_lstclear(&dir, ft_delstring);
+	//ft_printf("deleted dir\n");
 	
 }
 
@@ -256,7 +266,10 @@ void	ft_expand_wild(t_ms *ms, t_list *lst)
 		while (s && s[i])
 		{
 			if (s[i] == '*')
+			{
 				ft_replace_wild(ms, lst, token, s);
+				break;
+			}
 			i++;
 		}
 	}

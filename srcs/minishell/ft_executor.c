@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 12:26:57 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 16:55:20 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static int	ft_exec(t_ms *ms, char **cmd)
 		i++;
 	}
 	ft_printf_fd(2, "%s: command not found\n", cmd[0]);
+	ft_free_split(&env);
 	return (fail);
 }
 
@@ -204,11 +205,11 @@ static void	ft_heredoc(t_ms *ms, int i, int j)
 		if (pipe(ms->cs[i].ct[j].hdpipe) == -1)
 		{
 			ft_printf_fd(2, "Error with creating pipe\n");
-			exit(1);
+			ft_exit(NULL, 1);
 		}
 		pid = fork();
 		if (pid == -1)
-			exit(1); //better exit
+			ft_exit(NULL, 1);
 		if (pid == 0)
 		{
 			while (1)
@@ -221,7 +222,7 @@ static void	ft_heredoc(t_ms *ms, int i, int j)
 					ft_printf_fd(2, "delimited by end-of-file (wanted");
 					ft_printf_fd(2, "`%s')\n", ms->cs[i].ct[j].hd);
 					//free!
-					exit(1);
+					ft_exit(NULL, 1);
 				}
 				if (ft_strncmp(line, ms->cs[i].ct[j].hd,
 					ft_strlen(ms->cs[i].ct[j].hd)) == 0)
@@ -232,7 +233,7 @@ static void	ft_heredoc(t_ms *ms, int i, int j)
 			free(line);
 			ft_closefds(ms, i);
 			ft_closepipes(ms, i);
-			exit(1); //free before exit
+			ft_exit(NULL, 1); //free before exit
 		}
 		ft_wait(ms, pid, 0);
 	}
@@ -301,9 +302,8 @@ static int ft_execct(t_ms *ms, int i, int j)
 			signal(SIGQUIT, SIG_DFL);
 			signal(SIGINT, SIG_DFL);
 			ft_exec(ms, ms->cs[i].ct[j].argv);
-			ft_printf_fd(2, "command not found: %s\n", argv[0]);
-			ft_free(ms);
-			exit(127);
+			//ft_printf_fd(2, "command not found: %s\n", argv[0]);
+			ft_exit(NULL, 127);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:23:16 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 10:06:15 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 14:34:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,6 @@ int	ft_expand_strings(t_ms *ms)
 	return (0);
 }
 
-void	ft_deltoken(void *ptr)
-{
-	t_token	*token;
-
-	token = ptr;
-	if (token->text)
-		free(token->text);
-	token->text = NULL;
-	free(token);
-	token = NULL;	
-}
-
 int	ft_jointext(t_ms *ms)
 {
 	t_list	*lst;
@@ -122,7 +110,7 @@ int	ft_jointext(t_ms *ms)
 				return (1);
 			nlst = lst->next;
 			lst->next = lst->next->next;
-			ft_lstdelone(nlst, ft_deltoken);
+			ft_lstdelone(nlst, ft_free_token);
 			if (!lst->next)
 				break;
 			ntoken = lst->next->content;

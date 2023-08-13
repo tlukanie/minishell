@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/10 19:08:45 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 17:06:40 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,6 @@
 // 	ms->err[0] = r;
 // 	ms->err[1] = 1;
 // } delete
-
-void	ft_free_ev(void *ptr)
-{
-	t_ev	*ev;
-
-	ev = ptr;
-	if (ev->s)
-		free(ev->s);
-	if (ev->var)
-		free(ev->var);
-	if(ev->vals)
-		ft_free_split(&ev->vals);
-	free(ev);
-	ev = NULL;
-}
 
 void	ft_lstrm(t_ms *ms, t_list *lst)
 {
@@ -112,7 +97,7 @@ void	ft_unset(t_ms *ms, char *argv[])
 		r = ft_envlist_rm(ms, ms->el, argv[i]);
 		i++;
 	}
-	ft_free_split(&argv);
+	//ft_free_split(&argv);
 	ms->error = r;
 }
 
