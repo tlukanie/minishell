@@ -21,14 +21,18 @@ int	ft_fillctfd(t_ct *ct, char *file, int *r)
 	{
 		if (!access(file, F_OK & R_OK))
 		{
+			//ft_printf("file %s is accessible\n", file);
 			if (ct->fds[0][0] > 2)
 				close(ct->fds[0][0]);
 			ct->fds[0][0] = open(file, O_RDONLY);
+			//ft_printf("access is %i \n", access(file, F_OK & R_OK));
+			//ft_printf("fd is %i \n", ct->fds[0][0]);
 			ct->fds[0][1] = 1;
 		}
 		else
 		{
 			ct->fds[0][0] = -1;
+			//ft_printf("file not accessible\n");
 			perror(file);
 			return (1);
 		}

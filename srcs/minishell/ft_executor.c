@@ -243,6 +243,10 @@ static int ft_execct(t_ms *ms, int i, int j)
 	char	**argv;
 
 	argv = ms->cs[i].ct[j].argv;
+	if (ms->cs[i].ct[j].fds[0][0] < 0
+		|| ms->cs[i].ct[j].fds[1][0] < 0
+		|| ms->cs[i].ct[j].fds[2][0] < 0)
+		ft_exit(NULL, 1);
 	if (!argv[0])
 		return (0);
 	if (!ft_strncmp(argv[0], "exit", 5))

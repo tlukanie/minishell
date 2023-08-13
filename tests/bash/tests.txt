@@ -63,10 +63,36 @@ pwd
 //Relative Path
 ../../minishell
 
+//Environment path
+export PATH=~/aug_13/tests/bash/bdir:~/aug_13/tests/bash/cdir:~/aug_13/tests/bash/adir
+a.out
+
+//Redirection
+<, >, >> file exists
+<, >, >> file does not exist
+<, >, >> file no permissions
+
+//pipes
+cat file1 | grep a | wc -c
+cat <file1 | grep a | wc -c >outfile1
+
+//Go Crazy and history
+
+//Environment variables
+echo $USER
+echo "$USER"
 
 
 
 //And, Or
 cat xs && (echo b || echo c)
 cat xs && echo b || echo c
+
+//wildcards
+
+echo m*
+echo *l
+echo *i*
+echo m*l
+
 
