@@ -227,6 +227,19 @@ char	*ft_expand(t_ms *ms, char *s);
 
 //		ft_lexer.c
 t_list	*ft_lexer(t_ms *ms);
+void	ft_gettextquote(t_token *token, char **strptr, char quote);
+void	ft_getspace(t_token *token, char **strptr);
+
+//		ft_lexer2.c
+int		ft_isspace(int c);
+int		ft_istoken(int c);
+int		ft_isquote(int c);
+void	ft_settoken(t_token *token, int type, char *s);
+void	ft_gettext(t_token *token, char **strptr);
+
+//		ft_lexer3.c
+t_token *ft_gettoken(char **strptr);
+
 
 //		ft_parser.c
 int		ft_parser(t_ms *ms);

@@ -17,9 +17,9 @@ int	g_signal;
 void	ft_errorcheck(t_ms *ms)
 {
 	if (ms->err[1])
-		ms->err[1] = 0; //says if internal error should be used
+		ms->err[1] = 0;
 	else if (ms->err[0])
-		ms->err[0] = 0; //resets internal status to 0;
+		ms->err[0] = 0;
 }
 
 void	ft_printct(t_ms *ms)
@@ -58,57 +58,26 @@ void	ft_printlex(t_list *lst)
 	}
 }
 
-// should call actual functions and give them arguments
 void	ft_analyse(t_ms *ms)
 {
 	ms->lex = ft_lexer(ms);
 
-	// expand $
-	//ft_printf("checkpoint A\n");
 	if (ft_tokenchecker(ms))
-	{
-		//ft_printf("Token checker returned %i\n", ft_tokenchecker(ms));
 		return ;
-	}
-	// ft_printf("new lex 4b \n");
-	// ft_printlex(ms->lex);
 	if (ft_parser(ms))
-	{
 		ft_printf_fd(2, "Unexpected token or something bad\n");
-		//error message
-	}
-	//ft_printf("Tokens after expansion:\n");
-	//ft_printf("checkpoint B\n");
-	//ft_printlex(ms->lex);
-	//ft_printct(ms);
-	//ft_printf("checkpoint C\n");
-	//
-
-	//need better split from piscine
-	//need to handle quotes as well. ""
-	//replace with lexer/parser maybe?
 	if (ft_bonus_executor(ms))
-	{
 		ft_printf_fd(2, "Executor error\n");
-	}
-	//ft_printlex(ms->exe);
-	//ft_printf("checkpoint D\n");
 }
 
 int	minishell(t_ms *ms)
 {
-	//write(1, "test\n", 5);
 	while (ms->live)
 	{
-		//ft_printf("status: %i\n", ms->error);
 		signal(SIGINT, ft_newline);
 		ms->s = readline(ms->prompt);
 		if(!ms->s)
-		{
-			//ft_free(ms);
-			//ft_printf("checkpoint EXIT\n");
 			break ;
-		}
 		else
 		{
 			if (ms->s[0])

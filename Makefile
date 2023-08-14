@@ -62,6 +62,8 @@ SRC_MS			=	ft_bonus_exe \
 					ft_executor6 \
 					ft_expansion \
 					ft_lexer \
+					ft_lexer2 \
+					ft_lexer3 \
 					ft_minishell \
 					ft_parser \
 					ft_parsetext \
