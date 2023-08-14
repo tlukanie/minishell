@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 15:59:34 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,13 +311,19 @@ void ft_updatectn(t_ms *ms)
 int	ft_createcs(t_ms *ms)
 {
 	t_cs	*cs;
+	int		i;
 
+	i = 0;
 	cs = malloc(sizeof(t_cs) * (ms->csn));
 	if (!cs)
 		return (1);
-	cs->pids = NULL;
-	cs->pipes = NULL;
-	cs->ctn = 0;
+	while (i < ms->csn)
+	{
+		cs[i].pids = NULL;
+		cs[i].pipes = NULL;
+		cs[i].ctn = 0;
+		i++;
+	}
 	ms->cs = cs;
 	ft_updatectn(ms);
 	if (ft_createct(ms))

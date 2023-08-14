@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:36 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 17:25:44 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 18:38:04 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,48 @@ static void	ft_create_token_node(t_ms *ms, t_token *token)
 		ft_lstadd_back(&ms->exe, exenew);
 }
 
+static int	ft_fill_exe_list2(t_ms *ms, int *c, t_token *ltoken, int *i)
+{
+	t_token	*token;
+
+	token = NULL;
+	if (ltoken->type & PAR || ltoken->type & ANDOR)
+	{
+		token = malloc(sizeof(t_token));
+		if (!token)
+			return (1);
+		ft_fill_exe_token(token, ltoken->type, 0);
+	}
+	if (ltoken->type & TEXT && !*c)
+	{
+		token = malloc(sizeof(t_token));
+		if (!token)
+			return (1);
+		ft_fill_exe_token(token, ltoken->type, *i);
+		*c = 1;
+		*i = *i + 1;
+	}
+	if (ltoken->type & ANDOR)
+		*c = 0;
+	ft_create_token_node(ms, token);
+	return (0);
+}
+
 static int	ft_fill_exe_list(t_ms *ms, int c)
 {
 	t_list	*lex;
-	t_token	*token;
 	t_token	*ltoken;
 	int		i;
 
 	lex = ms->lex;
 	i = 0;
-	ms->exe = NULL; 
+	ms->exe = NULL;
+	c = 0; 
 	while (lex)
 	{
 		ltoken = lex->content;
-		token = NULL;
-		if (ltoken->type & PAR || ltoken->type & ANDOR)
-		{
-			token = malloc(sizeof(t_token));
-			if (!token)
-				return (1);
-			ft_fill_exe_token(token, ltoken->type, 0);
-		}
-		if (ltoken->type & TEXT && !c)
-		{
-			token = malloc(sizeof(t_token));
-			if (!token)
-				return (1);
-			ft_fill_exe_token(token, ltoken->type, i);
-			c = 1;
-			i++;
-		}
-		if (ltoken->type & ANDOR)
-			c = 0;
-		ft_create_token_node(ms, token);
+		if (ft_fill_exe_list2(ms, &c, ltoken, &i))
+			return (1);
 		lex = lex->next;
 	}
 	return (0);

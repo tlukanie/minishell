@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/14 10:38:26 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:54:07 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	ft_init(t_ms *ms)
 	ms->exit = 0;
 	ms->error = 0;
 	ms->s = NULL;
-	ms->csn = 1;
+	ms->csn = 0;
 	ms->cs = NULL;
 	ms->lex = NULL;
 	ms->exe = NULL;

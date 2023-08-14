@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:01:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 15:46:53 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 19:04:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	minishell(t_ms *ms)
 		ms->s = readline(ms->prompt);
 		if(!ms->s)
 		{
-			ft_free(ms);
+			//ft_free(ms);
 			//ft_printf("checkpoint EXIT\n");
 			break ;
 		}

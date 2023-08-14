@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:19:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 16:46:39 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 19:03:48 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,25 @@ void	ft_free_cs(t_ms *ms)
 			free(ms->cs[i].pipes);
 			ms->cs[i].pipes = NULL;
 		}
-		free(ms->cs[i].pids);
-		ms->cs[i].pids = NULL;
+		if (ms->cs[i].pids)
+		{
+			free(ms->cs[i].pids);
+			ms->cs[i].pids = NULL;
+		}
 		i++;
 	}
 	free(ms->cs);
 	ms->cs = NULL;
+	ms->csn = 0;
 }
 
 void	ft_free(t_ms *ms)
 {
-	free(ms->prompt);
+	if (ms->prompt)
+	{
+		free(ms->prompt);
+		ms->prompt = NULL;
+	}
 	if (ms->ev)
 		ft_free_split(&ms->ev);
 	if (ms->el)

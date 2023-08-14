@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 16:55:20 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 19:08:22 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_exec(t_ms *ms, char **cmd)
 	i = 0;
 	fail = 1;
 	env = ft_list2split(ms->el);
-	if (access(cmd[0], X_OK) == 0)
+	if ((ft_strchr(cmd[0], '/')) && access(cmd[0], X_OK) == 0)
 		execve(cmd[0], cmd, env);
 	paths = ft_getenvvals(ms, "PATH");
 	if (!paths)
