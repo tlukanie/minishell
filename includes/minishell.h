@@ -215,6 +215,11 @@ void	ft_closepipes(t_ms *ms, int i);
 void	ft_heredoc(t_ms *ms, int i, int j);
 int		ft_dup(t_ms *ms, int i, int j);
 int		ft_exec(t_ms *ms, char **cmd);
+char	*ft_pathjoin(char *path, char *cmd);
+int		ft_newin(t_ms *ms, int i, int j);
+int		ft_newout(t_ms *ms, int i, int j);
+void	ft_forking_helper(t_ms *ms, int i, int j);
+
 
 
 //		ft_expansion.c
