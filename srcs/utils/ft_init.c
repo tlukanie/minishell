@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 12:50:39 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 10:38:26 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,18 @@ static t_list	*ft_split2list(char **esplit)
 	i = 1;
 	ev = ft_evinit(esplit[0]);
 	if (!ev)
-	{
-		//something clever
-	}
+		exit(1);
 	lstart = ft_lstnew((void *)ev);
 	if (!lstart)
-	{
-		//something clever
-	}
+		exit(1);
 	while (esplit[i])
 	{
 		ev = ft_evinit(esplit[i]);
 		if (!ev)
-		{
-			//something clever
-		}
+			exit(1);
 		lst = ft_lstnew((void *)ev);
 		if (!lst)
-		{
-			//something clever
-		}
+			exit(1);
 		ft_lstadd_back(&lstart, lst);
 		i++;
 	}
