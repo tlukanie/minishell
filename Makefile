@@ -53,7 +53,10 @@ SRC_BI			=	ft_cd \
 # Minishell main functions
 
 SRC_MS			=	ft_bonus_exe \
+					ft_bonus_exe2 \
 					ft_executor \
+					ft_executor2 \
+					ft_executor3 \
 					ft_expansion \
 					ft_lexer \
 					ft_minishell \

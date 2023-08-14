@@ -146,6 +146,7 @@ typedef struct s_ct
 	int		fds[3][2];
 }	t_ct;
 
+
 // typedef struct s_ct
 // {
 // 	char	**argv;		// argv[0] = command, argv[i] = arguments
@@ -201,10 +202,20 @@ void	ft_unset(t_ms *ms, char *argv[]);
 
 //		ft_bonus_exe.c
 int		ft_bonus_executor(t_ms *ms);
+t_list *ft_run_parentheses(t_ms *ms, t_list *ex);
+int		ft_bonus_exe_loop(t_ms *ms);
 
 //		ft_executor.c
 int		ft_executor(t_ms *ms);
 int 	ft_execcs(t_ms *ms, int i);
+int		ft_execct(t_ms *ms, int i, int j);
+int		ft_open_pipes(t_ms *ms, int i);
+void	ft_closefds(t_ms *ms, int i);
+void	ft_closepipes(t_ms *ms, int i);
+void	ft_heredoc(t_ms *ms, int i, int j);
+int		ft_dup(t_ms *ms, int i, int j);
+int		ft_exec(t_ms *ms, char **cmd);
+
 
 //		ft_expansion.c
 char	*ft_expand(t_ms *ms, char *s);
