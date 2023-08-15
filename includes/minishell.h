@@ -241,8 +241,16 @@ void	ft_gettext(t_token *token, char **strptr);
 t_token *ft_gettoken(char **strptr);
 
 
+//		ft_minishell_utils.c
+void	ft_errorcheck(t_ms *ms);
+
 //		ft_parser.c
 int		ft_parser(t_ms *ms);
+int		ft_createcs(t_ms *ms);
+void	ft_updatectn(t_ms *ms);
+
+//		ft_parser2.c
+int		ft_fillctfd(t_ct *ct, char *file, int *r);
 
 //		ft_parsetext.c
 int		ft_jointext(t_ms *ms);
