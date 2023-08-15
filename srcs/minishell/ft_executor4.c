@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static void	ft_sigcall(t_ms *ms, int i, int j)
+static void	ft_sig_default(t_ms *ms, int i, int j)
 {
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
@@ -34,7 +34,7 @@ static void	ft_exec_child(t_ms *ms, int i, int j)
 	else if (!ft_strncmp(argv[0], "echo", 5))
 		ft_echo(ms, argv);
 	else
-		ft_sigcall(ms, i, j);
+		ft_sig_default(ms, i, j);
 }
 
 static int	ft_check_arg_exit_cd(t_ms *ms, int i, int j)

@@ -12,9 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-//to be deleted
-void	ft_printlex(t_list *lst);
-
 static char	*ft_replacetilda(t_ms *ms, char *s, int *i)
 {
 	char	*strstart;
@@ -101,7 +98,6 @@ int	ft_jointext(t_ms *ms)
 		while ((token->type & TEXT) && (ntoken->type & TEXT))
 		{
 			token->type = TEXT;
-			//ft_printf("s1=%s\ns2=%s\n", token->text, ntoken->text);
 			str = ft_stringcopy(token->text);
 			free(token->text);
 			token->text = ft_strjoin(str, ntoken->text);
@@ -112,7 +108,7 @@ int	ft_jointext(t_ms *ms)
 			lst->next = lst->next->next;
 			ft_lstdelone(nlst, ft_free_token);
 			if (!lst->next)
-				break;
+				break ;
 			ntoken = lst->next->content;
 		}
 		lst = lst->next;

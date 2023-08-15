@@ -67,9 +67,11 @@ SRC_MS			=	ft_bonus_exe \
 					ft_minishell \
 					ft_parser \
 					ft_parser2 \
+					ft_parser3 \
 					ft_parsetext \
 					ft_signal \
 					ft_tokenchecker \
+					ft_tokenchecker2 \
 					ft_wildcard
 
 # Minishell utility functions

@@ -245,12 +245,17 @@ t_token *ft_gettoken(char **strptr);
 void	ft_errorcheck(t_ms *ms);
 
 //		ft_parser.c
-int		ft_parser(t_ms *ms);
-int		ft_createcs(t_ms *ms);
-void	ft_updatectn(t_ms *ms);
+int		ft_fillcts(t_ms *ms);
+void	ft_updatecsn(t_ms *ms);
 
 //		ft_parser2.c
 int		ft_fillctfd(t_ct *ct, char *file, int *r);
+
+//		ft_parser3.c
+int		ft_createct(t_ms *ms);
+int		ft_parser(t_ms *ms);
+int		ft_createcs(t_ms *ms);
+void	ft_updatectn(t_ms *ms);
 
 //		ft_parsetext.c
 int		ft_jointext(t_ms *ms);
@@ -258,12 +263,17 @@ int		ft_expand_strings(t_ms *ms);
 
 //		ft_signal.c
 void	ft_newline(int signal);
-void	ft_newnewline(int signal);
 void	ft_global_sig(int signal);
 void	ft_exit_sig(int signal);
 
 //		ft_tokenchecker.c
 int		ft_tokenchecker(t_ms *ms);
+
+//		ft_tokenchecker2.c
+void	ft_extra_check_test(t_check *check);
+void	ft_extra_check(t_list *lst, t_check *check);
+void	ft_check_stuff(t_check *check);
+void	ft_check_text(t_check *check);
 
 //		ft_wildcard.c
 void	ft_expand_wild(t_ms *ms, t_list *lst);
