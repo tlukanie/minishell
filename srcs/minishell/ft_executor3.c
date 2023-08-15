@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:16:12 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/14 14:16:16 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:46:18 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,35 @@ void	ft_closefds(t_ms *ms, int i)
 	}
 }
 
+static void	ft_fail_exec(t_ms *ms, char *cmd)
+{
+	int		i;
+	int		x;
+	char	*cmdp;
+	char	**paths;
+
+	i = 0;
+	x = 0;
+	paths = ft_getenvvals(ms, "PATH");
+	if (!paths)
+		ft_exit(NULL, 125);
+	if ((ft_strchr(cmd, '/')) && !access(cmd, F_OK) && access(cmd, X_OK))
+		x = 1;
+	while (!x && paths[i])
+	{
+		cmdp = ft_pathjoin(paths[i], cmd);
+		if (!access(cmdp, F_OK) && access(cmdp, X_OK))
+			x = 1;
+		free(cmdp);
+		i++;
+	}
+	if (!x)
+		ft_printf_fd(2, "%s: command not found\n", cmd);
+	else
+		ft_printf_fd(2, "minishell: %s: Permission denied\n", cmd);
+	ft_exit(NULL, 127 - x);
+}
+
 int	ft_exec(t_ms *ms, char **cmd)
 {
 	int		i;
@@ -108,7 +137,7 @@ int	ft_exec(t_ms *ms, char **cmd)
 		free(cmdp);
 		i++;
 	}
-	ft_printf_fd(2, "%s: command not found\n", cmd[0]);
 	ft_free_split(&env);
+	ft_fail_exec(ms, cmd[0]);
 	return (fail);
 }
