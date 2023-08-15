@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:47:22 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/15 17:47:27 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:05:48 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ int	ft_createcs(t_ms *ms)
 
 int	ft_parser(t_ms *ms)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	ms->csn = 0;
 	ms->cs = NULL;
 	if (!ms->lex)
@@ -112,7 +117,7 @@ int	ft_parser(t_ms *ms)
 	ft_updatecsn(ms);
 	if (ft_createcs(ms))
 		return (5);
-	if (ft_fillcts(ms))
+	if (ft_fillcts(ms, i, j))
 		return (6);
 	return (0);
 }

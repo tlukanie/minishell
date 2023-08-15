@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/13 15:47:48 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/15 20:30:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ t_token *ft_gettoken(char **strptr);
 void	ft_errorcheck(t_ms *ms);
 
 //		ft_parser.c
-int		ft_fillcts(t_ms *ms);
+int		ft_fillcts(t_ms *ms, int i, int j);
 void	ft_updatecsn(t_ms *ms);
 
 //		ft_parser2.c
@@ -259,6 +259,9 @@ void	ft_updatectn(t_ms *ms);
 
 //		ft_parsetext.c
 int		ft_jointext(t_ms *ms);
+int		ft_expand_strings(t_ms *ms);
+
+//		ft_parsetext2.c
 int		ft_expand_strings(t_ms *ms);
 
 //		ft_signal.c

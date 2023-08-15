@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bonus_exe2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 11:45:01 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/14 11:45:06 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/15 19:55:48 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_list	*ft_skip_parentheses(t_list *ex)
 		if (token->type & CLOSEPAR)
 			break ;
 		if (token->type & OPENPAR)
-			ft_skip_parentheses(ex->next);
+			ex = ft_skip_parentheses(ex->next);
 		ex = ex->next;
 	}
 	return (ex->next);
@@ -41,12 +41,13 @@ static int	ft_andor(t_ms *ms, t_token *token)
 	return (r);
 }
 
-static void	ft_open_par(t_ms *ms, t_list *ex, int run)
+static t_list	*ft_open_par(t_ms *ms, t_list *ex, int run)
 {
 	if (run)
 		ex = ft_run_parentheses(ms, ex->next);
 	else
 		ex = ft_skip_parentheses(ex->next);
+	return (ex);
 }
 
 t_list	*ft_run_parentheses(t_ms *ms, t_list *ex)
@@ -60,7 +61,7 @@ t_list	*ft_run_parentheses(t_ms *ms, t_list *ex)
 		token = ex->content;
 		if (token->type & OPENPAR)
 		{
-			ft_open_par(ms, ex, run);
+			ex = ft_open_par(ms, ex, run);
 			continue ;
 		}
 		if (token->type & CLOSEPAR)
@@ -93,7 +94,7 @@ int	ft_bonus_exe_loop(t_ms *ms)
 		token = ex->content;
 		if (token->type & OPENPAR)
 		{
-			ft_open_par(ms, ex, run);
+			ex = ft_open_par(ms, ex, run);
 			continue ;
 		}
 		if (token->type & TEXT)

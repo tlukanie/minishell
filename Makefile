@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/08/11 13:21:58 by okraus           ###   ########.fr        #
+#    Updated: 2023/08/15 20:30:34 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRC_MS			=	ft_bonus_exe \
 					ft_parser2 \
 					ft_parser3 \
 					ft_parsetext \
+					ft_parsetext2 \
 					ft_signal \
 					ft_tokenchecker \
 					ft_tokenchecker2 \

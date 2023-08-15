@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 17:48:24 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:04:56 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,21 @@ int	ft_fillct(t_ct *ct, char *text, int *r)
 	return (0);
 }
 
-int	ft_fillcts(t_ms *ms)
+static t_list	*ft_fillcts_init(t_ms *ms, int *i, int *j, int *r)
 {
-	t_list			*lst;
-	t_token			*token;
-	unsigned int	i;
-	int				j;
-	int				r;
+	*i = 0;
+	*j = 0;
+	*r = 0;
+	return (ms->lex);
+}
 
-	lst = ms->lex;
-	i = 0;
-	r = 0;
-	j = 0;
+int	ft_fillcts(t_ms *ms, int i, int j)
+{
+	t_list	*lst;
+	t_token	*token;
+	int		r;
+
+	lst = ft_fillcts_init(ms, &i, &j, &r);
 	while (lst)
 	{
 		token = lst->content;
@@ -76,12 +79,8 @@ int	ft_fillcts(t_ms *ms)
 		else if (token->type & REDIRECTS)
 			r = token->type & REDIRECTS;
 		else if (token->type & TEXT)
-		{
 			if (ft_fillct(&(ms->cs[i].ct[j]), token->text, &r))
-			{
 				return (1);
-			}
-		}
 		lst = lst->next;
 	}
 	return (0);
