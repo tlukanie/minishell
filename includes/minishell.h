@@ -267,6 +267,7 @@ int		ft_expand_strings(t_ms *ms);
 //		ft_signal.c
 void	ft_newline(int signal);
 void	ft_global_sig(int signal);
+void	ft_newglobal_sig(int signal);
 void	ft_exit_sig(int signal);
 
 //		ft_tokenchecker.c

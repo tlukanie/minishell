@@ -20,12 +20,19 @@ static void	ft_print_warning(t_ms *ms, int i, int j)
 	ft_exit(NULL, 1);
 }
 
-static void	ft_exit_helper(t_ms *ms, char *line, int i)
+static void	ft_exit_helper(t_ms *ms, char *line, int i, int pid)
 {
-	free(line);
-	ft_closefds(ms, i);
-	ft_closepipes(ms, i);
-	ft_exit(NULL, 1);
+	if (pid < 0)
+	{
+		ft_exit(NULL, 1);
+	}
+	else
+	{
+		free(line);
+		ft_closefds(ms, i);
+		ft_closepipes(ms, i);
+		ft_exit(NULL, 1);
+	}
 }
 
 static void	ft_error_creating_pipe(void)
@@ -49,10 +56,10 @@ void	ft_forking_helper(t_ms *ms, int i, int j)
 	if (pipe(ms->cs[i].ct[j].hdpipe) == -1)
 		ft_error_creating_pipe();
 	pid = fork();
-	if (pid == -1)
-		ft_exit(NULL, 1);
+	ft_exit_helper(ms, line, i, pid);
 	if (pid == 0)
 	{
+		signal(SIGINT, ft_newglobal_sig);
 		while (1)
 		{
 			write (1, "> ", 2);
@@ -64,7 +71,7 @@ void	ft_forking_helper(t_ms *ms, int i, int j)
 				break ;
 			ft_while_loop_end(ms, i, j, line);
 		}
-		ft_exit_helper(ms, line, i);
+		ft_exit_helper(ms, line, i, pid);
 	}
 	ft_wait(ms, pid, 0);
 }

@@ -31,6 +31,13 @@ void	ft_global_sig(int signal)
 	}
 }
 
+void	ft_newglobal_sig(int signal)
+{
+	write(1, "\n", 1);
+	if (signal == SIGINT)
+		exit(130);
+}
+
 void	ft_exit_sig(int signal)
 {
 	if (signal == SIGINT)
