@@ -282,6 +282,9 @@ void	ft_check_text(t_check *check);
 //		ft_wildcard.c
 void	ft_expand_wild(t_ms *ms, t_list *lst);
 
+//		ft_wildcard2.c
+int		ft_wild_fits(char *w, char *s);
+
 //	utils prototypes
 
 //		ft_free.c
