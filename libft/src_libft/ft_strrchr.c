@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:35:03 by okraus            #+#    #+#             */
-/*   Updated: 2023/03/14 15:13:49 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/15 16:08:55 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strrchr(const char *s, int c)
 	i = 0;
 	a = NULL;
 	while (s[i])
-	{	
+	{
 		if (s[i] == (c % 256))
 			a = (char *)&s[i];
 		i++;

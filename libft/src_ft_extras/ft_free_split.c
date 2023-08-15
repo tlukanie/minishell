@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:57:11 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/19 19:28:28 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/15 16:10:02 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_free_split(char ***splitptr)
 {
 	int		i;
 	char	**split;
-	
+
 	split = *splitptr;
 	i = 0;
 	while (split[i])
