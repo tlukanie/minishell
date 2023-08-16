@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor5.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:37:45 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/14 20:37:50 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:19:41 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_exit_helper(t_ms *ms, char *line, int i, int pid)
 	{
 		ft_exit(NULL, 1);
 	}
-	else
+	else if (line)
 	{
 		free(line);
 		ft_closefds(ms, i);

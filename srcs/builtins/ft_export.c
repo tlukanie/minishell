@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 20:11:01 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:28:17 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,10 @@ void	ft_export(t_ms *ms, char *argv[])
 			ev = ft_evinit(argv[i]);
 			ft_exportlst_setup(ms, ev, r);
 		}
-		else
+		else if (ft_printf_fd(2, "minishell: export: '%s'", argv[i]), 1)
 		{
 			r = 1;
-			ft_printf_fd(2, "minishell: export: '%s': not a \
-			valid identifier\n", argv[i]);
+			ft_printf_fd(2, ": not a valid identifier\n");
 		}
 		i++;
 	}

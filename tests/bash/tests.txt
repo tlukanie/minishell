@@ -1,0 +1,102 @@
+valgrind --leak-check=full --track-origins=yes ./minishell
+
+cat test1 | grep a > test2 | echo a $USER >> test2 | cat test1 | grep b | >> test2 | echo b $USER >> test2 | cat test1 | grep c >> test2 | echo c $USER >> test2 | cat test1 | grep d >> test2 | echo d $USER | cat test1 | grep e >> test2 | echo e $USER >> test2
+
+/bin/ls
+/bin/ls -a
+echo -n hi
+exit 125
+exit hi
+exit 1 2 3
+
+/bin/ls b
+echo $?
+
+//Return value of a process
+bash
+exit 35
+expr $? + $?
+
+//signals
+stty sane (^M) for heredoc <<
+<< stop cat
+
+
+//Test double quotes
+echo "cat lol.c   |   cat > lol.c"
+echo "skhsk 9sus9u0s9snsjs jskjsksk"
+
+//Test single quotes
+echo 'cat lol.c   |   cat > lol.c'
+echo 'echo $USER  |   cat > lol.c | echo * && echo "!!!"'
+echo '' hi '' 'hi'
+echo '$USER'
+
+//env
+env | grep PWD
+
+//export
+export ABC=123
+export BC=23
+export 4A=A4
+export AB1=11 AB2=22 AB3=33
+env | grep AB
+export
+
+//unset
+unset 4A
+unset ABC
+unset
+env | grep BC
+unset AB1 AB3
+env | grep AB
+
+//cd 
+/bin/ls
+cd .
+/bin/ls
+/bin/ls ..
+cd ..
+/bin/ls
+
+//pwd
+pwd
+
+//Relative Path
+../../minishell
+
+//Environment path
+export PATH=~/42core/3_minishell/tluknew/.tests/bash/bdir:~/42core/3_minishell/tluknew/.tests/bash/cdir:~/aug_13/tests/bash/adir
+a.out
+
+//Redirection
+<, >, >> file exists
+<, >, >> file does not exist
+<, >, >> file no permissions
+
+//pipes
+cat file1 | grep a | wc -c
+
+
+//Go Crazy and history
+cat <<stop | grep k | wc -w
+
+//Environment variables
+echo $USER
+echo "$USER"
+
+
+
+//And, Or
+cat xs && (echo b || echo c)
+cat xs && echo b || echo c
+
+//wildcards
+
+echo m*
+echo *l
+echo *i*
+echo m*l
+
+// Surprise (or not)
+echo '"$USER"'
