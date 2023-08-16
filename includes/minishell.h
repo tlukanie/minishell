@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/16 14:59:27 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:12:06 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ t_list	*ft_get_dir(int mode);
 
 //		ft_wildcard2.c
 int		ft_wild_fits(char *w, char *s);
-void	ft_replace_token(t_ms *ms, t_list *lst, t_token *token, t_list *dir);
+void	ft_replace_token(t_list *lst, t_token *token, t_list *dir);
 
 //		ft_wildcard3.c
 void	ft_expand_wild(t_ms *ms, t_list *lst);

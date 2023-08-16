@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 18:51:22 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 19:44:16 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:04:41 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ t_list	*ft_get_dir(int mode)
 		perror("opendir() error");
 		return (NULL);
 	}
-	while ((dp = readdir(dir)) != NULL)
+	dp = readdir(dir);
+	while (dp)
 	{
 		if (lstat(dp->d_name, &statbuf) == -1)
 			continue ;
 		s = ft_stringcopy(dp->d_name);
 		ft_update_lst(&lst, s, mode);
+		dp = readdir(dir);
 	}
 	closedir(dir);
 	return (lst);
