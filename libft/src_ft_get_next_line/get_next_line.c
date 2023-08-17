@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 12:37:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 16:50:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/17 14:57:06 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,8 @@ char	*get_next_line(int fd)
 	}
 	nl = get(str[fd]);
 	str[fd] = next(str[fd]);
+	if (str[fd])
+		free (str[fd]);
+	str[fd] = NULL;
 	return (nl);
 }

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/16 16:28:17 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/17 14:53:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	ft_isvalidvar(char *s)
 	return (0);
 }
 
-static void	ft_exportlst_setup(t_ms *ms, t_ev *ev, int r)
+static void	ft_exportlst_setup(t_ms *ms, t_ev *ev, int *r)
 {
 	t_list	*lst;
 
@@ -77,7 +77,7 @@ static void	ft_exportlst_setup(t_ms *ms, t_ev *ev, int r)
 	{
 		lst = ft_lstnew(ev);
 		if (!ev || !lst)
-			r = 1;
+			*r = 1;
 		ft_lstadd_back(&ms->el, lst);
 		ft_sortenv(ms->el);
 	}
@@ -98,7 +98,7 @@ void	ft_export(t_ms *ms, char *argv[])
 		if (ft_isvalidvar(argv[i]))
 		{
 			ev = ft_evinit(argv[i]);
-			ft_exportlst_setup(ms, ev, r);
+			ft_exportlst_setup(ms, ev, &r);
 		}
 		else if (ft_printf_fd(2, "minishell: export: '%s'", argv[i]), 1)
 		{
