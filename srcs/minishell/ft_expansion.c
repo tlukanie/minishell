@@ -6,13 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:17:01 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 10:05:58 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 21:47:54 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//to be deleted
-void	ft_printlex(t_list *lst);
 
 static char	*ft_getvar(char *s)
 {
@@ -46,7 +44,7 @@ static int	ft_getvarlen(char *s)
 		return (-1);
 	while (s[i] == '_' || ft_isalnum(s[i]))
 		i++;
-	return (i);	
+	return (i);
 }
 
 static char	*ft_replacevar(t_ms *ms, char *s, int *i)

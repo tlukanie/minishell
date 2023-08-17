@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 09:21:25 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/16 16:28:17 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,74 +63,51 @@ static int	ft_isvalidvar(char *s)
 	return (0);
 }
 
+static void	ft_exportlst_setup(t_ms *ms, t_ev *ev, int r)
+{
+	t_list	*lst;
+
+	lst = ft_check_var(ms->el, ev->var);
+	if (lst)
+	{
+		ft_free_ev(lst->content);
+		lst->content = ev;
+	}
+	else
+	{
+		lst = ft_lstnew(ev);
+		if (!ev || !lst)
+			r = 1;
+		ft_lstadd_back(&ms->el, lst);
+		ft_sortenv(ms->el);
+	}
+}
+
 void	ft_export(t_ms *ms, char *argv[])
 {
 	int		r;
 	int		i;
 	t_ev	*ev;
-	t_list	*lst;
 
 	r = 0;
 	i = 1;
 	if (!argv[1])
-	{
 		ft_put_export_env(ms->el);
-	}
 	while (argv[i])
 	{
 		if (ft_isvalidvar(argv[i]))
 		{
 			ev = ft_evinit(argv[i]);
-			lst = ft_check_var(ms->el, ev->var);
-			if (lst)
-			{
-				ft_free_ev(lst->content);
-				lst->content = ev;
-			}
-			else
-			{
-				lst = ft_lstnew(ev);
-				if (!ev || !lst)
-					r = 1; //needs proper freeing of everyrhing
-				ft_lstadd_back(&ms->el, lst);
-				ft_sortenv(ms->el);
-			}
+			ft_exportlst_setup(ms, ev, r);
 		}
-		else
+		else if (ft_printf_fd(2, "minishell: export: '%s'", argv[i]), 1)
 		{
-			r = 1; //change to actual code of not provoding env var;
-			ft_printf_fd(2, "minishell: export: '%s': not a valid identifier\n", argv[i]);
+			r = 1;
+			ft_printf_fd(2, ": not a valid identifier\n");
 		}
 		i++;
 	}
-	ft_free_split(&argv);
 	ms->err[0] = r;
 	ms->err[1] = 1;
+	ms->error = 0;
 }
-
-// void	ft_export(t_ms *ms, char *argv[])
-// {
-// 	int		r;
-// 	int		i;
-
-// 	r = 0;
-// 	i = 1;
-// 	while (argv[i] && !r)
-// 	{
-// 		if (ft_strchr(argv[i], '='))
-// 		{
-// 			r = ft_split_add(&ms->ev, argv[i], ft_splitlen(ms->ev));
-// 		}
-// 		else
-// 			r = 127; //change to actual code of not provoding env var;
-// 		i++;
-// 	}
-// 	ft_free_split(&argv);
-// 	ms->err[0] = r;
-// 	ms->err[1] = 1;
-// }
-// should export only the first argument
-// should check if the var is legal name
-// if the var exists, it overwrites the value
-// generate ev structure and add it to the list pr replace existing one.
-// check for valid var name!

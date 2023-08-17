@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:14:07 by okraus            #+#    #+#             */
-/*   Updated: 2023/07/27 16:49:00 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/13 19:59:27 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,16 @@ static int	ft_cdnew(t_ms *ms, char *argv[])
 	char	*err;
 
 	t = getcwd(cwd, 4096);
-	//error check if environmental variables are missing?
 	r = chdir(argv[1]);
 	if (r < 0)
 	{
 		r = errno;
 		err = ft_strjoin("minishell: cd: ", argv[1]);
-		perror(err); // check if this is the correct error call
+		perror(err);
 		free(err);
 	}
 	else
 	{
-		// update env
-		//ft_printf("changing to newpwd\n");
 		ft_changeenvval(ms, "OLDPWD", t);
 		t = getcwd(cwd, 4096);
 		ft_changeenvval(ms, "PWD", t);
@@ -40,6 +37,16 @@ static int	ft_cdnew(t_ms *ms, char *argv[])
 		ft_init_prompt(ms);
 	}
 	return (r);
+}
+
+static void	ft_update_cdold(t_ms *ms, char *t, char *cwd)
+{
+	ft_changeenvval(ms, "OLDPWD", t);
+	t = getcwd(cwd, 4096);
+	ft_changeenvval(ms, "PWD", t);
+	free(ms->prompt);
+	ft_init_prompt(ms);
+	ft_printf("%s\n", t);
 }
 
 static int	ft_cdold(t_ms *ms)
@@ -61,19 +68,10 @@ static int	ft_cdold(t_ms *ms)
 	if (r < 0)
 	{
 		r = errno;
-		perror("cd"); // check if this is the correct error call
+		perror("cd");
 	}
 	else
-	{
-		// update env
-		//ft_printf("changing to oldpwd\n");
-		ft_changeenvval(ms, "OLDPWD", t);
-		t = getcwd(cwd, 4096);
-		ft_changeenvval(ms, "PWD", t);
-		free(ms->prompt);
-		ft_init_prompt(ms);
-		ft_printf("%s\n", t);
-	}
+		ft_update_cdold(ms, t, cwd);
 	return (r);
 }
 
@@ -90,18 +88,15 @@ static int	ft_cdhome(t_ms *ms)
 	if (r < 0)
 	{
 		r = errno;
-		perror("cd"); // check if this is the correct error call
+		perror("cd");
 	}
 	else
 	{
-		// update env
-		//ft_printf("changing to home\n");
 		ft_changeenvval(ms, "OLDPWD", t);
 		t = getcwd(cwd, 4096);
 		ft_changeenvval(ms, "PWD", t);
 		free(ms->prompt);
 		ft_init_prompt(ms);
-		//ft_printf("%s\n", t);
 	}
 	return (r);
 }
@@ -117,12 +112,12 @@ void	ft_cd(t_ms *ms, char *argv[])
 	{
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
 		r = 1;
-	}	
+	}
 	else if (argv[1][0] == '-' && !argv[1][1])
 		r = ft_cdold(ms);
 	else
 		r = ft_cdnew(ms, argv);
-	ft_free_split(&argv);
 	ms->err[0] = r;
+	ms->error = r;
 	ms->err[1] = 1;
 }

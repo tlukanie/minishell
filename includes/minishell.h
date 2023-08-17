@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 11:56:30 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/11 13:21:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/16 15:12:06 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,20 @@
 # include <sys/stat.h>
 # include <dirent.h>
 
-
 // DEFINITIONS
 
-//# define PROMPT1 "\001\033[1;38:5:51m\002Mini\001\033[0m\033[37m\002\001\033[5m🐧 🪟 🇺🇦🍏🍎\033[0m\002"
-# define PROMPT1 "\001\033[1;38:5:51m\002Mini\001\033[0m\033[37m\002\001\033[5m🐧\033[0m\002"
-# define PROMPT2 "\001\033[0m\033[1;38:5:226m\002shell\001\033[0m\002:\001\033[1;38:5:46m\002"
+# define PROMPT1 \
+"\001\033[1;38:5:51m\002Mini\001\033[0m\033[37m\002\001\033[5m🐧\033[0m\002"
+# define PROMPT2 \
+"\001\033[0m\033[1;38:5:226m\002shell\001\033[0m\002:\001\033[1;38:5:46m\002"
 # define PROMPT3 "\001\033[0m\002$ \a\a"
 
 // STRUCTURES
 // MINISHELL structure
 
-extern int g_signal;
+extern int			g_signal;
 
-typedef struct s_cs
-	t_cs;
+typedef struct s_cs	t_cs;
 
 typedef struct s_ms
 {
@@ -50,12 +49,12 @@ typedef struct s_ms
 	int		signal;
 	int		parent;
 	int		child;
-	int		err[2];		//remove this array
+	int		err[2];
 	int		error;
 	int		exit;
 	int		csn;
 	char	*prompt;
-	char	*pwd;		//need to initialize
+	char	*pwd;
 	char	*s;
 	char	**ev;
 	t_cs	*cs;
@@ -63,22 +62,6 @@ typedef struct s_ms
 	t_list	*lex;
 	t_list	*exe;
 }	t_ms;
-
-// typedef struct s_ms
-// {
-//	int		arg;		//number of arguments
-//	int		hd;			//1 if argv[1] == "here_doc"
-//	int		live;		//1 if minishell works, 0 after exit
-//	int		err[2];		//errno of builtins; [0] contains errno, [1] contains atatus if it should be deleted 
-//	int		exit;		// exit status of exit command	
-//	int		csn;		//number of command groups
-//	t_cs	*cs;		//command structure
-//	char	*prompt;	//prompt
-//	char	*s;			//last string from user
-// 	char	**ev;		//*envp[]
-//	t_list	*el;		// first item in environment list
-// 	char	**paths;	//array of paths from envp
-// }	t_ms;
 
 typedef struct s_ev
 {
@@ -88,26 +71,18 @@ typedef struct s_ev
 	char	**vals;
 }	t_ev;
 
-// typedef struct s_ev
-// {
-// 	char	*s;		//	"V1=1:2:3"
-// 	char	*var;	//	"V1"
-// 	char	*val;	//	"1:2:3"
-// 	char	**vals;	//	"1", "2", "3", NULL
-// }	t_ev;
-
 typedef struct s_token
 {
 	unsigned int	type;
-	int				csi; //command structure index;
+	int				csi;
 	char			*text;
 }	t_token;
 
 typedef enum e_type
 {
-	SINGLEQUOTE = 0x1,	// ...0000 0001
-	DOUBLEQUOTE = 0x2,	// ...0000 0010
-	NOQUOTE = 0x4,		// ...0000 0100
+	SINGLEQUOTE = 0x1,
+	DOUBLEQUOTE = 0x2,
+	NOQUOTE = 0x4,
 	PIPE = 0x8,
 	INFILE = 0x10,
 	HEREDOC = 0x20,
@@ -121,18 +96,18 @@ typedef enum e_type
 	OR = 0x2000,
 	OPENPAR = 0x4000,
 	CLOSEPAR = 0x8000,
-	TEXT = 0x7,			// ...0000 0111
+	TEXT = 0x7,
 	ANDOR = 0x3000,		
 	REDIRECTS = 0x7F0,
 	PAR = 0xC000,
-	BONUS = 0xFFFF0000 //mask to index of the command group
+	BONUS = 0xFFFF0000
 }	t_type;
 
 typedef struct s_checker
 {
 	t_token	*token;
 	int		text;
-	int		stuff; //no space and no text;
+	int		stuff;
 	int		parentheses;
 	int		status;
 }	t_check;
@@ -141,30 +116,17 @@ typedef struct s_checker
 typedef struct s_ct
 {
 	char	**argv;
-	char	*hd;			//here doc
-	int		hdpipe[2];		//pipe for heredoc
+	char	*hd;
+	int		hdpipe[2];
 	int		fds[3][2];
 }	t_ct;
 
-// typedef struct s_ct
-// {
-// 	char	**argv;		// argv[0] = command, argv[i] = arguments
-// 	int		fds[3][2];	// 0 fd:	0 STDIN, 1 STDOUT, 2 STDERR, FD
-// }	t_ct;			// 1 mode:	0-normal, 1 TRUNC, 2 APPEND/HERE_DOC
-//	fds[0][0] = 0	//standard input on file descriptor 0
-//	fds[0][1] = 2	//mode 2 << here doc (if here doc, the first one will count how many here docs are there)
-//	fds[1][0] = fd	//standard output on file descriptor of outfile
-//	fds[1][1] = 1	//mode TRUNC (overwrite)
-//	fds[2][0] = 2	//standard error on file descriptor 2
-//	fds[2][1] = 0	//mode standard
-
-//command structure = cs - needed for parsing pipes and redirections
 typedef struct s_cs
 {
-	int		ctn;			//number of command tables (pipe count + 1)
-	int		*pids;			//child processes for the execution of the commands
-	int		(*pipes)[2];	//fds of pipes
-	t_ct	*ct;			//command tables for the child process
+	int		ctn;
+	int		*pids;
+	int		(*pipes)[2];
+	t_ct	*ct;
 }	t_cs;
 
 //	PROTOTYPES
@@ -196,47 +158,106 @@ void	ft_pwd(t_ms *ms, char *argv[]);
 
 //		ft_unset.c
 void	ft_unset(t_ms *ms, char *argv[]);
-void	ft_free_ev(void *ptr);
 
 //	minishell prototypes
 
 //		ft_bonus_exe.c
 int		ft_bonus_executor(t_ms *ms);
+t_list	*ft_run_parentheses(t_ms *ms, t_list *ex);
+int		ft_bonus_exe_loop(t_ms *ms);
 
 //		ft_executor.c
 int		ft_executor(t_ms *ms);
-int 	ft_execcs(t_ms *ms, int i);
+int		ft_execcs(t_ms *ms, int i);
+int		ft_execct(t_ms *ms, int i, int j);
+int		ft_open_pipes(t_ms *ms, int i);
+void	ft_closefds(t_ms *ms, int i);
+void	ft_closepipes(t_ms *ms, int i);
+void	ft_heredoc(t_ms *ms, int i, int j);
+int		ft_dup(t_ms *ms, int i, int j);
+int		ft_exec(t_ms *ms, char **cmd);
+char	*ft_pathjoin(char *path, char *cmd);
+int		ft_newin(t_ms *ms, int i, int j);
+int		ft_newout(t_ms *ms, int i, int j);
+void	ft_forking_helper(t_ms *ms, int i, int j);
 
 //		ft_expansion.c
 char	*ft_expand(t_ms *ms, char *s);
 
 //		ft_lexer.c
 t_list	*ft_lexer(t_ms *ms);
+void	ft_gettextquote(t_token *token, char **strptr, char quote);
+void	ft_getspace(t_token *token, char **strptr);
+
+//		ft_lexer2.c
+int		ft_isspace(int c);
+int		ft_istoken(int c);
+int		ft_isquote(int c);
+void	ft_settoken(t_token *token, int type, char *s);
+void	ft_gettext(t_token *token, char **strptr);
+
+//		ft_lexer3.c
+t_token	*ft_gettoken(char **strptr);
+
+//		ft_minishell_utils.c
+void	ft_errorcheck(t_ms *ms);
 
 //		ft_parser.c
+int		ft_fillcts(t_ms *ms, int i, int j);
+void	ft_updatecsn(t_ms *ms);
+
+//		ft_parser2.c
+int		ft_fillctfd(t_ct *ct, char *file, int *r);
+
+//		ft_parser3.c
+int		ft_createct(t_ms *ms);
 int		ft_parser(t_ms *ms);
+int		ft_createcs(t_ms *ms);
+void	ft_updatectn(t_ms *ms);
 
 //		ft_parsetext.c
 int		ft_jointext(t_ms *ms);
 int		ft_expand_strings(t_ms *ms);
 
+//		ft_parsetext2.c
+int		ft_expand_strings(t_ms *ms);
+
 //		ft_signal.c
 void	ft_newline(int signal);
-void	ft_newnewline(int signal);
 void	ft_global_sig(int signal);
+void	ft_newglobal_sig(int signal);
 void	ft_exit_sig(int signal);
 
 //		ft_tokenchecker.c
 int		ft_tokenchecker(t_ms *ms);
 
+//		ft_tokenchecker2.c
+void	ft_extra_check_test(t_check *check);
+void	ft_extra_check(t_list *lst, t_check *check);
+void	ft_check_stuff(t_check *check);
+void	ft_check_text(t_check *check);
+
 //		ft_wildcard.c
+void	ft_update_lst(t_list **lst, char *s, int hidden);
+void	ft_delstring(void *ptr);
+t_list	*ft_get_dir(int mode);
+
+//		ft_wildcard2.c
+int		ft_wild_fits(char *w, char *s);
+void	ft_replace_token(t_list *lst, t_token *token, t_list *dir);
+
+//		ft_wildcard3.c
 void	ft_expand_wild(t_ms *ms, t_list *lst);
 
 //	utils prototypes
 
 //		ft_free.c
+void	ft_free_ev(void *ptr);
+void	ft_free_token(void *ptr);
+void	ft_mini_free(t_ms *ms);
 void	ft_free(t_ms *ms);
 void	ft_exit(t_ms *ms, int err);
+void	ft_free_cs(t_ms *ms);
 
 //		ft_envval.c
 void	ft_putenv(t_list *el);

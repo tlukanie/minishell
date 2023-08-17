@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:30:10 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/11 12:52:03 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/14 18:54:07 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,18 @@ static t_list	*ft_split2list(char **esplit)
 	i = 1;
 	ev = ft_evinit(esplit[0]);
 	if (!ev)
-	{
-		//something clever
-	}
+		exit(1);
 	lstart = ft_lstnew((void *)ev);
 	if (!lstart)
-	{
-		//something clever
-	}
+		exit(1);
 	while (esplit[i])
 	{
 		ev = ft_evinit(esplit[i]);
 		if (!ev)
-		{
-			//something clever
-		}
+			exit(1);
 		lst = ft_lstnew((void *)ev);
 		if (!lst)
-		{
-			//something clever
-		}
+			exit(1);
 		ft_lstadd_back(&lstart, lst);
 		i++;
 	}
@@ -129,23 +121,13 @@ void	ft_init(t_ms *ms)
 	ms->exit = 0;
 	ms->error = 0;
 	ms->s = NULL;
-	ms->csn = 1;
+	ms->csn = 0;
 	ms->cs = NULL;
 	ms->lex = NULL;
 	ms->exe = NULL;
 	ms->ev = ft_copy_split(ms->ev);
 	ms->el = ft_split2list(ms->ev);
+	ft_exit(ms, 0);
 	ft_init_prompt(ms);
 	ft_sortenv(ms->el);
 }
-
-// typedef struct s_ms
-// {
-//	int		arg;		//number of arguments
-//	int		live		//1 if minishell works, 0 after exit
-//	cs command structure
-//	char	*prompt;	//prompt
-// 	char	**ev;		//*envp[]
-// 	char	**paths;	//array of paths from envp
-// 	char	***args;	//array of arrays of arguments
-// }	t_ms;

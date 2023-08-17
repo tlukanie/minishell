@@ -6,25 +6,13 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:05:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/08 19:45:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/15 19:28:17 by tlukanie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_check_text(t_check *check)
-{
-	if (check->token->type & TEXT && !check->text
-		&& (check->stuff == 1 || check->stuff == 0)
-		&& (check->status == 1 || check->status == 0))
-	{
-		check->text = 1;
-		check->stuff = -1;
-		check->status = 0;
-	}
-}
-
-void	ft_check_parentheses(t_check *check)
+static void	ft_check_parentheses_helper(t_check *check)
 {
 	if (check->token->type & OPENPAR)
 	{
@@ -40,6 +28,11 @@ void	ft_check_parentheses(t_check *check)
 		else
 			check->status = 3;
 	}
+}
+
+void	ft_check_parentheses(t_check *check)
+{
+	ft_check_parentheses_helper(check);
 	if (check->token->type & CLOSEPAR && check->text)
 	{
 		if (check->text)
@@ -58,54 +51,24 @@ void	ft_check_parentheses(t_check *check)
 		check->status = 3;
 }
 
-void	ft_check_stuff(t_check *check)
+static void	ft_tokenchecker_helper(t_ms *ms, t_list	*lst, t_check *check)
 {
-	int	stuff;
-
-	stuff = 0x37FF & ~TEXT; //no text and no space
-	//ft_printf("token %x, stuff %i\n", check->token->type, check->stuff);
-	if (check->token->type & stuff && check->stuff == 1)
+	if (!check->status)
+		ft_extra_check(lst, check);
+	if (check->status)
 	{
-		check->text = 0;
-		check->stuff = 1;
-		check->status = 4;
-		//ft_printf("test1\n");
-	}
-	else if (check->token->type & stuff)
-	{
-		check->text = 0;
-		check->stuff = 1;
-		check->status = 1;
-		//ft_printf("test2\n");
+		ms->error = 2;
+		ms->csn = 0;
+		ft_printf_fd(2, "minishell: syntax error, unexpected token\n");
 	}
 }
 
-void	ft_extra_check_test(t_check *check)
+static void	ft_tokenchecker_helper2(t_list *lst, t_check *check)
 {
-	if (check->text <= check->stuff)
-		check->status = 5;
-	check->text = 0;
-	check->stuff = 0;
-}
-
-void	ft_extra_check(t_list *lst, t_check *check)
-{
-	check->text = 0;
-	check->stuff = 0;
-	while (lst && !check->status)
-	{
-		check->token = lst->content;
-		if (check->token->type & PIPE || check->token->type & ANDOR)
-			ft_extra_check_test(check);
-		if (check->token->type & REDIRECTS)
-			check->stuff++;
-		if (check->token->type & TEXT)
-			check->text++;
-		lst = lst->next;
-		//ft_printf("token %x, stuff %i text %i, status%i\n",
-		//	check->token->type, check->stuff, check->text, check->status);
-	}
-	ft_extra_check_test(check);
+	check->token = lst->content;
+	ft_check_text(check);
+	ft_check_parentheses(check);
+	ft_check_stuff(check);
 }
 
 int	ft_tokenchecker(t_ms *ms)
@@ -122,29 +85,16 @@ int	ft_tokenchecker(t_ms *ms)
 	lst = ms->lex;
 	while (lst)
 	{
-		check->token = lst->content;
-		ft_check_text(check);
-		ft_check_parentheses(check);
-		ft_check_stuff(check);
+		ft_tokenchecker_helper2(lst, check);
 		if (check->status > 2)
-			break;
+			break ;
 		lst = lst->next;
 	}
-	//ft_printf("status is %i\n", check->status);
 	if (!check->stuff)
-		return(1);
-	
+		return (1);
 	if (check->parentheses)
-	{	if (check->status)
 		check->status = 3;
-	}
 	lst = ms->lex;
-	if (!check->status)
-		ft_extra_check(lst, check);
-	if (check->status)
-	{
-		ms->error = 2;
-		ft_printf_fd(2, "minishell: syntax error, unexpected token\n");
-	}
+	ft_tokenchecker_helper(ms, lst, check);
 	return (check->status);
 }
