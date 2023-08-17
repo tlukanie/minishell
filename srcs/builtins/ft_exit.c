@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:11:51 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/13 20:09:43 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:53:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	ft_check_error_isbignumber(char *s)
 {
-	int	i;
-
-	i = 0;
 	if (ft_strlen(s) > 11)
 		return (1);
 	else

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:16:12 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/15 16:46:18 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/17 15:18:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,9 @@ static void	ft_fail_exec(t_ms *ms, char *cmd)
 	i = 0;
 	x = 0;
 	paths = ft_getenvvals(ms, "PATH");
-	if (!paths)
-		ft_exit(NULL, 125);
 	if ((ft_strchr(cmd, '/')) && !access(cmd, F_OK) && access(cmd, X_OK))
 		x = 1;
-	while (!x && paths[i])
+	while (!x && paths && paths[i])
 	{
 		cmdp = ft_pathjoin(paths[i], cmd);
 		if (!access(cmdp, F_OK) && access(cmdp, X_OK))
@@ -127,9 +125,7 @@ int	ft_exec(t_ms *ms, char **cmd)
 	if ((ft_strchr(cmd[0], '/')) && access(cmd[0], X_OK) == 0)
 		execve(cmd[0], cmd, env);
 	paths = ft_getenvvals(ms, "PATH");
-	if (!paths)
-		return (fail);
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		cmdp = ft_pathjoin(paths[i], cmd[0]);
 		if (access(cmdp, X_OK) == 0)
