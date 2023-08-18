@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:36:35 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/15 14:36:38 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:26:50 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_fillctfd_helper(t_ct *ct, char *file, int fd, unsigned int type)
 {

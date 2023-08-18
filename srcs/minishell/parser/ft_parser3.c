@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 17:47:22 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/15 20:05:48 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:26:42 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_init_fds(t_ct *ct, int j)
 {

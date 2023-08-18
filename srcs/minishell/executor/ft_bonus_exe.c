@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:52:36 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 21:00:54 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:52 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_fill_exe_token(t_token *token, unsigned int type, int csi)
 {

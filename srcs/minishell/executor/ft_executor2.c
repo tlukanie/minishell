@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:48:42 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/14 14:15:58 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:42 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 int	ft_open_pipes(t_ms *ms, int i)
 {

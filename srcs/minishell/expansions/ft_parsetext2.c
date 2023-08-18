@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 20:29:31 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 20:31:25 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:18 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static char	*ft_replacetilda(t_ms *ms, char *s, int *i)
 {

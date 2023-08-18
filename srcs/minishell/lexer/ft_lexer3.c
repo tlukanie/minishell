@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:58:31 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/15 15:42:04 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_gettoken5(t_token *token, char **strptr)
 {

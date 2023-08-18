@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:11:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 19:45:05 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:46 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	ft_newerr(t_ms *ms, int i, int j)
 {

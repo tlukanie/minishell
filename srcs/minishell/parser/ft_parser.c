@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:32:30 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 20:04:56 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:26:54 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	ft_fillct_helper(t_ct *ct, char *text)
 {

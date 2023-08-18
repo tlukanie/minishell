@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:36:10 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/16 16:19:12 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:36 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_sig_default(t_ms *ms, int i, int j)
 {

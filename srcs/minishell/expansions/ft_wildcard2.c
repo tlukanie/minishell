@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 21:07:18 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/16 15:18:36 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:14 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_wild_fits_helper(char *w, char *s, int *iptr, int *jptr)
 {

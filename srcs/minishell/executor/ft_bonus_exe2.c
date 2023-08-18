@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 11:45:01 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/17 15:07:43 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static t_list	*ft_skip_parentheses(t_list *ex)
 {

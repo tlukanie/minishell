@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenchecker2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlukanie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 18:54:49 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/15 19:21:17 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:56 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_check_text(t_check *check)
 {
