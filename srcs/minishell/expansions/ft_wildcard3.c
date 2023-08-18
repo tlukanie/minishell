@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:35:00 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/16 15:32:59 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:11 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_compare_helper(t_list **lstptr, t_list **tempptr, t_list **dir)
 {

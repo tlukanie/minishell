@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/08/17 15:00:07 by okraus           ###   ########.fr        #
+#    Updated: 2023/08/18 15:36:37 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,11 @@ SLEEP		=	#sleep 0.5
 # SOURCES
 
 SRC			=	$(addprefix $(SRC_MS_DIR), $(addsuffix .c, $(SRC_MS))) \
+				$(addprefix $(SRC_MSCH_DIR), $(addsuffix .c, $(SRC_MSCH))) \
+				$(addprefix $(SRC_MSEX_DIR), $(addsuffix .c, $(SRC_MSEX))) \
+				$(addprefix $(SRC_MSEP_DIR), $(addsuffix .c, $(SRC_MSEP))) \
+				$(addprefix $(SRC_MSLX_DIR), $(addsuffix .c, $(SRC_MSLX))) \
+				$(addprefix $(SRC_MSPA_DIR), $(addsuffix .c, $(SRC_MSPA))) \
 				$(addprefix $(SRC_BI_DIR), $(addsuffix .c, $(SRC_BI))) \
 				$(addprefix $(SRC_UT_DIR), $(addsuffix .c, $(SRC_UT)))
 
@@ -38,6 +43,11 @@ SRC			=	$(addprefix $(SRC_MS_DIR), $(addsuffix .c, $(SRC_MS))) \
 
 SRC_BI_DIR		=	srcs/builtins/
 SRC_MS_DIR		=	srcs/minishell/
+SRC_MSCH_DIR	=	srcs/minishell/checker/
+SRC_MSEX_DIR	=	srcs/minishell/executor/
+SRC_MSEP_DIR	=	srcs/minishell/expansions/
+SRC_MSLX_DIR	=	srcs/minishell/lexer/
+SRC_MSPA_DIR	=	srcs/minishell/parser/
 SRC_UT_DIR		=	srcs/utils/
 
 # Minishell builtin functions
@@ -52,30 +62,46 @@ SRC_BI			=	ft_cd \
 					
 # Minishell main functions
 
-SRC_MS			=	ft_bonus_exe \
+SRC_MS			=	ft_minishell \
+					ft_signal
+
+# Minishell checker functions
+
+SRC_MSCH		=	ft_tokenchecker \
+					ft_tokenchecker2	
+
+# Minishell executor functions
+
+SRC_MSEX		=	ft_bonus_exe \
 					ft_bonus_exe2 \
 					ft_executor \
 					ft_executor2 \
 					ft_executor3 \
 					ft_executor4 \
 					ft_executor5 \
-					ft_executor6 \
-					ft_expansion \
-					ft_lexer \
-					ft_lexer2 \
-					ft_lexer3 \
-					ft_minishell \
-					ft_parser \
-					ft_parser2 \
-					ft_parser3 \
+					ft_executor6					
+
+# Minishell expansion functions
+
+SRC_MSEP		=	ft_expansion \
 					ft_parsetext \
 					ft_parsetext2 \
-					ft_signal \
-					ft_tokenchecker \
-					ft_tokenchecker2 \
 					ft_wildcard \
 					ft_wildcard2 \
 					ft_wildcard3
+
+# Minishell lexer functions
+
+SRC_MSLX		=	ft_lexer \
+					ft_lexer2 \
+					ft_lexer3
+
+# Minishell parser functions
+
+SRC_MSPA		=	ft_parser \
+					ft_parser2 \
+					ft_parser3
+
 
 # Minishell utility functions
 
@@ -111,12 +137,22 @@ PRINT2		=	for num in `seq 1 $(BAR_LENGTH)` ; do \
 
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_BI))) \
 				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MS))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MSCH))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MSEX))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MSEP))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MSLX))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_MSPA))) \
 				$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_UT)))
 
 # Dependencies
 
 DEP			=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_BI))) \
 				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MS))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MSCH))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MSEX))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MSEP))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MSLX))) \
+				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_MSPA))) \
 				$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_UT)))
 
 # RULES
@@ -147,6 +183,51 @@ $(OBJ_DIR)%.o:	$(SRC_BI_DIR)%.c
 				@$(ECHO)
 
 $(OBJ_DIR)%.o:	$(SRC_MS_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_MSCH_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_MSEX_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_MSEP_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_MSLX_DIR)%.c
+				@mkdir -p $(OBJ_DIR)
+				@$(SLEEP)
+				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"
+				@$(PRINT2)
+				@$(PRINT1)
+				@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+				@$(ECHO)
+
+$(OBJ_DIR)%.o:	$(SRC_MSPA_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
 				@$(SLEEP)
 				@echo "$(RETURN)$(RETURN)$(YELLOW)Compiling Minishell: $< $(NRM_FORMAT)"

@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 18:51:22 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/16 15:04:41 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:28:16 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_update_lst(t_list **lst, char *s, int hidden)
 {

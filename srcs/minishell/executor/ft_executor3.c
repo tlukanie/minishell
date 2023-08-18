@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:16:12 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/17 15:18:45 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:39 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 char	*ft_pathjoin(char *path, char *cmd)
 {

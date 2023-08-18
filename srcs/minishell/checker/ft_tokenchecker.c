@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:05:49 by okraus            #+#    #+#             */
-/*   Updated: 2023/08/15 19:28:17 by tlukanie         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:28:01 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static void	ft_check_parentheses_helper(t_check *check)
 {

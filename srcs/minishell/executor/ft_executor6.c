@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:33:09 by tlukanie          #+#    #+#             */
-/*   Updated: 2023/08/16 15:42:56 by okraus           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:27:30 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	ft_heredoc(t_ms *ms, int i, int j)
 {
