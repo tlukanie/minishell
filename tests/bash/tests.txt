@@ -100,3 +100,8 @@ echo m*l
 
 // Surprise (or not)
 echo '"$USER"'
+
+//multiple Redirection
+<< stop cat | grep kk >> test00 |echo bye<test00 >test00 grep bye
+<< stop cat | grep kk >> test00 |echo bye | >test00 grep bye
+<< stop cat | grep kk >> test00 |echo bye | |>test00 grep bye
